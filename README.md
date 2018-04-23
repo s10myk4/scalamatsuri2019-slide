@@ -85,7 +85,7 @@ Note how `$USER` has been replaced with my GitLab account name ( gitpitch ) and 
 
 Once you have created your own GitPitch slideshow presentation URL it should open and look a lot like this:
 
-![Slideshow-In-60-Seconds](images/in-60-seconds.jpg)
+![Slideshow-In-60-Seconds](images/slideshow-in-60-seconds.jpg)
 
 Immediately you can [download](https://github.com/gitpitch/gitpitch/wiki/Slideshow-Offline) 
 your slideshow for offline presentation, 

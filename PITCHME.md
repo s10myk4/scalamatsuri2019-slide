@@ -1,5 +1,7 @@
 # Let's Get Started
 
+---?include=course/topics/PITCHME.md
+
 ---
 
 ## Add Some Slide Candy

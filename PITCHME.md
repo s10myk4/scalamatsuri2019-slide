@@ -1,8 +1,8 @@
 # Let's Get Started
 
----
-
 ---?include=topics/PITCHME.md
+---?include=topics/introduction/PITCHME.md
+---?include=topics/issues/PITCHME.md
 
 ---
 

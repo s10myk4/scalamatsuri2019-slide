@@ -1,6 +1,8 @@
 # Let's Get Started
 
----?include=course/topics/PITCHME.md
+---
+
+---?include=topics/PITCHME.md
 
 ---
 

@@ -1,4 +1,4 @@
-## Introduction
+### Introduction
 
-- Tomoyuki Shimomura
-- Yoshimasa Tanabe
+##### Tomoyuki Shimomura
+##### Yoshimasa Tanabe

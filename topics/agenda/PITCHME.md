@@ -1,4 +1,4 @@
-# Agenda
+### Agenda
 
 - Intriduction
 - Issues
@@ -8,8 +8,7 @@
 - 実践するときの重要な観点(Important views when practicing)
 - Summary
 
----
-
+Note:
 0.序章
 1.問題意識
  - どんな課題を解決したいのか

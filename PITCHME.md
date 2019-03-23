@@ -2,10 +2,8 @@
 
 #### Scala@color[red](Matsuri)2019
 
-@box[bg-orange text-white rounded](
-- Tomoyuki Shimomura  
-- Yoshimasa Tanab  
-)
+Tomoyuki Shimomura  
+Yoshimasa Tanab  
 
 ---
 

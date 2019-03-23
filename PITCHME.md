@@ -3,7 +3,7 @@
 #### Scala@color[red](Matsuri)2019
 
 Tomoyuki Shimomura  
-Yoshimasa Tanab  
+Yoshimasa Tanabe  
 
 ---
 

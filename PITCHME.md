@@ -5,14 +5,14 @@
 Tomoyuki Shimomura  
 Yoshimasa Tanabe  
 
----
-
 ---?include=topics/agenda/PITCHME.md
 
----?include=topics/introduction/PITCHME.md
+---?include=topics/who-are-we/PITCHME.md
 
----?include=topics/issues/PITCHME.md
+---?include=topics/goals/PITCHME.md
+
+---?include=topics/overview-of-development-flow/PITCHME.md
 
 ---?include=topics/development-method/PITCHME.md
 
----?include=topics/overview-of-development-flow/PITCHME.md
+---?include=topics/summary-and-future/PITCHME.md

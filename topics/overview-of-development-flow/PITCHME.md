@@ -1,21 +1,9 @@
-@snap[north-west text-gray span-100]
-@size[1.5em](Overview of development flow)
-@snapend
+---?include=topics/overview-of-development-flow/introduction/PITCHME.md
 
-- 開発フローにはどんな段階があるかを一応説明
+---?include=topics/overview-of-development-flow/needs/PITCHME.md
 
-- 要求把握/整理
-- 概念把握/整理
-- 要求分析
-- 予備設計
-- 詳細設計
-- テスト
+---?include=topics/overview-of-development-flow/analysis/PITCHME.md
 
-Note:
+---?include=topics/overview-of-development-flow/design/PITCHME.md
 
-それぞれの課題を開発フローのどこに該当するかをプロットする
-
-今回取り上げる手法について簡単に説明
-- DDD
-- ユースケース駆動開発
-- アーキテクチ
+---?include=topics/overview-of-development-flow/implementation/PITCHME.md

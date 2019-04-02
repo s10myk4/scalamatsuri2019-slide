@@ -12,7 +12,7 @@ TODO この段階での課題についてのページを作る(図)
 
 @snap[south-west template-note text-gray]
 TODO: 日本語字幕
-@snaped
+@snapend
 
 Note:
 要求を正しく把握/理解することはとても重要です

@@ -4,6 +4,6 @@
 
 @snap[south-west template-note text-gray]
 TODO: 日本語字幕
-@snape
+@snapend
 
 Note:

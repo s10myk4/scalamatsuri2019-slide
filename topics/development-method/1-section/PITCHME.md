@@ -4,11 +4,11 @@
 
 - Event Storming
 - ドメイン駆動開発
-- ユースケース駆動開発
+- ICONIXプロセス
 
 @snap[south-west template-note text-gray]
 TODO: 日本語字幕
-@snape
+@snaped
 
 Note:
 
@@ -21,7 +21,7 @@ Note:
 
 @snap[south-west template-note text-gray]
 TODO: 日本語字幕
-@snape
+@snapend
 
 Note:
 
@@ -34,20 +34,22 @@ Note:
 
 @snap[south-west template-note text-gray]
 TODO: 日本語字幕
-@snape
+@snapend
 
 Note:
 
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](ユースケース駆動開発)
+@size[1.5em](ICONIXプロセス)
 @snapend
+
+
 
 
 @snap[south-west template-note text-gray]
 TODO: 日本語字幕
-@snape
+@snapend
 
 Note:
 

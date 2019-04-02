@@ -13,7 +13,7 @@
 
 @snap[south-west template-note text-gray]
 TODO: 日本語字幕
-@snaped
+@snapend
 
 Note:
 では、私たちがプロダクト開発をする上でどのような段階(フロー)があるのかについて話していきます。

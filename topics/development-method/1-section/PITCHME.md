@@ -32,11 +32,39 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](ドメイン駆動開発)
+@size[1.5em](ドメイン駆動開発 ~戦略~)
 @snapend
+
+仮書き
+- 同じ言葉でも異なる解釈
+- 各々が異なるコンテキストの言葉で会話する
+- 私たちが実現したいこととは？
+- 同じ認識/解釈をするために
+- ビジネスドメインが開発を駆動するとは？
 
 余談
 - ソフトウェア開発はコミュニケーションによるゲームだ
+
+
+@snap[south-west template-note text-gray]
+TODO: 日本語字幕
+@snapend
+
+Note:
+
+---
+
+@snap[north-west text-gray span-100]
+@size[1.5em](ドメイン駆動開発 ~戦術~)
+@snapend
+
+戦術的なアプローチによって得たドメイン知識をどのようにソフトウェアに落とし込むか
+
+ドメイン知識やアプリケーションロジックを固有の技術依存から分離するための設計指針
+
+
+- デザインパターン
+- アーキテクチャ的側面
 
 
 @snap[south-west template-note text-gray]

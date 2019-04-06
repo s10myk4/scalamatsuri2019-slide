@@ -33,8 +33,6 @@ Yoshimasa Tanabe
 
 ---?include=topics/development-method-practice/手法の紹介/PITCHME.md
 
----?include=topics/development-method-practice/想定の題材/PITCHME.md
-
 ---?include=topics/development-method-practice/要求/PITCHME.md
 
 ---?include=topics/development-method-practice/分析と予備設計/PITCHME.md

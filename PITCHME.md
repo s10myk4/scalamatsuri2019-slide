@@ -9,10 +9,29 @@ Yoshimasa Tanabe
 
 ---?include=topics/who-are-we/PITCHME.md
 
+<!-- 理想とする開発チームの状態とは？ -->
 ---?include=topics/goals/PITCHME.md
 
----?include=topics/overview-of-development-flow/PITCHME.md
+<!-- 開発手法の概要 -->
+---?include=topics/development-flow-overview/introduction/PITCHME.md
 
----?include=topics/development-method/PITCHME.md
+---?include=topics/development-flow-overview/needs/PITCHME.md
 
+---?include=topics/development-flow-overview/analysis/PITCHME.md
+
+---?include=topics/development-flow-overview/design/PITCHME.md
+
+---?include=topics/development-flow-overview/implementation/PITCHME.md
+
+<!-- 開発フローにおける実践的なアプローチ -->
+---?include=topics/development-method-practice/PITCHME.md
+
+---?include=topics/development-method-practice/1-section/PITCHME.md
+
+---?include=topics/development-method-practice/2-section/PITCHME.md
+
+---?include=topics/development-method-practice/3-section/PITCHME.md
+
+
+<!-- まとめと展望 -->
 ---?include=topics/summary-and-future/PITCHME.md

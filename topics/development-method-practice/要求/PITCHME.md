@@ -10,7 +10,7 @@
 @size[1.5em](要求)
 @snapend
 
-#### ここでも問題領域
+#### ここでの問題領域
 
 @snap[south-west template-note text-gray]
 @snapend
@@ -21,7 +21,10 @@
 @size[1.5em](要求)
 @snapend
 
-#### ここでも期待する成果物
+#### 要求フェーズで期待する成果物
+
+#### 振る舞い要求(ユースケース記述)
+#### 初稿のドメインモデル
 
 @snap[south-west template-note text-gray]
 @snapend
@@ -58,8 +61,9 @@ The user can change the weapon equipped to the warrior.
 @size[1.5em](要求)
 @snapend
 
-#### 私たちが機能を実装する上で考えていることは？
+#### 私たちが機能を実装する上で考えていることは？  
 
+<br>
 - その機能が実現したいこと
 - ユーザーがどのようにその機能を利用するのか
 - どのように作るか
@@ -192,9 +196,14 @@ The system displays a message "target warrior does not exist" on the warrior lis
 @size[1.5em](ユースケース記述のポイント)
 @snapend
 
-### 簡単にユースケース記述する上でのポイントを説明する
-### 詳細は本か私のスライドを参照してねw
+- 叙述的な記述
+- SVOの文法を意識する
+...
+
+#### 簡単にユースケース記述する上でのポイントを説明する
+#### 詳細は本か私のスライドを参照してねw
 
 @snap[south-west template-note text-gray]
 @snapend
+
 

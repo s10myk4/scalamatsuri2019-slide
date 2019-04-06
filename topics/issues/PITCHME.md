@@ -1,24 +1,11 @@
 ## Issues
 
---- 
-
-### 優れたアーキテクチャは全てを解決するのか？
-
-@snap[south-west template-note text-gray]
-TODO: 日本語字幕
-@snapend
+開発に取り巻く課題と懸念
 
 ---
 
-### 私たちが実現したいことは何なのか？
-
-@snap[south-west template-note text-gray]
-TODO: 日本語字幕
-@snapend
-
-=======
 @snap[north-west text-gray span-100]
-@size[1.5em](プロダクト開発における問題)
+@size[1.5em](開発に取り巻く課題と懸念)
 @snapend
 
 * 仕様未定義があとから見つかる

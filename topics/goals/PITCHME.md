@@ -1,3 +1,9 @@
+## Goals
+
+私たちが実現したいことは何なのか？
+
+---
+
 @snap[north-west text-gray span-100]
 @size[1.5em](私たちの理想)
 @snapend

@@ -1,5 +1,5 @@
 @snap[north-west text-gray span-100]
-@size[1.5em](開発手法について)
+@size[1.5em](設計・開発手法について)
 @snapend
 
 - Event Storming
@@ -21,6 +21,7 @@ Note:
 @size[1.5em](Event Storming)
 @snapend
 
+//TODO
 あなたが求めているものは何か
 
 @snap[south-west template-note text-gray]

@@ -28,10 +28,12 @@ Yoshimasa Tanabe
 
 ---?include=topics/development-flow-overview/implementation/PITCHME.md
 
+
 <!-- 開発フローにおける実践的なアプローチ -->
 ---?include=topics/development-method-practice/PITCHME.md
 
----?include=topics/development-method-practice/手法の紹介/PITCHME.md
+<!-- お題 -->
+---?include=topics/development-method-practice/clean-quest/PITCHME.md
 
 <!-- 要求 -->
 ---?include=topics/development-method-practice/要求/PITCHME.md
@@ -47,3 +49,11 @@ Yoshimasa Tanabe
 
 <!-- まとめと展望 -->
 ---?include=topics/summary-and-future/PITCHME.md
+
+Note:
+TODO 
+- 開発フローの図をfixさせる
+- 適切な位置に差し込む
+
+
+

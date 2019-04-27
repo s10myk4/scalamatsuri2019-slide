@@ -30,7 +30,7 @@ Clean Quest ではユーザーが自分のキャラクターを作成・操作�
 @size[1.5em](全体の理解)
 @snapend
 
-* 各自 意欲を持って問題の解決を図ろうとするものの...
+* 各自意欲的に問題の解決を図ろうとはしている
 * 取り組むべき問題の観点がサイロに閉じている
 * 全体の把握が必要そうだ
 
@@ -53,11 +53,14 @@ Note:
 @size[1.5em](Event Storming)
 @snapend
 
-https://www.eventstorming.com/
+`https://www.eventstorming.com/`
 
-* 複雑なビジネスドメインに対して 共同 で 探究 を行うためのワークショップの 1 形式
+@ul[](false)
+* 複雑なビジネスドメインに対して、
+  `共同`で`探究`を行うためのワークショップ
     * 共同: 主要なステークホルダーが一堂に会する
     * 探究: 物事を理解しようとする取り組み
+@ulend
 
 @snap[south-west template-note text-gray]
 TODO: 英語字幕
@@ -75,10 +78,10 @@ Event Storming とは、複雑なビジネスドメインに対して共同で�
 @size[1.5em](Event Storming で行うこと)
 @snapend
 
-* システムを全体を把握する
-* 解決すべき問題を発見する
-* いま利用できる最良の情報を集める
-* ベストと思われる開始地点から解決策を実行する
+* システムを全体を把握
+* 解決すべき問題を発見
+* いま利用できる最良の情報を収集
+* ベストと思われる開始地点から解決策を実行
 
 @snap[south-west template-note text-gray]
 TODO: 英語字幕
@@ -99,14 +102,16 @@ Event Storming では、それぞれの専門性・立場を越えて以下に�
 @size[1.5em](Domain Event の書き出し)
 @snapend
 
-@snap[west]
-<img alt="domain_events" src="assets/img/domain_events.jpg" width="25%"/>
+@snap[west span-50]
+@img[domain_events](assets/img/domain_events.jpg)
 @snapend
 
-@snap[east]
+@snap[east span-50]
+@ul[](false)
 * オレンジ色の付箋
 * 動詞の過去形
 * ドメインエキスパートに関係あること
+@ulend
 @snapend
 
 @snap[south-west template-note text-gray]
@@ -123,18 +128,27 @@ Event Storming では、Domain Event を以下のような形式で書き出し�
 
 ただし付箋の色については一貫していれば任意です。ここではオレンジ色とします。
 
+名詞やを中心にするのではなくなぜイベントについて注目するかというと、名詞は静的なものであり、コンテキストごとに矛盾が発生しがちだからです。
+たとえば Order という名詞が出てきたとして、販売や梱包、配達や請求といったそれぞれの分野、つまりコンテキストを持つドメインエキスパートによっては意味するところが違うかもしれまえん。
+
+イベントという動的なものに注目することで、サイロ間の境界を明確にします。
+
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](議論)
+@size[1.5em](ドメインイベントの議論)
 @snapend
 
-@snap[west]
-<img alt="domain_events_problems" src="assets/img/domain_events_problems.jpg" width="25%"/>
+@snap[west span-50]
+@img[domain_events_problems](assets/img/domain_events_problems.jpg)
 @snapend
 
-@snap[east]
-ドメインについて知っていることや矛盾点、問題点をサイロを越えて議論
+@snap[east span-50]
+@ul[](false)
+* 知っていること
+* 矛盾点/問題点
+* サイロを越えて議論
+@ulend
 @snapend
 
 @snap[south-west template-note text-gray]
@@ -151,27 +165,17 @@ Note:
 
 その他、ここでは載せていない関係各所間の認識の不一致なども出てきたことでしょう。うちのサイロでは問題ない、というやつです。
 
----
+---?image=assets/img/Big_Picture_conference_scenario.jpg
 
-@snap[north-west text-gray span-100]
-@size[1.5em](大局的な図の完成)
-@snapend
-
-@snap[west]
-<img alt="Big_Picture_conference_scenario" src="assets/img/Big_Picture_conference_scenario.jpg" width="25%"/>
-@snapend
-
-@snap[east]
-> 出典: [Introducing EventStorming](https://leanpub.com/introducing_eventstorming)
-@snapend
-
-@snap[south-west template-note text-gray]
-TODO: 英語字幕
+@snap[south-east template-note]
+@box[text-white rounded bg-orange box-padding text-05](Source: [Introducing EventStorming](https://leanpub.com/introducing_eventstorming))
 @snapend
 
 Note:
 
 時間の関係で省略しますが、その後イベントの並び替えや大きな塊の抽出、人と外部システムとの関係なども追加し、全体のフローとして整合性の取れる形を目指します。
+
+Event Storming について詳細を知りたい方は、考案者の Alberto Brandolini 氏(@ziobrando) の著作である Introducing EventStorming を参照してみてください。  
 
 ---
 
@@ -179,11 +183,11 @@ Note:
 @size[1.5em](焦点をあてる問題を選ぶ)
 @snapend
 
-@snap[west]
-<img alt="focus_problem" src="assets/img/focus_problem.jpg" width="25%"/>
+@snap[west span-50]
+@img[focus_problem](assets/img/focus_problem.jpg)
 @snapend
 
-@snap[east]
+@snap[east span-50]
 新機能: キャラクターに武器を装備できるようにする
 @snapend
 

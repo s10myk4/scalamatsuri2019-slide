@@ -2,6 +2,13 @@
 
 ![development-flow](assets/img/developmemt-flow.png)
 
+Note:
+
+* TODO: このフェーズでは以下を説明する 
+    * 使う手法
+    * How(実際にその手法を適用してみる)
+    * アウトプット(適用した結果こうなる)
+
 ---
 
 @snap[north-west text-gray span-100]
@@ -9,6 +16,7 @@
 @snapend
 
 #### ユースケース記述を分析・検証
+
 - ドメインモデルのアップデート
 - 新たなドメインモデルの抽出
 - ドメインモデルに振る舞いを割り当てる
@@ -16,15 +24,45 @@
 @snap[south-west template-note text-gray]
 @snapend
 
+Note:
+
+このフェーズの目的は前のフェーズでのアウトプットであるユースケース記述の妥当性を検証すること、
+新たなドメインモデルの発掘・アップデートです。
+
+また、ドメインモデルとふるまいの関係を明らかにしてきます。
+
+これがそのまま成果物となります。
+
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](分析と概念設計フェーズの成果物)
+@size[1.5em](利用する手法)
 @snapend
 
-- ブラッシュアップされたユースケース記述
-- ブラッシュアップしたドメインモデル群
-- ドメインモデルに振る舞いを割り当てる
+#### ロバストネス分析
+
+@snap[south-west template-note text-gray]
+@snapend
+
+Note:
+
+TODO
+
+* 簡単なロバストネス分析のサンプル
+* BCE の説明
+
+---
+
+@snap[north-west text-gray span-100]
+@size[1.5em](ロバストネス分析とは)
+@snapend
+
+- 奥義
+#### ユースケース記述が正しく書かれていることを検証する
+#### 発見した振る舞いがどのオブジェクトに関連するかを分析する
+
+@snap[south-west template-note text-gray]
+@snapend
 
 ---
 
@@ -45,6 +83,10 @@
 システムは、"装備が完了しました"というメッセージを画面(B)に表示する(C)
 ```
 
+Note:
+
+ロバストネス分析の図を作成する前に、ロバストネス分析の図にマッピングするオブジェクトを抽出しておきましょう。
+
 ---
 
 @snap[north-west text-gray span-100]
@@ -63,4 +105,64 @@
 ・武器(E)がすでに装備されている場合
 システムは、"すでに武器が装備されています"というメッセージを戦士詳細画面(B)に表示する(C)
 ```
+
+---
+
+@snap[north-west text-gray span-100]
+@size[1.5em](ロバストネス分析)
+@snapend
+
+![](assets/img/robustness_sumple1.jpg)
+
+@snap[south-west template-note text-gray]
+@snapend
+
+Note:
+
+TODO 武器を装備するコントロールがないので追加
+
+ここでロバストネス分析を眺めてもらう。後述の実はミスがあったことの前振り。
+
+---
+
+@snap[north-west text-gray span-100]
+@size[1.5em](ロバストネス分析)
+@snapend
+
+- TODO ユースケース記述がブラッシュアップされる例を示せると良いな(難しい)
+    - 実際に抜けがあったので、これ以降のページでブラッシュアップする様を書く!
+
+
+@snap[south-west template-note text-gray]
+@snapend
+
+---
+
+@snap[north-west text-gray span-100]
+@size[1.5em](ロバストネス分析)
+@snapend
+
+- TODO ドメインモデルに振る舞いを割り当てる
+
+@snap[south-west template-note text-gray]
+@snapend
+
+---
+
+### これって全部のユースケースにやるの大変じゃない？
+//TODO ブラックアウト
+
+---
+
+@snap[north-west text-gray span-100]
+@size[1.5em](ロバストネス分析のポイント)
+@snapend
+
+#### ビジネスの観点で重要なドメインにおいて実施するのが良さそう
+
+- 簡単にロバストネス分析をする上でのポイントを説明
+- 詳細は本か私のスライドを参照してねw
+
+@snap[south-west template-note text-gray]
+@snapend
 

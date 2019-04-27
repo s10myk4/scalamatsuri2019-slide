@@ -148,6 +148,25 @@ object EquipNewWeaponToWarrior {
   }
 }
 ```
+---
+
+@snap[north-west text-gray span-100]
+@size[1.5em](詳細設計: テストケース)
+@snapend
+
+#### ユースケース記述を元にテストケースを書き起こす
+#### 正常系 + 異常系の数だけケースある
+
+図を記載
+
+Note:
+
+@snap[south-west template-note text-gray]
+@snapend
+
+---
+
+### 課題の話
 
 ---
 

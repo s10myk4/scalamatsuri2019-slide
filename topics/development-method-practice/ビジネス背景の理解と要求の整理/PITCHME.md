@@ -1,19 +1,33 @@
+## ビジネス背景の理解と要求の整理
+
+---
+
 @snap[north-west text-gray span-100]
-@size[1.5em](設計・開発手法について)
+@size[1.5em](ビジネス背景の理解と要求の整理)
 @snapend
 
-- Event Storming
-- ドメイン駆動開発
-    - 戦略的DDD
-    - 戦術的DDD
-- ICONIXプロセス
-- アーキテクチャ戦略
+@snap[west]
+@ul[](false)
+* 目的
+    * 環境の把握
+    * 取り組むべき要求の整理
+    * 組織の自己組織化 
+* アウトプット: 課題/要求の共有
+    * 主要なステークホルダー**全員**!
+@ulend
+@snapend
 
 @snap[south-west template-note text-gray]
-TODO: 日本語字幕
-@snaped
+TODO: 英語字幕
+@snapend
 
 Note:
+
+まず最初のステップとして、ビジネス背景の理解と要求の整理を行います。
+
+ステークホルダー全員がプロダクトを取り巻く環境全体を把握し、その中でも今取り組むべき問題について合意形成を図ります。
+
+サイロ内での局所的な解決策ではなく全体として取り組むべき問題が共有されることで、組織全体の自己組織化が促されることを期待します。
 
 ---
 
@@ -21,14 +35,16 @@ Note:
 @size[1.5em](Event Storming)
 @snapend
 
+@snap[west]
 `https://www.eventstorming.com/`
-
+<hr/>
 @ul[](false)
 * 複雑なビジネスドメインに対して、
   `共同`で`探究`を行うためのワークショップ
     * 共同: 主要なステークホルダーが一堂に会する
     * 探究: 物事を理解しようとする取り組み
 @ulend
+@snapend
 
 @snap[south-west template-note text-gray]
 TODO: 英語字幕
@@ -46,10 +62,14 @@ Event Storming とは、複雑なビジネスドメインに対して共同で�
 @size[1.5em](Event Storming で行うこと)
 @snapend
 
-* システムを全体を把握
+@snap[west]
+@ul[](false)
+* システム全体の把握
 * 解決すべき問題を発見
 * いま利用できる最良の情報を収集
 * ベストと思われる開始地点から解決策を実行
+@ulend
+@snapend
 
 @snap[south-west template-note text-gray]
 TODO: 英語字幕
@@ -57,12 +77,40 @@ TODO: 英語字幕
 
 Note:
 
-Event Storming では、それぞれの専門性・立場を越えて以下について探究します。 
+Event Storming では、各参加者の専門性・立場を越えて以下について探究します。 
 
-* システムを全体を把握する
-* 解決すべき問題を発見する
-* いま利用できる最良の情報を集める
-* ベストと思われる開始地点から解決策を実行する 
+* システム全体の把握
+* 解決すべき問題を発見
+* いま利用できる最良の情報を収集
+* ベストと思われる開始地点から解決策を実行 
+
+---
+
+@snap[north-west text-gray span-100]
+@size[1.5em](Event Storming の大まかな流れ)
+@snapend
+
+@snap[west]
+@ol[](false)
+* Domain Event の書き出し
+* Domain Event の議論
+* 焦点をあてる問題を選ぶ
+@olend
+@snapend
+
+@snap[south-west template-note text-gray]
+TODO: 英語字幕
+@snapend
+
+Note:
+
+Event Storming の大まかな流れは以下です。
+
+* Domain Event の書き出し
+* Domain Event の議論
+* 焦点をあてる問題を選ぶ
+
+実際には Domain Event の整理や Event が実行されるトリガの追加といったことも行いますが、本セッションではこちらのみ紹介します。
 
 ---
 
@@ -97,14 +145,16 @@ Event Storming では、Domain Event を以下のような形式で書き出し�
 ただし付箋の色については一貫していれば任意です。ここではオレンジ色とします。
 
 名詞やを中心にするのではなくなぜイベントについて注目するかというと、名詞は静的なものであり、コンテキストごとに矛盾が発生しがちだからです。
-たとえば Order という名詞が出てきたとして、販売や梱包、配達や請求といったそれぞれの分野、つまりコンテキストを持つドメインエキスパートによっては意味するところが違うかもしれまえん。
+たとえば発注という名詞が出てきたとして、販売や梱包、配達や請求といったそれぞれの分野、つまりコンテキストを持つドメインエキスパートによっては意味するところが違うかもしれまえん。
 
 イベントという動的なものに注目することで、サイロ間の境界を明確にします。
+
+また、時系列に沿って Event を洗い出すことでビジネス全体の流れを表現することを強制します。
 
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](ドメインイベントの議論)
+@size[1.5em](Domain Event の議論)
 @snapend
 
 @snap[west span-50]
@@ -142,6 +192,7 @@ Note:
 Note:
 
 時間の関係で省略しますが、その後イベントの並び替えや大きな塊の抽出、人と外部システムとの関係なども追加し、全体のフローとして整合性の取れる形を目指します。
+扱うテーマにもよりますが、最終的にはこのように巨大なものとなります。
 
 Event Storming について詳細を知りたい方は、考案者の Alberto Brandolini 氏(@ziobrando) の著作である Introducing EventStorming を参照してみてください。  
 
@@ -168,73 +219,3 @@ Note:
 最後にいま取り組むべき問題を決定します。
 
 ここでは他プレイヤーとの差別化、対戦時の戦略性アップについて取り組むことになりました。機能としては、キャラクターに武器を装備できるようにしようというものです。
-
----
-
-@snap[north-west text-gray span-100]
-@size[1.5em](ドメイン駆動開発 ~戦略~)
-@snapend
-
-仮書き
-- 同じ言葉でも異なる解釈
-- 各々が異なるコンテキストの言葉で会話する
-- 私たちが実現したいこととは？
-- 同じ認識/解釈をするために
-- ビジネスドメインが開発を駆動するとは？
-
-余談
-- ソフトウェア開発はコミュニケーションによるゲームだ
-
-
-@snap[south-west template-note text-gray]
-TODO: 日本語字幕
-@snapend
-
-Note:
-
----
-
-@snap[north-west text-gray span-100]
-@size[1.5em](ドメイン駆動開発 ~戦術~)
-@snapend
-
-戦術的なアプローチによって得たドメイン知識をどのようにソフトウェアに落とし込むか
-
-ドメイン知識やアプリケーションロジックを固有の技術依存から分離するための設計指針
-
-
-- デザインパターン
-- アーキテクチャ的側面
-
-
-@snap[south-west template-note text-gray]
-TODO: 日本語字幕
-@snapend
-
-Note:
-
----
-
-@snap[north-west text-gray span-100]
-@size[1.5em](ICONIXプロセス)
-@snapend
-
-良いところ
-
-- 不明瞭が要求から具体的な振る舞い要求を導出できる
-- 形式知
-    - ドメインモデル
-    - ユースケース記述
-    - GUIプロトタイプ
-- プラガブルなプロセス
-    - 小さなイテレーション
-- 特定の技術に依存しない
-
-
-@snap[south-west template-note text-gray]
-TODO: 日本語字幕
-@snapend
-
-Note:
-
-

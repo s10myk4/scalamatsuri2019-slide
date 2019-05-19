@@ -58,38 +58,51 @@ Note:
 @snapend
 
 ---
+### Define WarriorLevel
 
 ```scala
-final case class Warrior(
-  id: WarriorId,
-  name: WarriorName,
-  attribute: Attribute,
-  weapon: Option[Weapon],
-  level: WarriorLevel,
-) extends BaseEntity[WarriorId] {
+import cats.data.ValidatedNel
+import cats.syntax.validated._
 
-  def equip(weapon: Weapon): Either[ConditionViolatedException, Warrior] = ???
+sealed abstract case class WarriorLevel(value: Int)
+
+object WarriorLevel {
+
+  def of(value: Int): ValidatedNel[WarriorLevelError, WarriorLevel] = ???
+
+  final case class WarriorLevelError(value: Int) extends WarriorError {
+    val cause = s"$value is a invalid warrior level"
+  }
 }
 ```
 
-+++
+---
+### Define WarriorName
 
 ```scala
-final case class WarriorId(value: Long)
+import cats.data.ValidatedNel
+import cats.syntax.validated._
 
-final case class WarriorLevel(value: Int) {
-  require(1 <= value & value <= 99)
+sealed abstract case class WarriorName(value: String)
+
+object WarriorName {
+
+  def of(value: String): ValidatedNel[WarriorError, WarriorName] = ???
+
+  final case class WarriorNameLengthError(length: Int) extends WarriorError {
+    val cause = s"$length is a invalid warrior name size"
+  }
+
 }
-
-
-final case class WarriorName(value: String)
-
 ```
 
-+++
+---
+### Define Weapon
 
 ```scala
-sealed trait Weapon {
+import enumeratum._
+
+sealed trait Weapon extends EnumEntry {
   val name: String
   val offensivePower: Int
   val attribute: Attribute
@@ -97,10 +110,13 @@ sealed trait Weapon {
 }
 ```
 
-+++
+---
+### Define Weapon
 
 ```scala
-object Weapon {
+object Weapon extends Enum[Weapon] {
+
+  val values = findValues
 
   case object GoldSword extends Weapon {
     val name: String = "gold sword"
@@ -115,6 +131,52 @@ object Weapon {
     val attribute: Attribute = DarkAttribute
     val levelConditionOfEquipment: Int = 40
   }
+}
+```
+
+---
+
+### Define Attribute
+
+```scala
+import enumeratum._
+
+sealed trait Attribute extends EnumEntry
+
+object Attribute extends Enum[Attribute] {
+
+  case object LightAttribute extends Attribute
+  case object DarkAttribute extends Attribute
+  case object WaterAttribute extends Attribute
+  case object FireAttribute extends Attribute
+  case object NormalAttribute extends Attribute
+
+  val values = findValues
+}
+```
+
+---
+### Define Warrior
+
+```scala
+trait WarriorError extends DomainError
+
+final case class WarriorId(value: Long)
+
+sealed abstract case class Warrior(
+    id: WarriorId,
+    name: WarriorName,
+    attribute: Attribute,
+    weapon: Option[Weapon],
+    level: WarriorLevel
+) {
+  def equip(weapon: Weapon): ValidatedNel[WarriorError, Warrior] = ???
+}
+
+object Warrior {
+  final case class DifferentAttributeError(warriorAttr: Attribute, weapon: Weapon) extends WarriorError
+
+  final case class NotOverLevelError(warriorLevel: WarriorLevel, weapon: Weapon) extends WarriorError
 }
 ```
 
@@ -135,16 +197,62 @@ Note:
 @snapend
 
 ---
-
+### Define UseCaseResult
 ```scala
-trait EquipNewWeaponToWarrior[F[_] {
-  def apply(warrior: Warrior, newWeapon: Weapon): F[UseCaseResult]
+sealed trait UseCaseResult
+
+object NormalCase extends UseCaseResult
+
+trait AbnormalCase extends UseCaseResult {
+  val cause: String
 }
 
-object EquipNewWeaponToWarrior {
+object NotConsideredDomainError extends AbnormalCase {
+  val cause = "This domain error is not considered in this UseCase"
+}
+```
+Note:
+実装に依存しない固有のユースケースの実行結果を表す型を定義します
 
-  case object InvalidCondition extends AbnormalCase {
-    val cause: String = "この武器を装備するための条件を満たしていません"
+---
+
+### Define UseCase
+
+```scala
+final class EquipWeaponToWarrior[F[_]] {
+  def exec(warrior: Warrior, newWeapon: Weapon): F[UseCaseResult] = ???
+}
+```
+---
+### Define AbnormalCase
+
+```scala
+object EquipWeaponToWarrior {
+
+  final case class EquipWeaponToWarriorInput(
+    weapon: Weapon
+  )
+
+  final case class DifferentAttribute(err: DifferentAttributeError) 
+    extends AbnormalCase {
+    
+    val cause: String = s"Weapon attribute:${err.weapon.attribute.entryName}
+      is different warrior attribute:${err.warriorAttr.entryName}"
+  }
+
+  final case class NotOverLevel(err: NotOverLevelError) 
+    extends AbnormalCase {
+    val cause: String = s"Warrior level:${err.warriorLevel.value}
+      is not over weapon level:${err.weapon.levelConditionOfEquipment}"
+  }
+  
+  final case class DifferentAttributeAndNotOverLevel(
+    err1: DifferentAttributeError,
+    err2: NotOverLevelError
+  ) extends AbnormalCase {
+        
+    val cause: String = 
+      s"${DifferentAttribute(err1).cause} and ${NotOverLevel(err2).cause}"
   }
 }
 ```

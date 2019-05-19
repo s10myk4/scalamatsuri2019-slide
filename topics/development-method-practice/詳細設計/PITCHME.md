@@ -12,8 +12,17 @@
 
 #### ここでの問題領域
 
+* 概念モデルが要求を満たしているかのレビュー
+    * ドメインモデルの属性とそのふるまいの定義
+    * ユースケースの要件
+* いきなりすべてを実装しない
+
 @snap[south-west template-note text-gray]
 @snapend
+
+Note:
+
+詳細設計では前フェーズまでの分析をもとに、概念モデルについてレビューをします。いきなり作り始めるのではなく、要求が網羅されているかを確認できるようにします。
 
 ---
 
@@ -30,6 +39,14 @@
 @snap[south-west template-note text-gray]
 @snapend
 
+Note:
+
+ここで期待する成果物は、概念モデルを以下のソースコードで表現するところまで行うこととします。
+
+- ドメインモデル
+- ユースケースの定義
+- テストケース
+
 ---
 
 @snap[north-west text-gray span-100]
@@ -40,6 +57,10 @@
 
 @snap[south-west template-note text-gray]
 @snapend
+
+Note:
+
+それでは前フェーズの成果物を元に、概念モデルをコードで表現してみましょう。
 
 ---
 
@@ -279,6 +300,33 @@ Note:
 
 @snap[south-west template-note text-gray]
 @snapend
+
+---
+
+@snap[north-west text-gray span-100]
+@size[1.5em](詳細設計: テストケース)
+@snapend
+
+``` scala
+behavior of "戦士に武器を装備できる"
+
+it should "正常系" in {}
+
+it should "異常系: 戦士のレベルが選択した武器のレベル条件を満たしていない場合" in {}
+
+it should "異常系: 戦士の属性と選択した武器の属性が異なる場合" in {}
+
+it should
+  """
+  異常系: 戦士のレベルが選択した武器のレベル条件を満たしていない、かつ、
+               戦士の属性と選択した武器の属性が異なる場合
+  """ in {}
+```
+
+@snap[south-west template-note text-gray]
+@snapend
+
+Note:
 
 ---
 

@@ -179,7 +179,15 @@ object Warrior {
   final case class NotOverLevelError(warriorLevel: WarriorLevel, weapon: Weapon) extends WarriorError
 }
 ```
+---
+### Define Warrior Repository
 
+```scala
+trait WarriorRepository[F[_]] {
+  def update(warrior: Warrior): F[Unit]
+  def resolveBy(id: WarriorId): F[Option[Warrior]]
+}
+```
 ---
 
 @snap[north-west text-gray span-100]

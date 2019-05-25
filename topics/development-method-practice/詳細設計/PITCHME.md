@@ -12,8 +12,20 @@
 
 #### ここでの問題領域
 
+* 概念モデルが要求を満たしているかの解釈を一致させる
+    * ドメインモデルの属性とそのふるまいの定義
+    * ユースケースの要件
+
 @snap[south-west template-note text-gray]
 @snapend
+
+Note:
+
+詳細設計では前フェーズまでの分析をもとに、概念モデルについてレビューをします。
+
+ここでのレビューとは、実装者同士が概念モデルに対して同じ解釈ができるかの確認をするということです。
+
+いきなり作り始める前にこのフェーズを経ることで、解釈の不一致を防ぐことができます。
 
 ---
 
@@ -30,6 +42,14 @@
 @snap[south-west template-note text-gray]
 @snapend
 
+Note:
+
+ここで期待する成果物は、概念モデルを以下のソースコードで表現するところまで行うこととします。
+
+- ドメインモデル
+- ユースケースの定義
+- テストケース
+
 ---
 
 @snap[north-west text-gray span-100]
@@ -40,6 +60,10 @@
 
 @snap[south-west template-note text-gray]
 @snapend
+
+Note:
+
+それでは前フェーズの成果物を元に、概念モデルをコードで表現してみましょう。
 
 ---
 
@@ -58,38 +82,51 @@ Note:
 @snapend
 
 ---
+### Define WarriorLevel
 
 ```scala
-final case class Warrior(
-  id: WarriorId,
-  name: WarriorName,
-  attribute: Attribute,
-  weapon: Option[Weapon],
-  level: WarriorLevel,
-) extends BaseEntity[WarriorId] {
+import cats.data.ValidatedNel
+import cats.syntax.validated._
 
-  def equip(weapon: Weapon): Either[ConditionViolatedException, Warrior] = ???
+sealed abstract case class WarriorLevel(value: Int)
+
+object WarriorLevel {
+
+  def of(value: Int): ValidatedNel[WarriorLevelError, WarriorLevel] = ???
+
+  final case class WarriorLevelError(value: Int) extends WarriorError {
+    val cause = s"$value is a invalid warrior level"
+  }
 }
 ```
 
-+++
+---
+### Define WarriorName
 
 ```scala
-final case class WarriorId(value: Long)
+import cats.data.ValidatedNel
+import cats.syntax.validated._
 
-final case class WarriorLevel(value: Int) {
-  require(1 <= value & value <= 99)
+sealed abstract case class WarriorName(value: String)
+
+object WarriorName {
+
+  def of(value: String): ValidatedNel[WarriorError, WarriorName] = ???
+
+  final case class WarriorNameLengthError(length: Int) extends WarriorError {
+    val cause = s"$length is a invalid warrior name size"
+  }
+
 }
-
-
-final case class WarriorName(value: String)
-
 ```
 
-+++
+---
+### Define Weapon
 
 ```scala
-sealed trait Weapon {
+import enumeratum._
+
+sealed trait Weapon extends EnumEntry {
   val name: String
   val offensivePower: Int
   val attribute: Attribute
@@ -97,10 +134,13 @@ sealed trait Weapon {
 }
 ```
 
-+++
+---
+### Define Weapon
 
 ```scala
-object Weapon {
+object Weapon extends Enum[Weapon] {
+
+  val values = findValues
 
   case object GoldSword extends Weapon {
     val name: String = "gold sword"
@@ -120,6 +160,60 @@ object Weapon {
 
 ---
 
+### Define Attribute
+
+```scala
+import enumeratum._
+
+sealed trait Attribute extends EnumEntry
+
+object Attribute extends Enum[Attribute] {
+
+  case object LightAttribute extends Attribute
+  case object DarkAttribute extends Attribute
+  case object WaterAttribute extends Attribute
+  case object FireAttribute extends Attribute
+  case object NormalAttribute extends Attribute
+
+  val values = findValues
+}
+```
+
+---
+### Define Warrior
+
+```scala
+trait WarriorError extends DomainError
+
+final case class WarriorId(value: Long)
+
+sealed abstract case class Warrior(
+    id: WarriorId,
+    name: WarriorName,
+    attribute: Attribute,
+    weapon: Option[Weapon],
+    level: WarriorLevel
+) {
+  def equip(weapon: Weapon): ValidatedNel[WarriorError, Warrior] = ???
+}
+
+object Warrior {
+  final case class DifferentAttributeError(warriorAttr: Attribute, weapon: Weapon) extends WarriorError
+
+  final case class NotOverLevelError(warriorLevel: WarriorLevel, weapon: Weapon) extends WarriorError
+}
+```
+---
+### Define Warrior Repository
+
+```scala
+trait WarriorRepository[F[_]] {
+  def update(warrior: Warrior): F[Unit]
+  def resolveBy(id: WarriorId): F[Option[Warrior]]
+}
+```
+---
+
 @snap[north-west text-gray span-100]
 @size[1.5em](詳細設計: ユースケース)
 @snapend
@@ -135,16 +229,62 @@ Note:
 @snapend
 
 ---
-
+### Define UseCaseResult
 ```scala
-trait EquipNewWeaponToWarrior[F[_] {
-  def apply(warrior: Warrior, newWeapon: Weapon): F[UseCaseResult]
+sealed trait UseCaseResult
+
+object NormalCase extends UseCaseResult
+
+trait AbnormalCase extends UseCaseResult {
+  val cause: String
 }
 
-object EquipNewWeaponToWarrior {
+object NotConsideredDomainError extends AbnormalCase {
+  val cause = "This domain error is not considered in this UseCase"
+}
+```
+Note:
+実装に依存しない固有のユースケースの実行結果を表す型を定義します
 
-  case object InvalidCondition extends AbnormalCase {
-    val cause: String = "この武器を装備するための条件を満たしていません"
+---
+
+### Define UseCase
+
+```scala
+final class EquipWeaponToWarrior[F[_]] {
+  def exec(warrior: Warrior, newWeapon: Weapon): F[UseCaseResult] = ???
+}
+```
+---
+### Define AbnormalCase
+
+```scala
+object EquipWeaponToWarrior {
+
+  final case class EquipWeaponToWarriorInput(
+    weapon: Weapon
+  )
+
+  final case class DifferentAttribute(err: DifferentAttributeError) 
+    extends AbnormalCase {
+    
+    val cause: String = s"Weapon attribute:${err.weapon.attribute.entryName}
+      is different warrior attribute:${err.warriorAttr.entryName}"
+  }
+
+  final case class NotOverLevel(err: NotOverLevelError) 
+    extends AbnormalCase {
+    val cause: String = s"Warrior level:${err.warriorLevel.value}
+      is not over weapon level:${err.weapon.levelConditionOfEquipment}"
+  }
+  
+  final case class DifferentAttributeAndNotOverLevel(
+    err1: DifferentAttributeError,
+    err2: NotOverLevelError
+  ) extends AbnormalCase {
+        
+    val cause: String = 
+      s"${DifferentAttribute(err1).cause} and ${NotOverLevel(err2).cause}"
   }
 }
 ```
@@ -163,6 +303,33 @@ Note:
 
 @snap[south-west template-note text-gray]
 @snapend
+
+---
+
+@snap[north-west text-gray span-100]
+@size[1.5em](詳細設計: テストケース)
+@snapend
+
+``` scala
+behavior of "戦士に武器を装備できる"
+
+it should "正常系" in {}
+
+it should "異常系: 戦士のレベルが選択した武器のレベル条件を満たしていない場合" in {}
+
+it should "異常系: 戦士の属性と選択した武器の属性が異なる場合" in {}
+
+it should
+  """
+  異常系: 戦士のレベルが選択した武器のレベル条件を満たしていない、かつ、
+               戦士の属性と選択した武器の属性が異なる場合
+  """ in {}
+```
+
+@snap[south-west template-note text-gray]
+@snapend
+
+Note:
 
 ---
 

@@ -146,6 +146,8 @@ it should "正常系" in {
 }
 ```
 
+---
+
 ### Implement UseCase UnitTest AbnormalCase
 ```scala
 it should "異常系: 戦士のレベルが選択した武器のレベル条件を満たしていない場合" in {
@@ -191,10 +193,10 @@ it should "異常系: 戦士のレベルが選択した武器のレベル条件�
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](What do Domain & UseCase express?)
+@size[1.3em](What do Domain & UseCase express?)
 @snapend
 
-### 問題の本質はドメインに、ソフトウェア要件の詳細はユースケースに
+#### 問題の本質はドメインに、ソフトウェア要件の詳細はユースケースに
 
 ドメインロジック 
 - ソフトウェアの要件に限らない業務の知識
@@ -279,7 +281,7 @@ TODO 画像？
 @size[1.5em](What is the purpose of the architecture?)
 @snapend
 
-求められるシステムを構築・保守するために必要な人材を最小限に抑えることである |
+- 求められるシステムを構築・保守するために必要な人材を最小限に抑えることである |
 
 @snap[south-east template-note]
 @box[text-white rounded bg-orange box-padding text-05](Source: [Clean Architecture 達人に学ぶソフトウェアの構造と設計](https://www.kadokawa.co.jp/product/301806000678/))

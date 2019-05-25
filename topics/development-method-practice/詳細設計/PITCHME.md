@@ -198,9 +198,9 @@ sealed abstract case class Warrior(
 }
 
 object Warrior {
-  final case class DifferentAttributeError(warriorAttr: Attribute, weapon: Weapon) extends WarriorError
+  object DifferentAttributeError extends WarriorError
 
-  final case class NotOverLevelError(warriorLevel: WarriorLevel, weapon: Weapon) extends WarriorError
+  object NotOverLevelError extends WarriorError
 }
 ```
 ---
@@ -262,30 +262,21 @@ final class EquipWeaponToWarrior[F[_]] {
 object EquipWeaponToWarrior {
 
   final case class EquipWeaponToWarriorInput(
-    weapon: Weapon
+      weapon: Weapon
   )
 
-  final case class DifferentAttribute(err: DifferentAttributeError) 
-    extends AbnormalCase {
-    
-    val cause: String = s"Weapon attribute:${err.weapon.attribute.entryName}
-      is different warrior attribute:${err.warriorAttr.entryName}"
+  object DifferentAttributeAndNotOverLevel extends AbnormalCase {
+    val cause: String = s"${DifferentAttribute.cause} and ${NotOverLevel.cause}"
   }
 
-  final case class NotOverLevel(err: NotOverLevelError) 
-    extends AbnormalCase {
-    val cause: String = s"Warrior level:${err.warriorLevel.value}
-      is not over weapon level:${err.weapon.levelConditionOfEquipment}"
+  object DifferentAttribute extends AbnormalCase {
+    val cause: String = s"Weapon attribute is different warrior attribute"
   }
-  
-  final case class DifferentAttributeAndNotOverLevel(
-    err1: DifferentAttributeError,
-    err2: NotOverLevelError
-  ) extends AbnormalCase {
-        
-    val cause: String = 
-      s"${DifferentAttribute(err1).cause} and ${NotOverLevel(err2).cause}"
+
+  object NotOverLevel extends AbnormalCase {
+    val cause: String = s"Warrior level is not over weapon level"
   }
+
 }
 ```
 ---
@@ -390,7 +381,7 @@ Note:
 - 要件変更や改修のたびに頑張って、ユースケース記述のドキュメントを更新してたがやはり大変だった
 - 図(キャプチャ)入れる
 
-- コードは常に実際の仕様と同期する
+- コードは常に実際の要件と同期する
 
 @snap[south-west template-note text-gray]
 @snapend

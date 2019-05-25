@@ -1,68 +1,305 @@
-### 実装
+## Implementation 
 
 Note:
-ここでは、主に設計フェーズによって具体化した仕様やモデルを使って実装をしていきます
+ここでは、主に設計フェーズによって明らかになった要件や概念を使って実装をしていきます
 
 ---
+### Implement Domain 
 
-TODO
-### アーキテクチャとは？
+```scala
+sealed abstract case class Warrior(
+    id: WarriorId,
+    name: WarriorName,
+    attribute: Attribute,
+    weapon: Option[Weapon],
+    level: WarriorLevel
+) extends {
 
-Note:
-あなたはアーキテクチャに対してどのようなことを期待していますか？
+  import Warrior._
 
-### アーキテクチャの役割
-https://speakerdeck.com/jooohn/introduction-to-clean-architecture?slide=30
+  def equip(weapon: Weapon): ValidatedNel[WarriorError, Warrior] = {
+    (isNotSameAttribute(weapon), isNotOverLevel(weapon))
+      .mapN((_, _) => new Warrior(id, name, attribute, Some(weapon), level) {})
+  }
 
-### 分析した概念をそのままソフトウェアに表現する
-- ソフトウェア上のオブジェクトは開発者が創造したものではない
-- ビジネスや要件の変更に対して、強い設計
+  private def isNotSameAttribute(weapon: Weapon): ValidatedNel[WarriorError, Weapon] =
+    if (attribute == weapon.attribute) weapon.validNel 
+    else DifferentAttributeError.invalidNel
 
-### 単方向な依存関係によりプラガブルな設計
-↑ TODO ここ重点的に話したい
-### 問題の本質はドメインに、要件の詳細はユースケースに
-- ユースケースという構造が持つ意味
-    - 機能を実現するための知識を隠蔽する
-    - 機能要求(正常、異常)を満たすことを検証
+  private def isNotOverLevel(weapon: Weapon): ValidatedNel[WarriorError, Weapon] =
+    if (level.value >= weapon.levelConditionOfEquipment) weapon.validNel 
+    else NotOverLevelError.invalidNel
+
+}
+```
+---
+
+### Implement UseCase
+```scala
+package object cont {
+  type UseCaseCont[F[_], A] = ContT[F, UseCaseResult, A]
+}
+```
+```scala
+final class EquipWeaponToWarrior[F[_]: Monad](
+    repository: WarriorRepository[F]
+) {
+
+  import EquipWeaponToWarrior._
+
+  def exec(warrior: Warrior, newWeapon: Weapon): UseCaseCont[F, UseCaseResult] =
+    UseCaseCont { f =>
+      warrior.equip(newWeapon) match {
+        case Valid(w)     => repository.update(w).flatMap(_ => f(NormalCase))
+        case Invalid(err) => Monad[F].point(err)
+      }
+    }
+}
+```
+
+---
+### Implement Controller
+
+```scala
+final class WarriorController(
+    cc: ControllerComponents,
+    findWarrior: FindWarrior[IO],
+    warriorEquippedNewWeapon: EquipWeaponToWarrior[IO],
+    presenter: Presenter[UseCaseResult, Result],
+    val ec: ExecutionContext
+) extends AbstractController(cc)
+    with FormHelper with ActionSupport {
+
+  def equipWeapon(id: Long): EssentialAction = Action.async { implicit r =>
+    val composedCont: ContT[IO, UseCaseResult, UseCaseResult] = for {
+      form <- EquipWeaponForm.apply.bindCont[IO]
+      (warriorId, weapon) = (WarriorId(id), form.weapon)
+      warrior <- findWarrior.exec(warriorId)
+      result <- warriorEquippedNewWeapon.exec(warrior, weapon)
+    } yield result
+
+    composedCont
+      .run(Applicative[IO].pure)
+      .map(presenter.present)
+      .toFuture
+  }
+  
+}
+```
+
+---
+### Implement Controller
+
+```scala
+private[http] trait FormHelper {
+
+  implicit class FormSyntax[A](form: Form[A]) {
+    def bindCont[F[_]: Applicative](implicit req: Request[AnyContent]): UseCaseCont[F, A] =
+      ContT(
+        f =>
+          form.bindFromRequest.fold[F[UseCaseResult]](
+            error => Applicative[F].pure(
+              InvalidInputParameters(errors = convertFormErrorsToMap(error.errors))),
+            a => f(a)
+          )
+      )
+  }
+
+  private def convertFormErrorsToMap(errors: Seq[FormError]): Map[String, String] = 
+    errors.map(e => e.key -> e.message).toMap
     
+}
+```
+---
+### Implement Controller
+
+```scala
+private[http] trait ActionSupport {
+
+  def ec: ExecutionContext
+
+  implicit class IOSyntax[A](io: IO[A]) {
+    def toFuture: Future[A] = Future(io.unsafeRunSync())(ec)
+  }
+
+}
+```
+
+---
+### Implement Domain UnitTest
+
+
+---
+
+### Implement UseCase UnitTest NormalCase
+
+```scala
+it should "正常系" in {
+  val warrior = (for {
+    name  <- WarriorName.of("せんしくん").toOption
+    level <- WarriorLevel.of(40).toOption
+  } yield {
+    Warrior.createWithoutWeapon(WarriorId(1L), name, LightAttribute, level)
+  }).get
+
+  assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === NormalCase)
+}
+```
+
+---
+
+### Implement UseCase UnitTest AbnormalCase
+```scala
+it should "異常系: 戦士のレベルが選択した武器のレベル条件を満たしていない場合" in {
+  val warrior = (for {
+    name  <- WarriorName.of("せんしくん").toOption
+    level <- WarriorLevel.of(29).toOption
+  } yield {
+    Warrior.createWithoutWeapon(WarriorId(1L), name, LightAttribute, level)
+  }).get
+
+  assert(
+    useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === NotOverLevel
+  )
+}
+
+it should "異常系: 戦士の属性と選択した武器の属性が異なる場合" in {
+  val warrior = (for {
+    name  <- WarriorName.of("せんしくん").toOption
+    level <- WarriorLevel.of(40).toOption
+  } yield {
+    Warrior.createWithoutWeapon(WarriorId(1L), name, DarkAttribute, level)
+  }).get
+
+  assert(
+    useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === DifferentAttribute
+  )
+}
+
+it should "異常系: 戦士のレベルが選択した武器のレベル条件を満たしていない、かつ、戦士の属性と選択した武器の属性が異なる場合" in {
+  val warrior = (for {
+    name  <- WarriorName.of("せんしくん").toOption
+    level <- WarriorLevel.of(29).toOption
+  } yield {
+    Warrior.createWithoutWeapon(WarriorId(1L), name, DarkAttribute, level)
+  }).get
+
+  assert(
+    useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) ===
+      DifferentAttributeAndNotOverLevel
+  )
+}
+```
+
+---
+@snap[north-west text-gray span-100]
+@size[1.3em](What do Domain & UseCase express?)
+@snapend
+
+#### 問題の本質はドメインに、ソフトウェア要件の詳細はユースケースに
+
+ドメインロジック 
+- ソフトウェアの要件に限らない業務の知識
+
+ユースケース
+- ソフトウェアの要件を実現するための知識
+   
 Note:
-詳細設計によって具体化した仕様を実装してみたいところですが、
-土台となるアーキテクチャについて触れる必要があるでしょう
+TODO 仮書き
+ドメインロジックとユースケースというのはどのような違いがあるのでしょうか？
+ということについて少し整理しておく必要がありそうです
 
+これまで話にでた正常系、異常系のようなソフトウェアの要件を実現するための知識は
+そのユースケースの中に閉じ込めることで、凝集度の高いコンポーネントを実現することができます
+
+現金で支払いをしたら差額を返却するように
+ソフトウェアの要件に限らず、その業務の特性はドメインロジックとすることで
+業務を遂行する存在に限らず、ドメインの一貫性を保つことができますね
+
+では今回の例とした`ユーザーは、戦士に武器を装備することができる`でより具体的に考えると
+戦士に武器を装備するための制約をドメインロジックとして持ち、
+ユースケースでは戦士に武器を装備した結果どのようにハンドリングすることで要件を満たすことができるのかということを考えてきました
+
+--- 
+@snap[north-west text-gray span-100]
+@size[1.5em](Object extracted by analysis express in software)
+@snapend
+
+- ビジネスルールや要件の変更に対して柔軟な設計 |
+    - 改修による変更対応箇所を局所化
+- ユースケースが要件の変更を追従する |
+- ソフトウェア上のオブジェクトは開発者が創造したものではない |
+    - ユビキタス言語
+
+Note:
+要求の分析によって抽出された概念をそのままソフトウェアの実装に表現することで、どのような利点があるのでしょうか？
+あらためて整理したいと思います
+
+前のスライドで話したように
+業務ルールの変化によるソフトウェアの変更箇所は対象のドメインモデルとユースケースに閉じ、
+要件の変更に対するソフトウェアの変更箇所は対象のユースケースに閉じることで、改修による変更対応箇所を局所化されることで
+ビジネスルールや要件の変更に対して柔軟な設計を実現できます
+
+要件の変更に対しても、ユースケースの知識として表現されているのでトラックすることを実現します
+前段でとりあげた信用できないドキュメントに惑わされることもなくなるかなと思います
+
+今回の例である、戦士や武器という概念は開発者が勝手に創造したものではないですよね？
+要求や要件定義のプロセスの中で抽出した概念です
+
+開発者とビジネス関係者との対話において概念に対して同じ認識ができることによって、
+コミュニケーションを活性化し要求者の求めていることをより効率的に理解する事ができるようになります
+それをコード上に表現することで、実装での表現の乖離を防ぎ概念的な理解を促します
+つまりそれが、ユビキタス言語なんですね
+ソフトウェア上にオブジェクトとして定義されるものは開発者が創造したものではないのです
+
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](Implementation review)
+@snapend
+
+- MRで要件やモデリングに対する指摘が発生することを極力抑えられる
+
+Note:
+要件定義、設計におけるフェーズの成果物を段階的にレビューをしているので、
+実装後のMRのレビューは実装の観点に閉じています
+
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](Thinking about architecture)
+@snapend
+
+Note: 
+TODO 画像？
+
+概念的な設計における意味合いについておさらいしてきましたが、
+実装の側面においてはアーキテクチャについても少し考える必要があるかもしれません
+
+みなさんはアーキテクチャに対してどのようなことを期待していますか？
+
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](What is the purpose of the architecture?)
+@snapend
+
+- 求められるシステムを構築・保守するために必要な人材を最小限に抑えることである |
+
+@snap[south-east template-note]
+@box[text-white rounded bg-orange box-padding text-05](Source: [Clean Architecture 達人に学ぶソフトウェアの構造と設計](https://www.kadokawa.co.jp/product/301806000678/))
+@snapend
+
+Note:
 先進的なアーキテクチャは一見多くのことを解決してくれるように感じますが、本当にそうなのでしょうか？
-アーキテクチャが解決する問題の本質について少し考えてみたいと思います
-
 
 ---
+@snap[north-west text-gray span-100]
+@size[1.5em](Important point of architecture)
+@snapend
 
-### クリーンアーキテクチャを採用し、設計の結果を実装
+- ドメインとユースケースのレイヤを用いることで業務知識と要件を実現するための知識をカプセル化
+- 単方向な依存関係によりプラガブルな設計
+    - Interface Adapter
+    - DIP
 
-- 理由
-ユースケースの概念をソフトウェアに表現する
+Note:
 依存性の逆転を利用して、固有の実装への依存をプラガブルバーツとしてに外部に置く
-
----
-### 重要な観点
-
-重要な点は、クリーンアーキテクチャを使うためにユースケースを表現するのではなく、
-分析したユースケースの知識をソフトウェアに落とし込むために、クリーンアーキテクチャを利用する点です
-
----
-
-### ドメインモデルの振る舞いを実装
-
-### ユースケースを実装
-
-### コントローラを実装
-
----
-
-### 実装レビュー
-
-要件定義のフェーズごとにレビューをしているので、実装後のレビューでの観点は、実装的な観点に閉じている
-- 要件やモデリングに対する指摘が発生することを極めて抑えられる
-
----
-
-
 

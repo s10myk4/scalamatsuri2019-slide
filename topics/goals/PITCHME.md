@@ -5,9 +5,8 @@
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](私たちの理想)
+@size[1.5em](An ideal state for us)
 @snapend
-
 
 `プロダクトの価値を最大化 + 継続的な開発`
 
@@ -15,7 +14,7 @@
 * ビジネスの変化に対応する仕組み
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+An ideal state for us is to maximize the value of the product and to realize its continuous development.
 @snapend
 
 Note:
@@ -32,13 +31,13 @@ Note:
 --- 
 
 @snap[north-west text-gray span-100]
-@size[1.5em](プロダクトをとりまく環境の理解)
+@size[1.5em](Understanding the environment)
 @snapend
 
 問題を正しくとらえ、探求を積み重ねる
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+It is important to understand the problem correctly and learn more and more.
 @snapend
 
 Note:
@@ -56,10 +55,10 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](ビジネスの変化に対応する仕組み)
+@size[1.5em](Mechanisms)
 @snapend
 
-価値を提供しながら継続的な開発を行うために
+ビジネスの変化に対応する仕組みが必要
 
 * 問題の整理
 * 問題をソフトウェアに落とし込む
@@ -67,7 +66,7 @@ Note:
 * ドキュメンテーション
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+You need some mechanisms to apply to the business changes.
 @snapend
 
 Note:

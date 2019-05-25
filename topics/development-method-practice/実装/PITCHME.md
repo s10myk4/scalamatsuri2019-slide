@@ -7,7 +7,34 @@ Note:
 ### Implement Domain
 
 ```scala
+import cats.data.ValidatedNel
+import cats.syntax.contravariantSemigroupal._
+import cats.syntax.validated._
+import com.s10myk4.domain.model.Attribute
+import com.s10myk4.domain.model.weapon.Weapon
 
+sealed abstract case class Warrior(
+    id: WarriorId,
+    name: WarriorName,
+    attribute: Attribute,
+    weapon: Option[Weapon],
+    level: WarriorLevel
+) extends {
+
+  import Warrior._
+
+  def equip(weapon: Weapon): ValidatedNel[WarriorError, Warrior] = {
+    (isNotSameAttribute(weapon), isNotOverLevel(weapon))
+      .mapN((_, _) => new Warrior(id, name, attribute, Some(weapon), level) {})
+  }
+
+  private def isNotSameAttribute(weapon: Weapon): ValidatedNel[WarriorError, Weapon] =
+    if (attribute == weapon.attribute) weapon.validNel else DifferentAttributeError.invalidNel
+
+  private def isNotOverLevel(weapon: Weapon): ValidatedNel[WarriorError, Weapon] =
+    if (level.value >= weapon.levelConditionOfEquipment) weapon.validNel else NotOverLevelError.invalidNel
+
+}
 ```
 ---
 ### Implement Domain UnitTest
@@ -15,15 +42,159 @@ Note:
 
 ---
 ### Implement UseCase
+```scala
+package object cont {
+  type UseCaseCont[F[_], A] = ContT[F, UseCaseResult, A]
+}
+```
+```scala
+final class EquipWeaponToWarrior[F[_]: Monad](
+    repository: WarriorRepository[F]
+) {
 
+  import EquipWeaponToWarrior._
+
+  def exec(warrior: Warrior, newWeapon: Weapon): UseCaseCont[F, UseCaseResult] =
+    UseCaseCont { f =>
+      warrior.equip(newWeapon) match {
+        case Valid(w)     => repository.update(w).flatMap(_ => f(NormalCase))
+        case Invalid(err) => Monad[F].point(err)
+      }
+    }
+}
+```
 ---
 ### Implement UseCase UnitTest
+
+```scala
+class EquipWeaponToWarriorSpec
+  extends FlatSpec with DiagrammedAssertions with MockitoSugar {
+
+  behavior of "戦士に武器を装備できる"
+
+  it should "正常系" in {
+    val warrior = (for {
+      name  <- WarriorName.of("せんしくん").toOption
+      level <- WarriorLevel.of(40).toOption
+    } yield {
+      Warrior.createWithoutWeapon(WarriorId(1L), name, LightAttribute, level)
+    }).get
+
+    assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === NormalCase)
+  }
+
+  it should "異常系: 戦士のレベルが選択した武器のレベル条件を満たしていない場合" in {
+    val warrior = (for {
+      name  <- WarriorName.of("せんしくん").toOption
+      level <- WarriorLevel.of(29).toOption
+    } yield {
+      Warrior.createWithoutWeapon(WarriorId(1L), name, LightAttribute, level)
+    }).get
+
+    assert(
+      useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === NotOverLevel
+    )
+  }
+
+  it should "異常系: 戦士の属性と選択した武器の属性が異なる場合" in {
+    val warrior = (for {
+      name  <- WarriorName.of("せんしくん").toOption
+      level <- WarriorLevel.of(40).toOption
+    } yield {
+      Warrior.createWithoutWeapon(WarriorId(1L), name, DarkAttribute, level)
+    }).get
+
+    assert(
+      useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === DifferentAttribute
+    )
+  }
+
+  it should "異常系: 戦士のレベルが選択した武器のレベル条件を満たしていない、かつ、戦士の属性と選択した武器の属性が異なる場合" in {
+    val warrior = (for {
+      name  <- WarriorName.of("せんしくん").toOption
+      level <- WarriorLevel.of(29).toOption
+    } yield {
+      Warrior.createWithoutWeapon(WarriorId(1L), name, DarkAttribute, level)
+    }).get
+
+    assert(
+      useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) ===
+        DifferentAttributeAndNotOverLevel
+    )
+  }
+
+  private val repository: WarriorRepository[Id] = mock[WarriorRepository[Id]]
+  when(repository.update(any[Warrior])).thenReturn(())
+
+  private val useCase = new EquipWeaponToWarrior[Id](repository)
+
+}
+```
 
 ---
 ### Implement Controller
 
+```scala
+final class WarriorController(
+    cc: ControllerComponents,
+    findWarrior: FindWarrior[IO],
+    warriorEquippedNewWeapon: EquipWeaponToWarrior[IO],
+    presenter: Presenter[UseCaseResult, Result],
+    val ec: ExecutionContext
+) extends AbstractController(cc)
+    with FormHelper with ActionSupport {
+
+  def equipWeapon(id: Long): EssentialAction = Action.async { implicit r =>
+    val composedCont: ContT[IO, UseCaseResult, UseCaseResult] = for {
+      form <- EquipWeaponForm.apply.bindCont[IO]
+      (warriorId, weapon) = (WarriorId(id), form.weapon)
+      warrior <- findWarrior.exec(warriorId)
+      result <- warriorEquippedNewWeapon.exec(warrior, weapon)
+    } yield result
+
+    composedCont
+      .run(Applicative[IO].pure)
+      .map(presenter.present)
+      .toFuture
+  }
+  
+}
+```
+
 ---
-### Implement Repository
+### Implement Controller
+
+```scala
+private[http] trait FormHelper {
+
+  implicit class FormSyntax[A](form: Form[A]) {
+    def bindCont[F[_]: Applicative](implicit req: Request[AnyContent]): UseCaseCont[F, A] =
+      ContT(
+        f =>
+          form.bindFromRequest.fold[F[UseCaseResult]](
+            error => Applicative[F].pure(InvalidInputParameters(errors = convertFormErrorsToMap(error.errors))),
+            a => f(a)
+          )
+      )
+  }
+
+  private def convertFormErrorsToMap(errors: Seq[FormError]): Map[String, String] = {
+    errors.map(e => e.key -> e.message).toMap
+  }
+}
+```
+
+```scala
+private[http] trait ActionSupport {
+
+  def ec: ExecutionContext
+
+  implicit class IOSyntax[A](io: IO[A]) {
+    def toFuture: Future[A] = Future(io.unsafeRunSync())(ec)
+  }
+
+}
+```
 
 ---
 ### 問題の本質はドメインに、ソフトウェア要件の詳細はユースケースに

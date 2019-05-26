@@ -4,7 +4,9 @@ Note:
 ここでは、主に設計フェーズによって明らかになった要件や概念を使って実装をしていきます
 
 ---
-### Implement Domain 
+@snap[north-west text-gray span-100]
+@size[1.5em](Implement Domain)
+@snapend
 
 ```scala
 sealed abstract case class Warrior(
@@ -33,8 +35,10 @@ sealed abstract case class Warrior(
 }
 ```
 ---
+@snap[north-west text-gray span-100]
+@size[1.5em](Implement Use Case)
+@snapend
 
-### Implement UseCase
 ```scala
 package object cont {
   type UseCaseCont[F[_], A] = ContT[F, UseCaseResult, A]
@@ -58,7 +62,9 @@ final class EquipWeaponToWarrior[F[_]: Monad](
 ```
 
 ---
-### Implement Controller
+@snap[north-west text-gray span-100]
+@size[1.5em](Implement Controller)
+@snapend
 
 ```scala
 final class WarriorController(
@@ -88,7 +94,9 @@ final class WarriorController(
 ```
 
 ---
-### Implement Controller
+@snap[north-west text-gray span-100]
+@size[1.5em](Implement Controller)
+@snapend
 
 ```scala
 private[http] trait FormHelper {
@@ -111,7 +119,9 @@ private[http] trait FormHelper {
 }
 ```
 ---
-### Implement Controller
+@snap[north-west text-gray span-100]
+@size[1.5em](Implement Controller)
+@snapend
 
 ```scala
 private[http] trait ActionSupport {
@@ -126,13 +136,17 @@ private[http] trait ActionSupport {
 ```
 
 ---
-### Implement Domain UnitTest
+@snap[north-west text-gray span-100]
+@size[1.5em](Implement Domain Test)
+@snapend
 
 
 ---
+@snap[north-west text-gray span-100]
+@size[1.5em](Implement Use Case Test)
+@snapend
 
-### Implement UseCase UnitTest NormalCase
-
+### Normal Case
 ```scala
 it should "正常系" in {
   val warrior = (for {
@@ -147,8 +161,11 @@ it should "正常系" in {
 ```
 
 ---
+@snap[north-west text-gray span-100]
+@size[1.5em](Implement Use Case Test)
+@snapend
 
-### Implement UseCase UnitTest AbnormalCase
+### Abnormal Case
 ```scala
 it should "異常系: 戦士のレベルが選択した武器のレベル条件を満たしていない場合" in {
   val warrior = (for {
@@ -193,16 +210,26 @@ it should "異常系: 戦士のレベルが選択した武器のレベル条件�
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.3em](What do Domain & UseCase express?)
+@size[1.3em](What Do Domain & Use Case Express?)
 @snapend
 
+
+@snap[west]
 #### 問題の本質はドメインに、ソフトウェア要件の詳細はユースケースに
 
-ドメインロジック 
-- ソフトウェアの要件に限らない業務の知識
+@ul(false)
+- ドメインロジック 
+  - ソフトウェアの要件に限らない業務の知識
 
-ユースケース
-- ソフトウェアの要件を実現するための知識
+- ユースケース
+  - ソフトウェアの要件を実現するための知識
+@ulend
+@snapend
+
+@snap[south-west template-note text-gray]
+Business knowledge in the domain.  
+Software requirements in use cases.
+@snapend
    
 Note:
 TODO 仮書き
@@ -220,9 +247,27 @@ TODO 仮書き
 戦士に武器を装備するための制約をドメインロジックとして持ち、
 ユースケースでは戦士に武器を装備した結果どのようにハンドリングすることで要件を満たすことができるのかということを考えてきました
 
+---
+@snap[north-west text-gray span-100]
+@size[1.3em](What Do Domain & Use Case Express?)
+@snapend
+
+#### 信用できないドキュメント
+
+@snap[south-west template-note text-gray]
+Issue: Untrusted documents
+@snapend
+
+Note:
+Issuesのところで話した、ドキュメントの課題の話に戻りますが、
+
+要件変更や改修のたびに頑張って、ユースケース記述のドキュメントを更新してたがやはり大変だった
+コードは常に実際の要件に追従する
+
+
 --- 
 @snap[north-west text-gray span-100]
-@size[1.5em](Object extracted by analysis express in software)
+@size[1.5em](Object Extracted by Analysis Express in Software)
 @snapend
 
 - ビジネスルールや要件の変更に対して柔軟な設計 |
@@ -254,7 +299,7 @@ Note:
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](Implementation review)
+@size[1.5em](Implementation Review)
 @snapend
 
 - MRで要件やモデリングに対する指摘が発生することを極力抑えられる
@@ -265,7 +310,7 @@ Note:
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](Thinking about architecture)
+@size[1.5em](Thinking About Architecture)
 @snapend
 
 Note: 
@@ -278,7 +323,7 @@ TODO 画像？
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](What is the purpose of the architecture?)
+@size[1.5em](Purpose of the Architecture?)
 @snapend
 
 - 求められるシステムを構築・保守するために必要な人材を最小限に抑えることである |
@@ -292,7 +337,7 @@ Note:
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](Important point of architecture)
+@size[1.5em](Important Point of Architecture)
 @snapend
 
 - ドメインとユースケースのレイヤを用いることで業務知識と要件を実現するための知識をカプセル化

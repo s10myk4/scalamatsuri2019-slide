@@ -2,14 +2,7 @@
 @size[1.5em](Overview of development flow)
 @snapend
 
-- プロダクトの理解
-
-- 要求の把握/理解
-- 分析
-- 設計
-- 実装
-- テスト
-- リリース
+![development-flow](assets/img/developmemt-flow.png)
 
 @snap[south-west template-note text-gray]
 TODO: 日本語字幕

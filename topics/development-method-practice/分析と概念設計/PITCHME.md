@@ -36,22 +36,6 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](概念設計で重要なこと)
-@snapend
-
-TODO どこに差し込むか再考
-####  概念設計の段階では、詳細の技術に関する概念を用いない
-(ex. DB、http)
-
-Note:
-ここで抽出したモデルは、DBなどの固有の技術に依存する概念ではなく、
-このソフトウェア上で扱う業務に関連したモデルである
-
-TODO もっと色々具体的な例を入れて重要な観点をわかりやすく説明したい
-
----
-
-@snap[north-west text-gray span-100]
 @size[1.5em](利用する手法)
 @snapend
 

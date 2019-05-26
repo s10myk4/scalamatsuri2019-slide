@@ -1,21 +1,21 @@
 ## Issues
 
-開発に取り巻く課題と懸念
+開発における課題
 
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](開発に取り巻く課題と懸念)
+@size[1.5em](Common issues)
 @snapend
 
-* 仕様未定義があとから見つかる
-* 改修コスト増 -> リリース頻度低
-* チームのサイロ化
-* 信用できないドキュメント
-* 評判のアーキテクチャ
+* Found oversight
+* More maintenance cost, less release frequency
+* Organization silos
+* Untrusted documents
+* Much-talked-about architecture
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+There are some common issues with the software development process.
 @snapend
 
 Note:
@@ -25,14 +25,14 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](仕様未定義があとから見つかる)
+@size[1.5em](Found oversight)
 @snapend
 
 * すべてを見通すことは不可能
     * でも、今わかることは明らかにはしたい
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+You can not see everything from the very beginning.
 @snapend
 
 Note:
@@ -44,7 +44,7 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](改修コスト増 -> リリース頻度低)
+@size[1.5em](More maint. cost, less release FQ)
 @snapend
 
 TODO: 茹でガエルの絵?
@@ -52,7 +52,7 @@ TODO: 茹でガエルの絵?
 なかなか価値を届けられないもどかしさ
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+Things never do get cleaned up later and it causes more maintenance cost, less release frequency. 
 @snapend
 
 Note:
@@ -66,13 +66,13 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](チームのサイロ化)
+@size[1.5em](Organization silos)
 @snapend
 
 TODO: サイロの絵
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+Silos are inevitable; however, complex business flows are crossing the silos.
 @snapend
 
 Note:
@@ -86,13 +86,13 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](信用できないドキュメント)
+@size[1.5em](Untrusted documents)
 @snapend
 
 TODO: ドキュメントを見て困惑している人の絵
 
 @snap[south-west template-note text-gray]
-TODO: Untrusted documents
+Documents are not always up to date and continuous updating them is a hard thing. 
 @snapend
 
 Note:
@@ -106,19 +106,19 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](評判のアーキテクチャ)
+@size[1.5em](Much-talked-about architecture)
 @snapend
 
 そのアーキテクチャ、フィットしていますか?
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+Is the architecture for you?
 @snapend
 
 Note:
 
-アーキテクチャの議論はつきないものです。しかしともすれば、ちまたでは優れたとされているアーキテクチャが、いついかなる状況に対してもフィットするかはわかりません。
+アーキテクチャの議論はつきないものです。しかし、ちまたでは優れているとされるアーキテクチャがいついかなる状況に対してもフィットするかはわかりません。
 
 > もちろん興味であったり今後のための実験として、あえてオーバーエンジニアリングしてみることは否定しません。
 
-納得感をもってアーキテクチャの検討をするために下準備がいることでしょう。
+納得感をもってアーキテクチャを決定するにはそれなりの根拠と下準備がいることでしょう。

@@ -1,8 +1,15 @@
 @snap[north-west text-gray span-100]
-@size[1.5em](Summary and Future)
+@size[1.5em](Recap)
 @snapend
 
-* TODO
-* TODO
-* TODO
+![development-flow](assets/img/developmemt-flow.png)
+
+Note:
+
+---
+# Q & A 
+
+---
+## Thank you
+
 

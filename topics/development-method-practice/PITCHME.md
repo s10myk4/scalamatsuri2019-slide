@@ -1,11 +1,13 @@
-## 開発フローにおける実践的なアプローチ
+## Development method practice
+
+開発フローにおける実践的なアプローチ
 
 ---
 
 ![development-flow](assets/img/developmemt-flow.png)
 
 @snap[north-west text-gray span-100]
-@size[1.5em](開発の流れ)
+@size[1.5em](Development flow)
 @snapend
 
 Note: 

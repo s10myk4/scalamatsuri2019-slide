@@ -16,17 +16,7 @@ Yoshimasa Tanabe
 ---?include=topics/issues/PITCHME.md
 
 <!-- 開発フローについて -->
----?include=topics/development-flow-overview/PITCHME.md
-
 ---?include=topics/development-flow-overview/introduction/PITCHME.md
-
----?include=topics/development-flow-overview/needs/PITCHME.md
-
----?include=topics/development-flow-overview/analysis/PITCHME.md
-
----?include=topics/development-flow-overview/design/PITCHME.md
-
----?include=topics/development-flow-overview/implementation/PITCHME.md
 
 <!-- お題 -->
 ---?include=topics/development-method-practice/clean-quest/PITCHME.md
@@ -46,6 +36,7 @@ Yoshimasa Tanabe
 <!-- 詳細設計 -->
 ---?include=topics/development-method-practice/詳細設計/PITCHME.md
 
+<!-- 実装 -->
 ---?include=topics/development-method-practice/実装/PITCHME.md
 
 <!-- まとめと展望 -->

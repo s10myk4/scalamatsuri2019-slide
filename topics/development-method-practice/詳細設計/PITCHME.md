@@ -1,16 +1,16 @@
-### 詳細設計
+### Detailed Design
 
 ---
+@snap[north-west text-gray span-100]
+@size[1.5em](Detailed Design)
+@snapend
 
 ![development-flow](assets/img/developmemt-flow.png)
 
 ---
-
 @snap[north-west text-gray span-100]
-@size[1.5em](詳細設計)
+@size[1.5em](Detailed Design)
 @snapend
-
-#### ここでの問題領域
 
 * 概念モデルが要求を満たしているかの解釈を一致させる
     * ドメインモデルの属性とそのふるまいの定義
@@ -28,12 +28,9 @@ Note:
 いきなり作り始める前にこのフェーズを経ることで、解釈の不一致を防ぐことができます。
 
 ---
-
 @snap[north-west text-gray span-100]
-@size[1.5em](詳細設計)
+@size[1.5em](Outputs)
 @snapend
-
-#### 期待する成果物
 
 - ドメインモデル
 - ユースケースの定義
@@ -43,7 +40,6 @@ Note:
 @snapend
 
 Note:
-
 ここで期待する成果物は、概念モデルを以下のソースコードで表現するところまで行うこととします。
 
 - ドメインモデル
@@ -51,38 +47,23 @@ Note:
 - テストケース
 
 ---
-
 @snap[north-west text-gray span-100]
-@size[1.5em](詳細設計)
+@size[1.5em](Detailed Design)
 @snapend
 
 #### 要求と分析のフェーズでの成果物を元に概念モデルをコードに表現する
 
 @snap[south-west template-note text-gray]
+Express conceptual models in code based on deliverables in requirements and analysis phase.
 @snapend
 
 Note:
-
 それでは前フェーズの成果物を元に、概念モデルをコードで表現してみましょう。
 
 ---
-
 @snap[north-west text-gray span-100]
-@size[1.5em](詳細設計: ドメインモデル)
+@size[1.5em](Define Warrior Level)
 @snapend
-
-#### 抽出したドメインモデル
-
-図を記載
-
-Note:
-要求と分析フェーズで具体化したドメインモデルを実際にコードに落としてみます
-
-@snap[south-west template-note text-gray]
-@snapend
-
----
-### Define WarriorLevel
 
 ```scala
 import cats.data.ValidatedNel
@@ -97,11 +78,14 @@ object WarriorLevel {
   final case class WarriorLevelError(value: Int) extends WarriorError {
     val cause = s"$value is a invalid warrior level"
   }
+  
 }
 ```
 
 ---
-### Define WarriorName
+@snap[north-west text-gray span-100]
+@size[1.5em](Define Warrior Name)
+@snapend
 
 ```scala
 import cats.data.ValidatedNel
@@ -121,7 +105,9 @@ object WarriorName {
 ```
 
 ---
-### Define Weapon
+@snap[north-west text-gray span-100]
+@size[1.5em](Define Weapon)
+@snapend
 
 ```scala
 import enumeratum._
@@ -135,7 +121,9 @@ sealed trait Weapon extends EnumEntry {
 ```
 
 ---
-### Define Weapon
+@snap[north-west text-gray span-100]
+@size[1.5em](Define Weapon)
+@snapend
 
 ```scala
 object Weapon extends Enum[Weapon] {
@@ -159,8 +147,9 @@ object Weapon extends Enum[Weapon] {
 ```
 
 ---
-
-### Define Attribute
+@snap[north-west text-gray span-100]
+@size[1.5em](Define Attribute)
+@snapend
 
 ```scala
 import enumeratum._
@@ -180,7 +169,9 @@ object Attribute extends Enum[Attribute] {
 ```
 
 ---
-### Define Warrior
+@snap[north-west text-gray span-100]
+@size[1.5em](Define Warrior)
+@snapend
 
 ```scala
 trait WarriorError extends DomainError
@@ -204,7 +195,9 @@ object Warrior {
 }
 ```
 ---
-### Define Warrior Repository
+@snap[north-west text-gray span-100]
+@size[1.5em](Define Warrior Repository)
+@snapend
 
 ```scala
 trait WarriorRepository[F[_]] {
@@ -212,24 +205,12 @@ trait WarriorRepository[F[_]] {
   def resolveBy(id: WarriorId): F[Option[Warrior]]
 }
 ```
----
 
+---
 @snap[north-west text-gray span-100]
-@size[1.5em](詳細設計: ユースケース)
+@size[1.5em](Define Use Case Result)
 @snapend
 
-#### 抽出したユースケース記述(正常系、異常系)
-
-図を記載
-
-Note:
-要求と分析フェーズで具体化したユースケースを実際にコードに落としてみます
-
-@snap[south-west template-note text-gray]
-@snapend
-
----
-### Define UseCaseResult
 ```scala
 sealed trait UseCaseResult
 
@@ -247,16 +228,20 @@ Note:
 実装に依存しない固有のユースケースの実行結果を表す型を定義します
 
 ---
-
-### Define UseCase
+@snap[north-west text-gray span-100]
+@size[1.5em](Define Use Case)
+@snapend
 
 ```scala
 final class EquipWeaponToWarrior[F[_]] {
   def exec(warrior: Warrior, newWeapon: Weapon): F[UseCaseResult] = ???
 }
 ```
+
 ---
-### Define AbnormalCase
+@snap[north-west text-gray span-100]
+@size[1.5em](Define Abnormal Case)
+@snapend
 
 ```scala
 object EquipWeaponToWarrior {
@@ -266,23 +251,23 @@ object EquipWeaponToWarrior {
   )
 
   object DifferentAttributeAndNotOverLevel extends AbnormalCase {
-    val cause: String = s"${DifferentAttribute.cause} and ${NotOverLevel.cause}"
+    val cause: String = s"${DifferentAttribute.cause} 且つ ${NotOverLevel.cause}"
   }
 
   object DifferentAttribute extends AbnormalCase {
-    val cause: String = s"Weapon attribute is different warrior attribute"
+    val cause: String = "戦士と武器の属性が異なるため装備できません"
   }
 
   object NotOverLevel extends AbnormalCase {
-    val cause: String = s"Warrior level is not over weapon level"
+    val cause: String = "戦士が武器のレベル条件を満たしていないので装備できません"
   }
 
 }
 ```
----
 
+---
 @snap[north-west text-gray span-100]
-@size[1.5em](詳細設計: テストケース)
+@size[1.5em](Test Cases)
 @snapend
 
 ``` scala
@@ -301,71 +286,21 @@ it should
   """ in {}
 ```
 
+Note:
+
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](Detailed Design)
+@snapend
+
+#### レビューコスト
+- MRで要件漏れや誤解について指摘される |
+- 分析手法を用いることで属人的な設計を排除する |
+
+
 @snap[south-west template-note text-gray]
+Issue: Review Cost
 @snapend
 
 Note:
 
----
-
-### 課題の話
-
----
-
-@snap[north-west text-gray span-100]
-@size[1.5em](詳細設計: ユースケース)
-@snapend
-
-#### レビューコストの話
-- MRで要件漏れや誤解について指摘される
-- 分析手法を用いることで属人的な設計を排除する
-
-Note:
-
-@snap[south-west template-note text-gray]
-@snapend
-
----
-
-@snap[north-west text-gray span-100]
-@size[1.5em](詳細設計: ユースケース)
-@snapend
-
-#### 信用できないドキュメントの話
-
-Note:
-Issuesのところで話した、ドキュメントの課題の話に戻りますが、
-
-
-@snap[south-west template-note text-gray]
-@snapend
-
----
-
-@snap[north-west text-gray span-100]
-@size[1.5em](詳細設計: ユースケース)
-@snapend
-
-#### コードのユースケースの定義をドキュメントとして活用する
-
-Note:
-
-
-@snap[south-west template-note text-gray]
-@snapend
-
----
-
-@snap[north-west text-gray span-100]
-@size[1.5em](詳細設計: ユースケース)
-@snapend
-
-#### 実体験
-
-- 要件変更や改修のたびに頑張って、ユースケース記述のドキュメントを更新してたがやはり大変だった
-- 図(キャプチャ)入れる
-
-- コードは常に実際の要件と同期する
-
-@snap[south-west template-note text-gray]
-@snapend

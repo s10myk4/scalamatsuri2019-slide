@@ -7,7 +7,7 @@
 ![development-flow](assets/img/developmemt-flow.png)
 
 @snap[north-west text-gray span-100]
-@size[1.5em](Development flow)
+@size[1.5em](Development Flow)
 @snapend
 
 Note: 

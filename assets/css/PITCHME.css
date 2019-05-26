@@ -35,3 +35,13 @@
   font-size: 0.6em;
   margin-bottom: 10px;
 }
+
+.mylist li {
+  font-size: 0.6em;
+  margin-bottom: 10px;
+}
+
+.mylist-s li {
+  font-size: 0.5em;
+  margin-bottom: 10px;
+}

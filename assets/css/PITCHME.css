@@ -26,3 +26,12 @@
   color: white;
   font-weight: bold;
 }
+
+.mylist ul {
+  border: solid 1px #e48436;
+}
+
+.mylist li {
+  font-size: 0.6em;
+  margin-bottom: 10px;
+}

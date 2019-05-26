@@ -1,141 +1,101 @@
-### 要求分析
+### Requirements Analysis
 
 ![development-flow](assets/img/developmemt-flow.png)
 
 Note:
 
-* TODO: このフェーズでは以下を説明する
-    * 目的
-        * 前フェーズの要求(望んでいること。何を作りたいか)に対して分析を行い、ふるまい/制約を定義する
-            * 要求を正しく理解していないと、ソフトウェアのふるまい/制約が定まらない
-    * 使う手法
-    * How(実際にその手法を適用してみる)
-    * アウトプット(適用した結果こうなる)
-        * ユースケース記述(ふるまい)
-        * ドメインモデル(制約)
-
 ---
-
 @snap[north-west text-gray span-100]
 @size[1.5em](要求分析)
 @snapend
 
-#### どのように作るかを概念的に整理する
+#### 私たちが機能を実装する上で考えていることは？   
+- その機能が実現したいこと
+- ユーザーがどのようにその機能を利用するのか
+- どのように作るか
+- etc...
 
-#### ->振る舞い要求を明らかにする
+TODO具体化
+
+@snap[south-west template-note text-gray]
+@snapend
+
+Note:
+TODO
+要求と要件の狭間のグレーな部分を図示するとわかりやすいかも
+
+要求に対する共通認識を持たずに実装をしていくとどうなるの？
+
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](Requirements Analysis)
+@snapend
+
+どのように作るかを概念的に整理する
+  - 要求について共通理解を得る
+  - 機能要求の全体像を把握する
+  - 要件: 制約や条件
 
 @snap[south-west template-note text-gray]
 @snapend
 
 Note:
 
+TODO整理
+
 前フェーズで要求を導き出しました。
+
+戦士が武器を装備できるという要求を
+を実現するにあったってどのよう概念が
+
+要求を実現するために、どのような制約や条件が存在するのか、 つまり要件を分析によって
+明らかにしていきます。
+
 このフェーズではその要求に対して分析を行い、振る舞いと制約を定義します。
 要求を正しく理解していないと要件が定まりません。
 
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](ICONIXプロセス)
+@size[1.5em](Outputs)
 @snapend
 
-良いところ
-
-- 不明瞭が要求から具体的な振る舞い要求を導出できる
-- 形式知
-    - ドメインモデル
-    - ユースケース記述
-    - GUIプロトタイプ
-- プラガブルなプロセス
-    - 小さなイテレーション
-- 特定の技術に依存しない
-
-
-@snap[south-west template-note text-gray]
-TODO: 日本語字幕
-@snapend
-
-Note:
-
-このフェーズで利用する手法として ICONIX プロセスを紹介します。
-
----
-
-@snap[north-west text-gray span-100]
-@size[1.5em](要求フェーズの問題領域)
-@snapend
-
-#### ここでの問題領域
-- 機能要求の全体像を把握
-- ドメインモデルを抽出
-
-@snap[south-west template-note text-gray]
-@snapend
-
-Note:
-ドメインモデルとは、あるプロジェクトやサービスに関する知識
-
-TODO: 機能要求の全体像を把握/ドメインモデルの抽出は How の話なので、なぜこれをやっているのか目的
-
----
-
-@snap[north-west text-gray span-100]
-@size[1.5em](要求フェーズでの成果物)
-@snapend
-
-#### 要求フェーズで期待する成果物
-
-#### 振る舞い要求(ユースケース記述)
-#### 初稿のドメインモデル
+- 初稿のユースケース記述  
+    (ユーザーとシステムの振る舞い)
+    
+- 初稿のドメインモデル
 
 @snap[south-west template-note text-gray]
 @snapend
 
 Note:
 
-これは Output
-
 ---
-
 @snap[north-west text-gray span-100]
-@size[1.5em](概念設計で重要なこと)
+@size[1.5em](Use Case Descriptions)
 @snapend
 
-TODO どこに差し込むか再考
-####  概念設計の段階では、詳細の技術に関する概念を用いない
-(ex. DB、http)
-
-Note:
-ここで抽出したモデルは、DBなどの固有の技術に依存する概念ではなく、
-このソフトウェア上で扱う業務に関連したモデルである
-
-TODO もっと色々具体的な例を入れて重要な観点をわかりやすく説明したい
-
----
-
-@snap[north-west text-gray span-100]
-@size[1.5em](想定する要求:ユースケース)
-@snapend
-
-### ユーザーは、戦士に武器を装備することができる
+### TODO サンプルの記述
 
 @snap[south-west template-note text-gray]
-Customer requested specification  
-
-The user can equip the weapon to the warrior.
 @snapend
-
-Note:
-
-これは Input。あとで手法(How)を適用する際のお題
 
 ---
-
 @snap[north-west text-gray span-100]
-@size[1.5em](要求定義)
+@size[1.5em](ユースケース記述とは)
 @snapend
 
-#### 書くこと TODO
+### TODO 基本的な記述のルール
+
+@snap[south-west template-note text-gray]
+@snapend
+
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](ユースケース記述)
+@snapend
+
+#### TODO
 - ユースケース記述によってシステムの対話が明確になる
 - 明確になって行くと、詳細の考慮が具体化する
 
@@ -144,90 +104,57 @@ Note:
 
 Note:
 
-ここは目的っぽい気もするが、ちょっと詳細ぽい
-
 ---
-
-
-
 @snap[north-west text-gray span-100]
-@size[1.5em](要求定義)
+@size[1.5em](Requirements)
 @snapend
 
-#### 私たちが機能を実装する上で考えていることは？  
+ユーザーは、戦士に武器を装備することができる
 
-<br>
-- その機能が実現したいこと
-- ユーザーがどのようにその機能を利用するのか
-- どのように作るか
+@snap[south-west template-note text-gray]
+Our customer requirement
+Users can have their warrior equip weapons.
+@snapend
 
-etc...
+Note:
+
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](GUI Prototyping)
+@snapend
+
+TODO
 
 @snap[south-west template-note text-gray]
 @snapend
 
 Note:
 
-ここは目的っぽい気もする
-
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](ユースケース記述とは)
-@snapend
-
-### ユースケース記述
-### TODO
-
-@snap[south-west template-note text-gray]
-@snapend
-
----
-
-@snap[north-west text-gray span-100]
-@size[1.5em](GUIプロトタイピング)
+@size[1.5em](GUI Prototyping)
 @snapend
 
 ![](assets/img/warrior-index-page.png)
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](GUIプロトタイピング)
+@size[1.5em](GUI Prototyping)
 @snapend
 
 ![](assets/img/warrior-detail-page.png)
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](GUIプロトタイピング)
+@size[1.5em](GUI Prototyping)
 @snapend
 
 ![](assets/img/weapon-index-page.png)
 
 ---
-
 @snap[north-west text-gray span-100]
-@size[1.5em](初稿のドメインモデル)
-@snapend
-
-- 戦士
-- 武器
-- 装備
-
-Note:
-
-ここではこれが Entity/VO なのかについては考えず、出てきたキーワードを挙げています。
-
-TODO
-
-* 初稿のドメインモデルがなぜ必要か
-    * 言葉の概念をあわせていくことで、変更のコストを抑えるため
-  
-
----
-
-@snap[north-west text-gray span-100]
-@size[1.5em](初稿のユースケース記述)
+@size[1.5em](First Draft Use Case Descriptions)
 @snapend
 
 ```text
@@ -247,19 +174,31 @@ TODO:
 ここではまだ正常系とは言わない。つまり、分析がまだ終わっていないということを表す
 
 ---
-
 @snap[north-west text-gray span-100]
-@size[1.5em](POとの対話)
+@size[1.5em](First Draft Domain Models)
 @snapend
 
-#### 戦士はどんな武器でも装備できるんですか？
-- いきなり強い武器を装備できてもチート感強すぎるので、武器を装備する条件を付けたい
-- 戦士に魔法の杖とか装備できるのは変なので、属性で装備できる武器も制限したい
+- 戦士
+- 武器
+- 装備
+
+Note:
+ここではこれが Entity/VO なのかについては考えず、出てきたキーワードを挙げています。
 
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](ドメインモデルの更新)
+@size[1.5em](Conversation with PO)
+@snapend
+
+#### 戦士はどんな武器でも装備できるんですか？ 
+
+- いきなり強い武器を装備できないように武器を装備する条件を付けたい |
+- 光の戦士に闇の魔法の杖とか装備できるのは変なので属性で装備できる武器も制限したい |
+
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](Update Domain Models)
 @snapend
 
 - 戦士
@@ -271,7 +210,7 @@ TODO:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](ユースケース記述の更新)
+@size[1.5em](Update Use Case Descriptions)
 @snapend
 
 ```text
@@ -293,28 +232,31 @@ Note:
 武器と戦士の属性が同じである必要がある
 
 ---
-
 @snap[north-west text-gray span-100]
-@size[1.5em](異常系について考える)
+@size[1.5em](Abnormal Cases)
 @snapend
 
 #### 先程のPOとの対話からわかる制約
-- 武器を装備するためには、指定レベルを満たす必要がある
+- 武器を装備するためにはレベル条件を満たす必要がある
 - 武器と戦士の属性が同じである必要がある
 
 ---
-
 @snap[north-west text-gray span-100]
-@size[1.5em](ユースケース記述の更新)
+@size[1.5em](Update Use Case Descriptions)
 @snapend
 
-#### 異常系
+#### Abnormal Cases 
+
 ```text
 ・戦士のレベルが選択した武器のレベル条件を満たしていない場合
-システムは、"この武器を装備するための条件を満たしていません"というメッセージを戦士詳細画面に表示する
+システムは、"戦士が武器のレベル条件を満たしていないので装備できません"と戦士詳細画面に表示する
 
 ・戦士の属性と選択した武器の属性が異なる場合
-システムは、"この武器を装備するための条件を満たしていません"というメッセージを戦士詳細画面に表示する
+システムは、"戦士と武器の属性が異なるため装備できません"と戦士詳細画面に表示する
+
+・戦士のレベルも属性も異なる場合
+システムは、"戦士が武器のレベル条件を満たしていないので装備できません 
+且つ 戦士と武器の属性が異なるため装備できません"と戦士詳細画面に表示する
 ```
 
 Note:
@@ -331,7 +273,7 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](POとの対話)
+@size[1.5em](Conversation with PO)
 @snapend
 
 #### 戦士に対して武器って何個も持たせられるんですか？
@@ -343,7 +285,7 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](POとの対話)
+@size[1.5em](Conversation with PO)
 @snapend
 
 #### 戦士に対して武器って何個も持たせられるんですか？
@@ -358,7 +300,7 @@ POと対話する中で、...
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](ドメインモデルの更新)
+@size[1.5em](Update Domain Models)
 @snapend
 
 - 戦士
@@ -371,10 +313,10 @@ POと対話する中で、...
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](ユースケース記述の更新)
+@size[1.5em](Update Use Case Descriptions)
 @snapend
 
-#### 正常系
+#### Normal Case
 
 ```text
 ユーザーは、自分の所有している戦士の中から1人を選んでタップする
@@ -389,38 +331,56 @@ POと対話する中で、...
 ```
 
 ---
-
 @snap[north-west text-gray span-100]
-@size[1.5em](ユースケース記述の更新)
+@size[1.5em](Update Use Case Descriptions)
 @snapend
 
-#### 異常系
-```text
-・戦士のレベルが選択した武器のレベル条件を満たしていない場合
-システムは、"この武器を装備するするための条件を満たしていません"というメッセージを戦士詳細画面に表示する
+#### Abnormal Cases
 
-・戦士の属性と選択した武器の属性が異なる場合
-システムは、"この武器を装備するための条件を満たしていません"というメッセージを戦士詳細画面に表示する
+@ul[mylist]
+- 戦士のレベルが選択した武器のレベル条件を満たしていない場合システムは、<br>"戦士が武器のレベル条件を満たしていないので装備できません"と戦士詳細画面に表示する
 
-・武器がすでに装備されている場合
-システムは、"すでに武器が装備されています"というメッセージを戦士詳細画面に表示する
-```
+- 戦士の属性と選択した武器の属性が異なる場合システムは、<br>"戦士と武器の属性が異なるため装備できません"と戦士詳細画面に表示する
+
+- 戦士のレベルも属性も異なる場合システムは、<br>"戦士が武器のレベル条件を満たしていないので装備できません 且つ 戦士と武器の属性が異なるため装備できません"と戦士詳細画面に表示する
+@ulend
 
 ---
-
 @snap[north-west text-gray span-100]
-@size[1.5em](ユースケース記述のポイント)
+@size[1.5em](Keys of the Use Case Descriptions)
 @snapend
 
-- 別紙にまとめるかもしれない
 - 叙述的な記述
 - SVOの文法を意識する
-...
-
-#### 簡単にユースケース記述する上でのポイントを説明する
-#### 詳細は本か私のスライドを参照してねw
+- 詳細の技術に関する概念を用いない(ex. Database、Http)
 
 @snap[south-west template-note text-gray]
 @snapend
 
+Note:
+ここで抽出したモデルは、DBなどの固有の技術に依存する概念ではなく、
+このソフトウェア上で扱う業務に関連したモデルである
 
+TODO もっと色々具体的な例を入れて重要な観点をわかりやすく説明したい
+
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](ICONIX Process)
+@snapend
+
+- 不明瞭が要求から具体的な振る舞い要求を導出できる
+- 形式知
+    - ドメインモデル
+    - ユースケース記述
+    - GUIプロトタイプ
+- プラガブルなプロセス
+    - 小さなイテレーション
+- 特定の技術に依存しない
+
+@snap[south-west template-note text-gray]
+TODO: 日本語字幕
+@snapend
+
+Note:
+
+このフェーズで利用する手法として ICONIX プロセスを紹介します。

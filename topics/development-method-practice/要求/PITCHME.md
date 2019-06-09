@@ -168,23 +168,20 @@ Note:
 @size[1.5em](GUI Prototyping)
 @snapend
 
-![](assets/img/warrior-index-page.png)
-
----
-@snap[north-west text-gray span-100]
-@size[1.5em](GUI Prototyping)
+@snap[west span-33]
+@img[domain_events](assets/img/warrior-index-page.png)
 @snapend
 
-![](assets/img/warrior-detail-page.png)
-
----
-@snap[north-west text-gray span-100]
-@size[1.5em](GUI Prototyping)
+@snap[midpoint span-33]
+@img[domain_events](assets/img/warrior-detail-page.png)
 @snapend
 
-![](assets/img/weapon-index-page.png)
+@snap[east span-33]
+@img[domain_events](assets/img/weapon-index-page.png)
+@snapend
 
 ---
+
 @snap[north-west text-gray span-100]
 @size[1.5em](First Draft Use Case Descriptions)
 @snapend

@@ -131,12 +131,14 @@ B:バウンダリ      C:コントローラ     E:エンティティ
 @size[1.5em](Robustness Diagram)
 @snapend
 
-![](assets/img/robustness/first-robustness-diagram.png)
+@snap[west]
+<img src="assets/img/robustness/first-robustness-diagram.png" width="80%"/>
+@snapend
 
 @snap[south-west template-note text-gray]
-
-@snapend
 Is something wrong?
+@snapend
+
 Note:
 このロバストネス図を眺めていると何か違和感を感じませんか？
 20秒ほど眺めてどこが変なのか
@@ -161,7 +163,9 @@ Note:
 @size[1.5em](Robustness Analysis)
 @snapend
 
-![](assets/img/robustness/updated-robustness-diagram.png)
+@snap[west]
+<img src="assets/img/robustness/updated-robustness-diagram.png" width="80%"/>
+@snapend
 
 @snap[south-west template-note text-gray]
 @snapend

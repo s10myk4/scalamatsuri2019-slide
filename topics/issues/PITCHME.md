@@ -47,9 +47,9 @@ Note:
 @size[1.5em](More maint. cost, less release FQ)
 @snapend
 
-TODO: 茹でガエルの絵?
-
+@snap[west]
 なかなか価値を届けられないもどかしさ
+@snapend
 
 @snap[south-west template-note text-gray]
 Things never do get cleaned up later and it causes more maintenance cost, less release frequency. 
@@ -69,7 +69,9 @@ Note:
 @size[1.5em](Organization silos)
 @snapend
 
-TODO: サイロの絵
+@snap[west span-80]
+@img[domain_events](assets/img/business_flow_crossing_silos.png)
+@snapend
 
 @snap[south-west template-note text-gray]
 Silos are inevitable; however, complex business flows are crossing the silos.
@@ -89,7 +91,9 @@ Note:
 @size[1.5em](Untrusted documents)
 @snapend
 
-TODO: ドキュメントを見て困惑している人の絵
+@snap[west snap-50]
+@img[domain_events](assets/img/untrasuted_documents.png)
+@snapend
 
 @snap[south-west template-note text-gray]
 Documents are not always up to date and continuous updating them is a hard thing. 

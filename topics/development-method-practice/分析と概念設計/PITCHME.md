@@ -131,8 +131,8 @@ B:バウンダリ      C:コントローラ     E:エンティティ
 @size[1.5em](Robustness Diagram)
 @snapend
 
-@snap[west]
-<img src="assets/img/robustness/first-robustness-diagram.png" width="80%"/>
+@snap[west span-80]
+@img[domain_events](assets/img/robustness/first-robustness-diagram.png)
 @snapend
 
 @snap[south-west template-note text-gray]
@@ -163,8 +163,8 @@ Note:
 @size[1.5em](Robustness Analysis)
 @snapend
 
-@snap[west]
-<img src="assets/img/robustness/updated-robustness-diagram.png" width="80%"/>
+@snap[west span-80]
+@img[domain_events](assets/img/robustness/updated-robustness-diagram.png)
 @snapend
 
 @snap[south-west template-note text-gray]

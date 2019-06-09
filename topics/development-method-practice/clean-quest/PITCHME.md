@@ -5,7 +5,7 @@
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](題材と背景)
+@size[1.5em](Clean Quest)
 @snapend
 
 * オンラインRPG: Clean Quest
@@ -13,7 +13,7 @@
 * 利用数が伸び悩み。次の一手を打ちたい
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+In this session, we'll talk about a fictitious video game development story as a sample. 
 @snapend
 
 Note:
@@ -27,7 +27,7 @@ Clean Quest ではユーザーが自分のキャラクターを作成・操作�
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](全体の理解)
+@size[1.5em](Understand the environment)
 @snapend
 
 * 各自意欲的に問題の解決を図ろうとはしている
@@ -35,7 +35,7 @@ Clean Quest ではユーザーが自分のキャラクターを作成・操作�
 * 全体の把握が必要そうだ
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+The company is making an effort to improve its situation but looks like need to understand the whole environment.
 @snapend
 
 Note:

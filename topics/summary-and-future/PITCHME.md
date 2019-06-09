@@ -2,7 +2,9 @@
 @size[1.5em](Recap)
 @snapend
 
-![development-flow](assets/img/developmemt-flow.png)
+@snap[west]
+![development-flow](assets/img/development-flow.png)
+@snapend
 
 Note:
 

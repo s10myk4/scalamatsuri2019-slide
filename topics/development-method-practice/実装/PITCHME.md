@@ -1,4 +1,10 @@
-## Implementation 
+@snap[north-west text-gray span-100]
+@size[1.5em](Implementation)
+@snapend
+
+@snap[west]
+![development-flow](assets/img/development-flow-focus5.png)
+@snapend
 
 Note:
 ここでは、主に設計フェーズによって明らかになった要件や概念を使って実装をしていきます

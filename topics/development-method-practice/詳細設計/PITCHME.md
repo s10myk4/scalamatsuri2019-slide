@@ -1,11 +1,10 @@
-### Detailed Design
-
----
 @snap[north-west text-gray span-100]
 @size[1.5em](Detailed Design)
 @snapend
 
-![development-flow](assets/img/developmemt-flow.png)
+@snap[west]
+![development-flow](assets/img/development-flow-focus4.png)
+@snapend
 
 ---
 @snap[north-west text-gray span-100]

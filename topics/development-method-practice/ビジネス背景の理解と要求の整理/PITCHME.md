@@ -1,6 +1,10 @@
-## Understanding business and organizing requirements
+@snap[north-west text-gray span-100]
+@size[1.5em](Organizing Requirements)
+@snapend
 
-ビジネスの理解と要求の整理
+@snap[west]
+![development-flow](assets/img/development-flow-focus1.png)
+@snapend
 
 ---
 

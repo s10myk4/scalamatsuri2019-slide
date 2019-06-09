@@ -21,13 +21,10 @@ Yoshimasa Tanabe
 <!-- お題 -->
 ---?include=topics/development-method-practice/clean-quest/PITCHME.md
 
-<!-- 開発フローの流れ -->
----?include=topics/development-method-practice/PITCHME.md
-
-<!-- ビジネス背景の理解と要求の整理 -->
+<!-- 要求の整理 -->
 ---?include=topics/development-method-practice/ビジネス背景の理解と要求の整理/PITCHME.md
 
-<!-- 要求 -->
+<!-- 要求分析 -->
 ---?include=topics/development-method-practice/要求/PITCHME.md
 
 <!-- 分析と概念設計 -->

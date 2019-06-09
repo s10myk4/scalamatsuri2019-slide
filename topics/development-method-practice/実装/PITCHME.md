@@ -7,7 +7,7 @@
 @snapend
 
 Note:
-ここでは、主に設計フェーズによって明らかになった要件や概念を使って実装をしていきます
+参考程度に、実装例を紹介します
 
 ---
 @snap[north-west text-gray span-100]
@@ -216,141 +216,27 @@ it should "異常系: 戦士のレベルが選択した武器のレベル条件�
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.3em](What Do Domain & Use Case Express?)
+@size[1.3em](Avoid Fat Controller)
 @snapend
 
+図: Fat Controllerのサンプル
 
-@snap[west]
-#### 問題の本質はドメインに、ソフトウェア要件の詳細はユースケースに
-
-@ul(false)
-- ドメインロジック 
-  - ソフトウェアの要件に限らない業務の知識
-
-- ユースケース
-  - ソフトウェアの要件を実現するための知識
-@ulend
-@snapend
-
-@snap[south-west template-note text-gray]
-Business knowledge in the domain.  
-Software requirements in use cases.
-@snapend
-   
 Note:
-TODO 仮書き
-ドメインロジックとユースケースというのはどのような違いがあるのでしょうか？
-ということについて少し整理しておく必要がありそうです
+TODO
 
-これまで話にでた正常系、異常系のようなソフトウェアの要件を実現するための知識は
-そのユースケースの中に閉じ込めることで、凝集度の高いコンポーネントを実現することができます
-
-現金で支払いをしたら差額を返却するように
-ソフトウェアの要件に限らず、その業務の特性はドメインロジックとすることで
-業務を遂行する存在に限らず、ドメインの一貫性を保つことができますね
-
-では今回の例とした`ユーザーは、戦士に武器を装備することができる`でより具体的に考えると
-戦士に武器を装備するための制約をドメインロジックとして持ち、
-ユースケースでは戦士に武器を装備した結果どのようにハンドリングすることで要件を満たすことができるのかということを考えてきました
+コントローラーの責務は、入力を受け付けて、要求を実現するためのユースケースを呼び出し結果を返すが責務です
+コントローラーにドメインロジックなどが漏れると、テスタビリティが低下し改修コストが高くなりますよね
+ユースケースの概念を用いることで、コントローラからロジックを排除します
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.3em](What Do Domain & Use Case Express?)
+@size[1.3em](Love Scala)
 @snapend
+TODO
 
-#### 信用できないドキュメント
-
-@snap[south-west template-note text-gray]
-Issue: Untrusted documents
-@snapend
-
-Note:
-Issuesのところで話した、ドキュメントの課題の話に戻りますが、
-
-要件変更や改修のたびに頑張って、ユースケース記述のドキュメントを更新してたがやはり大変だった
-コードは常に実際の要件に追従する
-
-
---- 
-@snap[north-west text-gray span-100]
-@size[1.5em](Object Extracted by Analysis Express in Software)
-@snapend
-
-- ビジネスルールや要件の変更に対して柔軟な設計 |
-    - 改修による変更対応箇所を局所化
-- ユースケースが要件の変更を追従する |
-- ソフトウェア上のオブジェクトは開発者が創造したものではない |
-    - ユビキタス言語
-
-Note:
-要求の分析によって抽出された概念をそのままソフトウェアの実装に表現することで、どのような利点があるのでしょうか？
-あらためて整理したいと思います
-
-前のスライドで話したように
-業務ルールの変化によるソフトウェアの変更箇所は対象のドメインモデルとユースケースに閉じ、
-要件の変更に対するソフトウェアの変更箇所は対象のユースケースに閉じることで、改修による変更対応箇所を局所化されることで
-ビジネスルールや要件の変更に対して柔軟な設計を実現できます
-
-要件の変更に対しても、ユースケースの知識として表現されているのでトラックすることを実現します
-前段でとりあげた信用できないドキュメントに惑わされることもなくなるかなと思います
-
-今回の例である、戦士や武器という概念は開発者が勝手に創造したものではないですよね？
-要求や要件定義のプロセスの中で抽出した概念です
-
-開発者とビジネス関係者との対話において概念に対して同じ認識ができることによって、
-コミュニケーションを活性化し要求者の求めていることをより効率的に理解する事ができるようになります
-それをコード上に表現することで、実装での表現の乖離を防ぎ概念的な理解を促します
-つまりそれが、ユビキタス言語なんですね
-ソフトウェア上にオブジェクトとして定義されるものは開発者が創造したものではないのです
-
----
-@snap[north-west text-gray span-100]
-@size[1.5em](Implementation Review)
-@snapend
-
-- MRで要件やモデリングに対する指摘が発生することを極力抑えられる
-
-Note:
-要件定義、設計におけるフェーズの成果物を段階的にレビューをしているので、
-実装後のMRのレビューは実装の観点に閉じています
-
----
-@snap[north-west text-gray span-100]
-@size[1.5em](Thinking About Architecture)
-@snapend
-
-Note: 
-TODO 画像？
-
-概念的な設計における意味合いについておさらいしてきましたが、
-実装の側面においてはアーキテクチャについても少し考える必要があるかもしれません
-
-みなさんはアーキテクチャに対してどのようなことを期待していますか？
-
----
-@snap[north-west text-gray span-100]
-@size[1.5em](Purpose of the Architecture?)
-@snapend
-
-- 求められるシステムを構築・保守するために必要な人材を最小限に抑えることである |
-
-@snap[south-east template-note]
-@box[text-white rounded bg-orange box-padding text-05](Source: [Clean Architecture 達人に学ぶソフトウェアの構造と設計](https://www.kadokawa.co.jp/product/301806000678/))
-@snapend
-
-Note:
-先進的なアーキテクチャは一見多くのことを解決してくれるように感じますが、本当にそうなのでしょうか？
-
----
-@snap[north-west text-gray span-100]
-@size[1.5em](Important Point of Architecture)
-@snapend
-
-- ドメインとユースケースのレイヤを用いることで業務知識と要件を実現するための知識をカプセル化
-- 単方向な依存関係によりプラガブルな設計
-    - Interface Adapter
-    - DIP
-
-Note:
-依存性の逆転を利用して、固有の実装への依存をプラガブルバーツとしてに外部に置く
+- High expression
+- Highly abstract programming
+- Functional programming
+- Referential transparency
+- etc
 

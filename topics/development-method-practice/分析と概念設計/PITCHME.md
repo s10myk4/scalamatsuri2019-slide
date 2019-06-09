@@ -1,6 +1,10 @@
-### Analysis and Conceptual Design
+@snap[north-west text-gray span-100]
+@size[1.5em](Analysis and Conceptual Design)
+@snapend
 
-![development-flow](assets/img/developmemt-flow.png)
+@snap[west]
+![development-flow](assets/img/development-flow-focus3.png)
+@snapend
 
 Note:
 

@@ -20,8 +20,8 @@ Note:
 @snapend
 
 ユースケース記述の曖昧さを解消する
-- 新たなドメインモデルの発見
-- ドメインモデルと振る舞いの関連性
+- 新たなドメインオブジェクトの発見
+- ドメインオブジェクトと振る舞いの関連性
 
 @snap[south-west template-note text-gray]
 Our purpose in this phase is to disambiguate use case descriptions.
@@ -30,14 +30,30 @@ Our purpose in this phase is to disambiguate use case descriptions.
 Note:
 TODO 
 
+ここではロバストネス分析という方法を使って、初稿のユースケース記述の曖昧さを解消し、  
+取りこぼしていたドメインオブジェクトの発見やオブジェクトとシステムの振る舞いとの関係性を検証していきます。  
+
+
 ICONIXプロセスは初稿のドメインモデルを不完全なものだと仮定しており、
 取りこぼしていたオブジェクトがロバストネス分析中で発見されると想定しています。
 初稿のユースケース記述はたいてい曖昧で不完全であり、不正確なものになりがちです
 それをサポートするためにロバストネス図による分析を行います。
 
-ロバストネス分析の主要な目的は2つです。
-ユースケース記述から曖昧さを取り除く
-見逃したドメインモデルを発見する
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](Sample Image)
+@snapend
+
+![](assets/img/robustness/robustness-sample.png)
+@snap[south-east template-note]
+@box[text-white rounded bg-orange box-padding text-05](Source: [ユースケース駆動開発実践ガイド 図5.31](https://www.shoeisha.co.jp/book/detail/9784798114453))
+@snapend
+
+Note:
+ロバストネス図というのはこのようなものなんですが、  
+ユースケース記述をオブジェクトシステムの振る舞いの関係性にフォーカスして表記されたものです。
+
+ロバストネス分析がどういったものかを簡単にではありますが、説明します。  
 
 ---
 @snap[north-west text-gray span-100]
@@ -56,20 +72,8 @@ Note:
 バウンダリ、エンティティ、コントローラというステレオタイプを用いて図を作成していきます
 
 バウンダリは、システムと外部とのインターフェースを表していて、Webページの画面とかが具体的な例です
-エンティティは、ドメイン上に出てくるモデル
+エンティティは、ドメイン上に出てくるモデル  
 コントローラは、バウンダリやエンティティを繋いだり、ソフトウェアの機能を表します
-
-TODO
-* 簡単なロバストネス分析のサンプル
----
-@snap[north-west text-gray span-100]
-@size[1.5em](Sample Image)
-@snapend
-
-![](assets/img/robustness/robustness-sample.png)
-@snap[south-east template-note]
-@box[text-white rounded bg-orange box-padding text-05](Source: [ユースケース駆動開発実践ガイド 図5.31](https://www.shoeisha.co.jp/book/detail/9784798114453))
-@snapend
 
 ---
 @snap[north-west text-gray span-100]
@@ -79,20 +83,19 @@ TODO
 ![](assets/img/robustness/robustness-rules.png)
 
 Note:
+ロバストネス分析では、資料に記したルールに基づいて図を作成することで
+ユースケース記述の曖昧さを検知することを目的とします
+
+オブジェクト同士がつながることを不正とし、間には何らかのシステムの振る舞いが関連するといった感じです。 
 
 ---
-
 @snap[north-west text-gray span-100]
 @size[1.5em](Elements Extracting)
 @snapend
 
 #### Normal Case
-
-```
-B:バウンダリ      C:コントローラ     E:エンティティ
-```
-@ol[mylist-s](false)
-- ユーザーは、自分の所有している戦士(E)の中から1人を選んでタップする(C)
+@ul[mylist-s](true)
+- ユーザーは、@color[Green](戦士一覧画面)から@color[Red](武器)を装備したい@color[Red](戦士)を@color[Blue](選択する)
 - システムは、戦士詳細画面(B)を表示する(C)
 - ユーザーは、装備ボタン(B)をタップする(C)
 - システムは、武器一覧(E)を取得し、武器一覧画面(B)に表示する(C)
@@ -101,34 +104,35 @@ B:バウンダリ      C:コントローラ     E:エンティティ
 - システムは、選択した武器の属性(E)と戦士の属性(E)が同じであるかを確認する(C)
 - システムは、選択した武器を装備した戦士(E)を作成する(C)
 - システムは、"装備が完了しました"というメッセージを画面(B)に表示する(C)
-@olend
+@ulend
 
 @snap[south-west template-note text-gray]
-Mark use case descriptions and extract elements.
+Mark use case descriptions and extract elements.  
+Boundary = @color[Green](Green) Control = @color[Blue](Blue) Entity = @color[Red](Red)
 @snapend
 
 Note:
-ロバストネス図を作成する前に、ロバストネス図にマッピングするオブジェクトを抽出しておくと効率的です
-バウンダリをB、コントローラをC、エンティティをEとしてユースケース記述内にマークをつけていきます
+実際にロバストネス図を作成するときには、事前にロバストネス図にマッピングするオブジェクトを抽出しておくと効率的です  
+バウンダリをB、コントローラをC、エンティティをEとしてユースケース記述内に印をつけていきます
 
 ---
 @snap[north-west text-gray span-100]
 @size[1.5em](Elements Extracting)
 @snapend
 
-
 #### Abnormal Cases
-
-```
-B:バウンダリ      C:コントローラ     E:エンティティ
-```
-@ul[mylist-s](false)
-- 戦士のレベル(E)が選択した武器のレベル条件(E)を満たしていない場合<br>システムは、"戦士が武器のレベル条件を満たしていないので装備できません"と戦士詳細画面(B)に表示する(C)
+@ul[mylist-s](true)
+- @color[Red](戦士のレベル)が選択した@color[Red](武器のレベル条件)を満たしていない場合<br>システムは、"戦士が武器のレベル条件を満たしていないので装備できません"と@color[Green](戦士詳細画面)に@color[Blue](表示する)
 
 - 戦士の属性(E)と選択した武器の属性(E)が異なる場合<br>システムは、"戦士と武器の属性が異なるため装備できません"と戦士詳細画面(B)に表示する(C)
 
 - 戦士のレベル(E)も属性(E)も異なる場合<br>システムは、"戦士が武器のレベル条件を満たしていないので装備できません 且つ 戦士と武器の属性が異なるため装備できません"と戦士詳細画面(B)に表示する(C)
 @ulend
+
+@snap[south-west template-note text-gray]
+Mark use case descriptions and extract elements.  
+Boundary = @color[Green](Green) Control = @color[Blue](Blue) Entity = @color[Red](Red)
+@snapend
 
 ---
 @snap[north-west text-gray span-100]

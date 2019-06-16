@@ -6,6 +6,10 @@
 ![development-flow](assets/img/development-flow-focus1.png)
 @snapend
 
+Note:
+
+この Clean Quest をテーマに、先ほどお話した各フローを適用していきます。最初は要求の整理です。
+
 ---
 
 @snap[north-west text-gray span-100]

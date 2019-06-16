@@ -2,6 +2,10 @@
 
 開発における課題
 
+Note:
+
+次に、先ほど述べた理想の実現の前に起こりうる問題についても触れます。
+
 ---
 
 @snap[north-west text-gray span-100]
@@ -11,6 +15,7 @@
 * Found oversight
 * More maintenance cost, less release frequency
 * Organization silos
+* Code review cost
 * Untrusted documents
 * Much-talked-about architecture
 
@@ -20,7 +25,9 @@ There are some common issues with the software development process.
 
 Note:
 
-次に、先ほど述べた理想の実現の前に起こりうる問題についても触れます。
+ここでは以下のようなテーマを挙げたいと思います。
+
+ひとつひとつ見ていきましょう。
 
 ---
 
@@ -28,6 +35,7 @@ Note:
 @size[1.5em](Found oversight)
 @snapend
 
+* 要求・要件の見落とし
 * すべてを見通すことは不可能
     * でも、今わかることは明らかにはしたい
 
@@ -79,11 +87,35 @@ Silos are inevitable; however, complex business flows are crossing the silos.
 
 Note:
 
-プロダクトが大きくなり関係者が多くなればなるほど、特定の問題に特化した集団、サイロが生まれます。これは避けられないことです。
+プロダクトが大きくなり関係者が多くなればなるほど、特定の問題に特化した集団、サイロが生まれます。これは避けられないことです。分業のために組織やチーム再編というのはよくあることだと思います。
 
-しかし、問題によってはサイロをまたがって、力をあわせて解決する必要があります。もしかしたらどのサイロにも属さない問題もどこかに潜んでいるかもしれません。
+しかし、解決したい問題によってはサイロをまたがって、力をあわせる必要があります。1 つのサイロだけ見ていると、知覚されない、どのサイロにも属さないような課題が潜んでいるかもしれません。
 
 各々のサイロに閉じた解決策では対処できない問題に対してはどう向き合えばいいのでしょうか。
+
+---
+
+@snap[north-west text-gray span-100]
+@size[1.5em](Code review cost)
+@snapend
+
+@snap[west snap-50]
+コードレビューで設計について議論し続けてしまう 
+@snapend
+
+@snap[south-west template-note text-gray]
+TODO: english sub
+@snapend
+
+Note:
+
+コードレビューで設計ミスや漏れが検知されること、それ自体はよいことです。しかし、常にその検知がコードレビューのタイミングであることを期待するとチームが疲弊します。
+
+コードレビューで数十のコメントがつく/つけたといった経験はおありでしょうか? これはおうおうにして、設計についての認識齟齬が原因であることが経験上多いです。
+
+例えばその振る舞いはこのモデルのものではない、といったものです。お互いの認識が最初から違い、違うことが判明するのがコードレビューで初めてとなると、非常にコミュニケーションに消耗しますし、リリースが遠のきます。
+
+実装に入る前に、設計についてメンバー間で同期を取れる仕組みがほしいですね。
 
 ---
 

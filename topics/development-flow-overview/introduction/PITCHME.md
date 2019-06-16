@@ -2,17 +2,8 @@
 @size[1.5em](Overview of development flow)
 @snapend
 
-- プロダクトの理解
-
-- 要求の把握/理解
-- 分析
-- 設計
-- 実装
-- テスト
-- リリース
-
-@snap[south-west template-note text-gray]
-TODO: 日本語字幕
+@snap[west]
+![development-flow](assets/img/development-flow.png)
 @snapend
 
 Note:
@@ -28,8 +19,5 @@ Note:
 どのようなアプローチがあるのかについて段階を追って話していきます。
 
 まず始めに先程取り上げた課題がどの段階に該当するかを分類したいと思います。
-
-TODO: 図を作成
-
 
 次に問題領域や課題を改善/解決するためのアプローチをマッピングし、それぞれのアプローチの詳細について説明していきます。

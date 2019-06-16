@@ -1,9 +1,15 @@
-## ビジネス背景の理解と要求の整理
+@snap[north-west text-gray span-100]
+@size[1.5em](Organizing Requirements)
+@snapend
+
+@snap[west]
+![development-flow](assets/img/development-flow-focus1.png)
+@snapend
 
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](ビジネス背景の理解と要求の整理)
+@size[1.5em](Starting point)
 @snapend
 
 @snap[west]
@@ -13,12 +19,12 @@
     * 取り組むべき要求の整理
     * 組織の自己組織化 
 * アウトプット: 課題/要求の共有
-    * 主要なステークホルダー**全員**!
+    * 主要なステークホルダー**全員** で!
 @ulend
 @snapend
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+The first step is to understand your business background and organize your requirements.
 @snapend
 
 Note:
@@ -32,7 +38,7 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](Event Storming)
+@size[1.5em](EventStorming)
 @snapend
 
 @snap[west]
@@ -47,19 +53,19 @@ Note:
 @snapend
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+EventStorming is a flexible workshop format for collaborative exploration of complex business domains.
 @snapend
 
 Note:
 
-ここでは手法の 1 つとして Event Storming を紹介します。
+ここでは手法の 1 つとして EventStorming を紹介します。
 
-Event Storming とは、複雑なビジネスドメインに対して共同で探究を行うためのワークショップの 1 形式です。
+EventStorming とは、複雑なビジネスドメインに対して共同で探究を行うためのワークショップの 1 形式です。
 
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](Event Storming で行うこと)
+@size[1.5em](The EventStorming approach)
 @snapend
 
 @snap[west]
@@ -72,12 +78,12 @@ Event Storming とは、複雑なビジネスドメインに対して共同で�
 @snapend
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+You'll obtain some insights from the workshop.
 @snapend
 
 Note:
 
-Event Storming では、各参加者の専門性・立場を越えて以下について探究します。 
+EventStorming では、各参加者の専門性・立場を越えて以下について探究します。 
 
 * システム全体の把握
 * 解決すべき問題を発見
@@ -87,19 +93,19 @@ Event Storming では、各参加者の専門性・立場を越えて以下に�
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](Event Storming の大まかな流れ)
+@size[1.5em](EventStorming overview)
 @snapend
 
 @snap[west]
 @ol[](false)
-* Domain Event の書き出し
-* Domain Event の議論
-* 焦点をあてる問題を選ぶ
+* Write down Domain Events
+* Discuss Domain Events
+* Pick the most important problem to solve
 @olend
 @snapend
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+In the workshop, you'll write down and discuss Domain Events, and pick the problem you should deal with.  
 @snapend
 
 Note:
@@ -115,7 +121,7 @@ Event Storming の大まかな流れは以下です。
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](Domain Event の書き出し)
+@size[1.5em](Write down Domain Events)
 @snapend
 
 @snap[west span-50]
@@ -131,7 +137,7 @@ Event Storming の大まかな流れは以下です。
 @snapend
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+Domain events are orange sticky notes, phrased at the past tense, relevant for the domain experts. 
 @snapend
 
 Note:
@@ -154,7 +160,7 @@ Event Storming では、Domain Event を以下のような形式で書き出し�
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](Domain Event の議論)
+@size[1.5em](Discuss Domain Events)
 @snapend
 
 @snap[west span-50]
@@ -170,7 +176,7 @@ Event Storming では、Domain Event を以下のような形式で書き出し�
 @snapend
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+In this phase, you'll discuss Domain Events such as what you know about them.
 @snapend
 
 Note:
@@ -199,7 +205,7 @@ Event Storming について詳細を知りたい方は、考案者の Alberto Br
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](焦点をあてる問題を選ぶ)
+@size[1.5em](Pick the problem to solve)
 @snapend
 
 @snap[west span-50]
@@ -207,15 +213,15 @@ Event Storming について詳細を知りたい方は、考案者の Alberto Br
 @snapend
 
 @snap[east span-50]
-新機能: キャラクターに武器を装備できるようにする
+新機能: キャラクターが武器を装備できる
 @snapend
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+Finally, you'll pick the most important problem to solve.
 @snapend
 
 Note:
 
 最後にいま取り組むべき問題を決定します。
 
-ここでは他プレイヤーとの差別化、対戦時の戦略性アップについて取り組むことになりました。機能としては、キャラクターに武器を装備できるようにしようというものです。
+ここでは他プレイヤーとの差別化、対戦時の戦略性アップについて取り組むことになりました。機能としては、キャラクターが武器を装備できるようにしようというものです。

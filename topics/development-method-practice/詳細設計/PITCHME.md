@@ -48,56 +48,10 @@ Note:
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](Define Warrior Level)
-@snapend
-
-```scala
-import cats.data.ValidatedNel
-import cats.syntax.validated._
-
-sealed abstract case class WarriorLevel(value: Int)
-
-object WarriorLevel {
-
-  def of(value: Int): ValidatedNel[WarriorLevelError, WarriorLevel] = ???
-
-  final case class WarriorLevelError(value: Int) extends WarriorError {
-    val cause = s"$value is a invalid warrior level"
-  }
-  
-}
-```
-
----
-@snap[north-west text-gray span-100]
-@size[1.5em](Define Warrior Name)
-@snapend
-
-```scala
-import cats.data.ValidatedNel
-import cats.syntax.validated._
-
-sealed abstract case class WarriorName(value: String)
-
-object WarriorName {
-
-  def of(value: String): ValidatedNel[WarriorError, WarriorName] = ???
-
-  final case class WarriorNameLengthError(length: Int) extends WarriorError {
-    val cause = s"$length is a invalid warrior name size"
-  }
-
-}
-```
-
----
-@snap[north-west text-gray span-100]
 @size[1.5em](Define Weapon)
 @snapend
 
 ```scala
-import enumeratum._
-
 sealed trait Weapon extends EnumEntry {
   val name: String
   val offensivePower: Int

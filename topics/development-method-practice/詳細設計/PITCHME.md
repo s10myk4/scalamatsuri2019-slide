@@ -205,10 +205,6 @@ object NormalCase extends UseCaseResult
 trait AbnormalCase extends UseCaseResult {
   val cause: String
 }
-
-object NotConsideredDomainError extends AbnormalCase {
-  val cause = "This domain error is not considered in this UseCase"
-}
 ```
 Note:
 実装に依存しない固有のユースケースの実行結果を表す型を定義します
@@ -341,7 +337,7 @@ Note:
 要求や要件定義のプロセスの中で抽出した概念です
 
 開発者とビジネス関係者との対話において概念に対して同じ認識ができることによって、
-コミュニケーションを活性化し要求者の求めていることをより効率的に理解する事ができるようになります
+コミュニケーションを活性化し要求者の求めていることをより正確に理解する事を促します
 それをコード上に表現することで、実装での表現の乖離を防ぎ概念的な理解を促します
 つまりそれが、ユビキタス言語なんですね
 ソフトウェア上にオブジェクトとして定義されるものは開発者が創造したものではないのです

@@ -156,7 +156,7 @@ Note:
 @size[1.5em](Something wrong..)
 @snapend
 
-武器を装備する操作が発生していないのにバリデーションしてるの変だな？
+システムが戦士に武器を装備するこ操作を行っていないのに、バリデーション操作をしている
 
 @snap[south-west template-note text-gray]
 Is it strange that you have validated even though there is no operation to equip weapons?
@@ -179,7 +179,7 @@ Note:
 @snapend
 
 Note:
-戦士に武器を装備するという操作が発生することで、バリデーションが発生するように図を書き換えてみました。  
+戦士に武器を装備するという操作を追加し、バリデーションが行われるように図を書き換えてみました。  
 
 @snap[south-west template-note text-gray]
 Updated the diagram so that validation occurs when an operation to equip a warrior with a weapon occurs.

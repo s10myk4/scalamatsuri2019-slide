@@ -94,19 +94,19 @@ Note:
 #### Normal Case
 @ul[mylist-s](true)
 - ユーザーは、@color[Green](戦士一覧画面)から@color[Red](武器)を装備したい@color[Red](戦士)を@color[Blue](選択する)
-- システムは、戦士詳細画面(B)を表示する(C)
-- ユーザーは、装備ボタン(B)をタップする(C)
-- システムは、武器一覧(E)を取得し、武器一覧画面(B)に表示する(C)
-- ユーザーは、戦士(E)に装備したい武器(E)を一覧から選択して、決定ボタン(B)をタップする(C)
-- システムは、戦士のレベル(E)が選択された武器のレベル(E)条件以上であるかを確認する(C)
-- システムは、選択した武器の属性(E)と戦士の属性(E)が同じであるかを確認する(C)
-- システムは、選択した武器を装備した戦士(E)を作成する(C)
-- システムは、"装備が完了しました"というメッセージを画面(B)に表示する(C)
+- システムは、@color[Green](戦士詳細画面)を@color[Blue](表示する)
+- ユーザーは、@color[Green](装備ボタン)を@color[Blue](タップする)
+- システムは、@color[Red](武器一覧)を@color[Blue](取得し)、@color[Green](武器一覧画面)に@color[Blue](表示する)
+- ユーザーは、@color[Red](戦士)に装備したい@color[Red](武器)を一覧から選択して、@color[Green](決定ボタン)を@color[Blue](タップする)
+- システムは、@color[Red](戦士のレベル)が選択された@color[Red](武器のレベル条件)以上であるかを@color[Blue](確認する)
+- システムは、選択した@color[Red](武器の属性)と@color[Red](戦士の属性)が同じであるかを@color[Blue](確認する)
+- システムは、選択した@color[Red](武器)を装備した@color[Red](戦士)を@color[Blue](作成する)
+- システムは、"装備が完了しました"というメッセージを@color[Green](戦士詳細画面)に@color[Blue](表示する)
 @ulend
 
 @snap[south-west template-note text-gray]
 Mark use case descriptions and extract elements.  
-Boundary = @color[Green](Green) Control = @color[Blue](Blue) Entity = @color[Red](Red)
+@color[Green](Boundary is Green),@color[Blue](Control is Blue),@color[Red](Entity is Red)
 @snapend
 
 Note:
@@ -122,14 +122,14 @@ Note:
 @ul[mylist-s](true)
 - @color[Red](戦士のレベル)が選択した@color[Red](武器のレベル条件)を満たしていない場合<br>システムは、"戦士が武器のレベル条件を満たしていないので装備できません"と@color[Green](戦士詳細画面)に@color[Blue](表示する)
 
-- 戦士の属性(E)と選択した武器の属性(E)が異なる場合<br>システムは、"戦士と武器の属性が異なるため装備できません"と戦士詳細画面(B)に表示する(C)
+- @color[Red](戦士の属性)と選択した@color[Red](武器の属性)が異なる場合<br>システムは、"戦士と武器の属性が異なるため装備できません"と@color[Green](戦士詳細画面)に@color[Blue](表示する)
 
-- 戦士のレベル(E)も属性(E)も異なる場合<br>システムは、"戦士が武器のレベル条件を満たしていないので装備できません 且つ 戦士と武器の属性が異なるため装備できません"と戦士詳細画面(B)に表示する(C)
+- @color[Red](戦士のレベル)も@color[Red](属性)も異なる場合<br>システムは、"戦士が武器のレベル条件を満たしていないので装備できません 且つ 戦士と武器の属性が異なるため装備できません"と@color[Green](戦士詳細画面)に@color[Blue](表示する)
 @ulend
 
 @snap[south-west template-note text-gray]
 Mark use case descriptions and extract elements.  
-Boundary = @color[Green](Green) Control = @color[Blue](Blue) Entity = @color[Red](Red)
+@color[Green](Boundary is Green),@color[Blue](Control is Blue),@color[Red](Entity is Red)
 @snapend
 
 ---

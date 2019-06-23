@@ -154,7 +154,7 @@ Note:
 @size[1.5em](Something wrong?)
 @snapend
 
-システムが戦士に武器を装備するこ操作を行っていないのに、バリデーション操作をしている
+システムが戦士に武器を装備する操作を行っていないのに、バリデーション操作をしている
 
 @snap[south-west template-note text-gray]
 Is it strange that you have validated even though there is no operation to equip weapons?

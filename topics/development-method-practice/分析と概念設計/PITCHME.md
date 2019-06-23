@@ -174,14 +174,11 @@ Note:
 @snapend
 
 @snap[south-west template-note text-gray]
+Updated the diagram so that validation occurs when an operation to equip a warrior with a weapon occurs.
 @snapend
 
 Note:
 戦士に武器を装備するという操作を追加し、バリデーションが行われるように図を書き換えてみました。  
-
-@snap[south-west template-note text-gray]
-Updated the diagram so that validation occurs when an operation to equip a warrior with a weapon occurs.
-@snapend
 
 ---
 @snap[north-west text-gray span-100]
@@ -189,7 +186,7 @@ Updated the diagram so that validation occurs when an operation to equip a warri
 @snapend
 
 ```diff
-ユーザーは、自分の所有している戦士の中から1人を選んでタップする
+ユーザーは、戦士一覧画面から武器を装備したい戦士を選択する
 システムは、戦士詳細画面を表示する
 ユーザーは、装備ボタンをタップする
 システムは、武器一覧を取得し、武器一覧画面に表示する
@@ -208,11 +205,11 @@ Discover new system behavior.
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](Highly Cost)
+@size[1.5em](Tips)
 @snapend
 
-#### 全部のユースケース記述にこれをやるのは大変
-TODO もっと具体的に
+#### 全てのユースケース記述にこれをやるのは大変
+- 複雑性の高いドメインや要求
 
 @snap[south-west template-note text-gray]
 Hard to do all use case descriptions.  
@@ -220,8 +217,24 @@ At first, it seems good to analyze for important domains and complex domains.
 @snapend
 
 Note:
-ロバストネス分析はICONIXプロセスにおける奥義 / 真髄とされています。
-しかし現実問題、全てのユースケース記述に足してロバストネス分析を行いのはとても大変だと思います
+ロバストネス分析はICONIXプロセスにおける真髄とされています。
+しかし現実問題、全てのユースケース記述に対してロバストネス分析を行いのはとても大変だと感じました。
 
 ビジネスにおいて重要なドメインや相対的にドメインの複雑性が高い場合に実施する
 程度が最初はいいかなと思います
+
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](Robustness Analysis)
+@snapend
+
+@snap[west span-80]
+@img[domain_events](assets/img/robustness/updated-robustness-diagram.png)
+@snapend
+
+@snap[south-west template-note text-gray]
+Disambiguate use case descriptions.  
+Discover new system behavior and domain models.
+@snapend
+
+

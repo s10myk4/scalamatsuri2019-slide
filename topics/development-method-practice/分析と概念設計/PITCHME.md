@@ -51,7 +51,7 @@ Note:
 ロバストネス図というのはこのようなものなんですが、  
 ユースケース記述をオブジェクトシステムの振る舞いの関係性にフォーカスして表記されたものです。
 
-ロバストネス分析がどういったものかを簡単にではありますが、説明します。  
+ロバストネス分析がどういったものかを簡単にではありますが説明します。  
 
 ---
 @snap[north-west text-gray span-100]
@@ -151,7 +151,7 @@ Note:
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](Something wrong..)
+@size[1.5em](Something wrong?)
 @snapend
 
 システムが戦士に武器を装備するこ操作を行っていないのに、バリデーション操作をしている
@@ -184,7 +184,6 @@ Updated the diagram so that validation occurs when an operation to equip a warri
 @snapend
 
 ---
-
 @snap[north-west text-gray span-100]
 @size[1.5em](Update Use Case Descriptions)
 @snapend
@@ -199,7 +198,7 @@ Updated the diagram so that validation occurs when an operation to equip a warri
 システムは、戦士のレベルが選択された武器のレベル条件以上であるかを確認する
 システムは、選択した武器の属性と戦士の属性が同じであるかを確認する
 - システムは、選択した武器を装備した戦士を作成する
-システムは、"装備が完了しました"というメッセージを画面に表示する
+システムは、"装備が完了しました"というメッセージを戦士詳細画面に表示する
 ```
 
 @snap[south-west template-note text-gray]
@@ -213,6 +212,7 @@ Discover new system behavior.
 @snapend
 
 #### 全部のユースケース記述にこれをやるのは大変
+TODO もっと具体的に
 
 @snap[south-west template-note text-gray]
 Hard to do all use case descriptions.  

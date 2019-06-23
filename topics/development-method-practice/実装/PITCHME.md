@@ -161,15 +161,4 @@ it should """異常系: 戦士のレベルが選択した武器のレベル条�
 }
 ```
 
----
-@snap[north-west text-gray span-100]
-@size[1.3em](Love Scala)
-@snapend
-TODO
-
-- High expression
-- Highly abstract programming
-- Functional programming
-- Referential transparency
-- etc
 

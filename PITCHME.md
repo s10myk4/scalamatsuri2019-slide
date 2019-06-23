@@ -38,11 +38,3 @@ Yoshimasa Tanabe
 
 <!-- まとめと展望 -->
 ---?include=topics/summary-and-future/PITCHME.md
-
-Note:
-TODO 
-- 開発フローの図をfixさせる
-- 適切な位置に差し込む
-
-
-

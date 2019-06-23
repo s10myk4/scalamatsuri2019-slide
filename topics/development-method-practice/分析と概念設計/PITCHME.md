@@ -189,7 +189,7 @@ Updated the diagram so that validation occurs when an operation to equip a warri
 @snapend
 
 ```diff
-ユーザーは、自分の所有している戦士の中から1人を選んでタップする
+ユーザーは、戦士一覧画面から武器を装備したい戦士を選択する
 システムは、戦士詳細画面を表示する
 ユーザーは、装備ボタンをタップする
 システムは、武器一覧を取得し、武器一覧画面に表示する

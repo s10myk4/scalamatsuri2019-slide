@@ -92,7 +92,19 @@ final class WarriorController(...) extends ... {
 @size[1.3em](Avoid Fat Controller)
 @snapend
 
-図: Fat Controllerのサンプル
+@snap[west snap-20]
+<img src="assets/img/fat-controller.png" width="50%"/>
+@snapend
+
+@snap[midpoint snap-80]
+#### コントローラーの責務
+
+@ul[](false)
+- 入力の受け付け
+- ユースケース実行
+- 結果を返す 
+@ulend
+@snapend
 
 Note:
 TODO

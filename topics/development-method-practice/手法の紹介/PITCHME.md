@@ -1,3 +1,5 @@
+##利用していない
+
 @snap[north-west text-gray span-100]
 @size[1.5em](設計・開発手法について)
 @snapend
@@ -8,10 +10,6 @@
     - 戦術的DDD
 - ICONIXプロセス
 - アーキテクチャ戦略
-
-@snap[south-west template-note text-gray]
-TODO: 日本語字幕
-@snaped
 
 Note:
 
@@ -30,10 +28,6 @@ Note:
     * 探究: 物事を理解しようとする取り組み
 @ulend
 
-@snap[south-west template-note text-gray]
-TODO: 英語字幕
-@snapend
-
 Note:
 
 ここでは手法の 1 つとして Event Storming を紹介します。
@@ -50,10 +44,6 @@ Event Storming とは、複雑なビジネスドメインに対して共同で�
 * 解決すべき問題を発見
 * いま利用できる最良の情報を収集
 * ベストと思われる開始地点から解決策を実行
-
-@snap[south-west template-note text-gray]
-TODO: 英語字幕
-@snapend
 
 Note:
 
@@ -80,10 +70,6 @@ Event Storming では、それぞれの専門性・立場を越えて以下に�
 * 動詞の過去形
 * ドメインエキスパートに関係あること
 @ulend
-@snapend
-
-@snap[south-west template-note text-gray]
-TODO: 英語字幕
 @snapend
 
 Note:
@@ -117,10 +103,6 @@ Event Storming では、Domain Event を以下のような形式で書き出し�
 * 矛盾点/問題点
 * サイロを越えて議論
 @ulend
-@snapend
-
-@snap[south-west template-note text-gray]
-TODO: 英語字幕
 @snapend
 
 Note:
@@ -159,10 +141,6 @@ Event Storming について詳細を知りたい方は、考案者の Alberto Br
 新機能: キャラクターに武器を装備できるようにする
 @snapend
 
-@snap[south-west template-note text-gray]
-TODO: 英語字幕
-@snapend
-
 Note:
 
 最後にいま取り組むべき問題を決定します。
@@ -185,11 +163,6 @@ Note:
 余談
 - ソフトウェア開発はコミュニケーションによるゲームだ
 
-
-@snap[south-west template-note text-gray]
-TODO: 日本語字幕
-@snapend
-
 Note:
 
 ---
@@ -205,13 +178,6 @@ Note:
 
 - デザインパターン
 - アーキテクチャ的側面
-
-
-@snap[south-west template-note text-gray]
-TODO: 日本語字幕
-@snapend
-
-Note:
 
 ---
 
@@ -229,11 +195,6 @@ Note:
 - プラガブルなプロセス
     - 小さなイテレーション
 - 特定の技術に依存しない
-
-
-@snap[south-west template-note text-gray]
-TODO: 日本語字幕
-@snapend
 
 Note:
 

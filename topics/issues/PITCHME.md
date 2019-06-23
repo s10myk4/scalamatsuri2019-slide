@@ -1,22 +1,6 @@
 ## Issues
 
-開発に取り巻く課題と懸念
-
----
-
-@snap[north-west text-gray span-100]
-@size[1.5em](開発に取り巻く課題と懸念)
-@snapend
-
-* 仕様未定義があとから見つかる
-* 改修コスト増 -> リリース頻度低
-* チームのサイロ化
-* 信用できないドキュメント
-* 評判のアーキテクチャ
-
-@snap[south-west template-note text-gray]
-TODO: 英語字幕
-@snapend
+開発における課題
 
 Note:
 
@@ -25,14 +9,38 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](仕様未定義があとから見つかる)
+@size[1.5em](Common issues)
 @snapend
 
+* Found oversight
+* More maintenance cost, less release frequency
+* Organization silos
+* Code review cost
+* Untrusted documents
+* Much-talked-about architecture
+
+@snap[south-west template-note text-gray]
+There are some common issues with the software development process.
+@snapend
+
+Note:
+
+ここでは以下のようなテーマを挙げたいと思います。
+
+ひとつひとつ見ていきましょう。
+
+---
+
+@snap[north-west text-gray span-100]
+@size[1.5em](Found oversight)
+@snapend
+
+* 要求・要件の見落とし
 * すべてを見通すことは不可能
     * でも、今わかることは明らかにはしたい
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+You can not see everything from the very beginning.
 @snapend
 
 Note:
@@ -44,15 +52,15 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](改修コスト増 -> リリース頻度低)
+@size[1.5em](More maint. cost, less release FQ)
 @snapend
 
-TODO: 茹でガエルの絵?
-
+@snap[west]
 なかなか価値を届けられないもどかしさ
+@snapend
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+Things never do get cleaned up later and it causes more maintenance cost, less release frequency. 
 @snapend
 
 Note:
@@ -66,33 +74,61 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](チームのサイロ化)
+@size[1.5em](Organization silos)
 @snapend
 
-TODO: サイロの絵
+@snap[west span-80]
+@img[domain_events](assets/img/business_flow_crossing_silos.png)
+@snapend
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+Silos are inevitable; however, complex business flows are crossing the silos.
 @snapend
 
 Note:
 
-プロダクトが大きくなり関係者が多くなればなるほど、特定の問題に特化した集団、サイロが生まれます。これは避けられないことです。
+プロダクトが大きくなり関係者が多くなればなるほど、特定の問題に特化した集団、サイロが生まれます。これは避けられないことです。分業のために組織やチーム再編というのはよくあることだと思います。
 
-しかし、問題によってはサイロをまたがって、力をあわせて解決する必要があります。もしかしたらどのサイロにも属さない問題もどこかに潜んでいるかもしれません。
+しかし、解決したい問題によってはサイロをまたがって、力をあわせる必要があります。1 つのサイロだけ見ていると、知覚されない、どのサイロにも属さないような課題が潜んでいるかもしれません。
 
 各々のサイロに閉じた解決策では対処できない問題に対してはどう向き合えばいいのでしょうか。
 
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](信用できないドキュメント)
+@size[1.5em](Code review cost)
 @snapend
 
-TODO: ドキュメントを見て困惑している人の絵
+@snap[west snap-50]
+コードレビューで設計について議論し続けてしまう 
+@snapend
 
 @snap[south-west template-note text-gray]
-TODO: Untrusted documents
+TODO: english sub
+@snapend
+
+Note:
+
+コードレビューで設計ミスや漏れが検知されること、それ自体はよいことです。しかし、常にその検知がコードレビューのタイミングであることを期待するとチームが疲弊します。
+
+コードレビューで数十のコメントがつく/つけたといった経験はおありでしょうか? これはおうおうにして、設計についての認識齟齬が原因であることが経験上多いです。
+
+例えばその振る舞いはこのモデルのものではない、といったものです。お互いの認識が最初から違い、違うことが判明するのがコードレビューで初めてとなると、非常にコミュニケーションに消耗しますし、リリースが遠のきます。
+
+実装に入る前に、設計についてメンバー間で同期を取れる仕組みがほしいですね。
+
+---
+
+@snap[north-west text-gray span-100]
+@size[1.5em](Untrusted documents)
+@snapend
+
+@snap[west snap-50]
+@img[domain_events](assets/img/untrasuted_documents.png)
+@snapend
+
+@snap[south-west template-note text-gray]
+Documents are not always up to date and continuous updating them is a hard thing. 
 @snapend
 
 Note:
@@ -106,19 +142,19 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](評判のアーキテクチャ)
+@size[1.5em](Much-talked-about architecture)
 @snapend
 
 そのアーキテクチャ、フィットしていますか?
 
 @snap[south-west template-note text-gray]
-TODO: 英語字幕
+Is the architecture for you?
 @snapend
 
 Note:
 
-アーキテクチャの議論はつきないものです。しかしともすれば、ちまたでは優れたとされているアーキテクチャが、いついかなる状況に対してもフィットするかはわかりません。
+アーキテクチャの議論はつきないものです。しかし、ちまたでは優れているとされるアーキテクチャがいついかなる状況に対してもフィットするかはわかりません。
 
 > もちろん興味であったり今後のための実験として、あえてオーバーエンジニアリングしてみることは否定しません。
 
-納得感をもってアーキテクチャの検討をするために下準備がいることでしょう。
+納得感をもってアーキテクチャを決定するにはそれなりの根拠と下準備がいることでしょう。

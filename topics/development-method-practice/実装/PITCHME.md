@@ -1,68 +1,176 @@
-### 実装
+@snap[north-west text-gray span-100]
+@size[1.5em](Implementation)
+@snapend
+
+@snap[west]
+![development-flow](assets/img/development-flow-focus5.png)
+@snapend
 
 Note:
-ここでは、主に設計フェーズによって具体化した仕様やモデルを使って実装をしていきます
+参考程度に、実装例を紹介します
 
 ---
+@snap[north-west text-gray span-100]
+@size[1.5em](Implement Domain)
+@snapend
 
-TODO
-### アーキテクチャとは？
+```scala
+sealed abstract case class Warrior(...) {
 
-Note:
-あなたはアーキテクチャに対してどのようなことを期待していますか？
-
-### アーキテクチャの役割
-https://speakerdeck.com/jooohn/introduction-to-clean-architecture?slide=30
-
-### 分析した概念をそのままソフトウェアに表現する
-- ソフトウェア上のオブジェクトは開発者が創造したものではない
-- ビジネスや要件の変更に対して、強い設計
-
-### 単方向な依存関係によりプラガブルな設計
-↑ TODO ここ重点的に話したい
-### 問題の本質はドメインに、要件の詳細はユースケースに
-- ユースケースという構造が持つ意味
-    - 機能を実現するための知識を隠蔽する
-    - 機能要求(正常、異常)を満たすことを検証
+  def equip(weapon: Weapon): ValidatedNel[WarriorError, Warrior] = {
+    (isNotSameAttribute(weapon), isNotOverLevel(weapon))
+      .mapN((_, _) => new Warrior(id, name, attribute, Some(weapon), level) {})
+  }
+  
+  private def isNotSameAttribute(weapon: Weapon): ValidatedNel[WarriorError, Weapon] =
+    if (attribute == weapon.attribute) weapon.validNel 
+    else DifferentAttributeError.invalidNel
     
+  private def isNotOverLevel(weapon: Weapon): ValidatedNel[WarriorError, Weapon] =
+    if (level.value >= weapon.levelConditionOfEquipment) weapon.validNel 
+    else NotOverLevelError.invalidNel
+}
+```
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](Implement Use Case)
+@snapend
+
+```scala
+final class EquipWeaponToWarrior[F[_]: Monad](
+  repository: WarriorRepository[F]
+) {
+
+  def exec(warrior: Warrior, newWeapon: Weapon):
+      ContT[F, UseCaseResult, UseCaseResult] =
+    
+    UseCaseCont { f =>
+      warrior.equip(newWeapon) match {
+        case Valid(w)     => repository.update(w).flatMap(_ => f(NormalCase))
+        case Invalid(err) => Monad[F].point(err.toUseCaseResult)
+      }
+    }
+}
+```
+
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](Why use Continuation Monad?)
+@snapend
+
+- 後続の処理を関数として取り、自分の処理結果によって後続の処理を継続して行うかをハンドリングする事ができる
+TODO
+継続とEitherではどのような点が違う？
+
 Note:
-詳細設計によって具体化した仕様を実装してみたいところですが、
-土台となるアーキテクチャについて触れる必要があるでしょう
-
-先進的なアーキテクチャは一見多くのことを解決してくれるように感じますが、本当にそうなのでしょうか？
-アーキテクチャが解決する問題の本質について少し考えてみたいと思います
-
 
 ---
+@snap[north-west text-gray span-100]
+@size[1.5em](Implement Controller)
+@snapend
 
-### クリーンアーキテクチャを採用し、設計の結果を実装
+```scala
+final class WarriorController(...) extends ... {
 
-- 理由
-ユースケースの概念をソフトウェアに表現する
-依存性の逆転を利用して、固有の実装への依存をプラガブルバーツとしてに外部に置く
+  def equipWeapon(id: Long): EssentialAction = Action.async { implicit r =>
+    val composedCont: ContT[IO, UseCaseResult, UseCaseResult] = for {
+      form <- EquipWeaponForm.apply.bindCont[IO]
+      (warriorId, weapon) = (WarriorId(id), form.weapon)
+      warrior <- findWarrior.exec(warriorId)
+      result <- warriorEquippedNewWeapon.exec(warrior, weapon)
+    } yield result
+
+    composedCont
+      .run(Applicative[IO].pure)
+      .map(presenter.present)
+      .toFuture
+  }
+}
+```
+---
+@snap[north-west text-gray span-100]
+@size[1.3em](Avoid Fat Controller)
+@snapend
+
+@snap[west snap-20]
+<img src="assets/img/fat-controller.png" width="50%"/>
+@snapend
+
+@snap[midpoint snap-80]
+#### コントローラーの責務
+
+@ul[](false)
+- 入力の受け付け
+- ユースケース実行
+- 結果を返す 
+@ulend
+@snapend
+
+Note:
+TODO
+
+コントローラーの責務は、入力を受け付けて、要求を実現するためのユースケースを呼び出し結果を返すが責務です
+コントローラーにドメインロジックなどが漏れると、テスタビリティが低下し改修コストが高くなりますよね
+ユースケースの概念を用いることで、コントローラからロジックを排除します
 
 ---
-### 重要な観点
+@snap[north-west text-gray span-100]
+@size[1.5em](Implement Use Case Test)
+@snapend
 
-重要な点は、クリーンアーキテクチャを使うためにユースケースを表現するのではなく、
-分析したユースケースの知識をソフトウェアに落とし込むために、クリーンアーキテクチャを利用する点です
+### Normal Case
+```scala
+it should "正常系" in {
+  val warrior = (for {
+    name  <- WarriorName.of("せんしくん").toOption
+    level <- WarriorLevel.of(40).toOption
+  } yield {
+    Warrior.createWithoutWeapon(WarriorId(1L), name, LightAttribute, level)
+  }).get
 
----
-
-### ドメインモデルの振る舞いを実装
-
-### ユースケースを実装
-
-### コントローラを実装
-
----
-
-### 実装レビュー
-
-要件定義のフェーズごとにレビューをしているので、実装後のレビューでの観点は、実装的な観点に閉じている
-- 要件やモデリングに対する指摘が発生することを極めて抑えられる
+  assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === NormalCase)
+}
+```
 
 ---
+@snap[north-west text-gray span-100]
+@size[1.5em](Implement Use Case Test)
+@snapend
 
+### Abnormal Case
+```scala
+it should "異常系: 戦士のレベルが選択した武器のレベル条件を満たしていない場合" in {
+  val warrior = (for {
+    name  <- WarriorName.of("せんしくん").toOption
+    level <- WarriorLevel.of(29).toOption
+  } yield {
+    Warrior.createWithoutWeapon(WarriorId(1L), name, LightAttribute, level)
+  }).get
+
+  assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === 
+    NotOverLevel)
+}
+```
+
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](Implement Use Case Test)
+@snapend
+
+### Abnormal Case
+```scala
+it should "異常系: 戦士の属性と選択した武器の属性が異なる場合" in {
+  ...
+  assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === 
+    DifferentAttribute)
+}
+
+it should """異常系: 戦士のレベルが選択した武器のレベル条件を満たしていない、かつ、
+             戦士の属性と選択した武器の属性が異なる場合""" in {
+  ...
+  assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) ===
+    DifferentAttributeAndNotOverLevel)
+}
+```
 
 

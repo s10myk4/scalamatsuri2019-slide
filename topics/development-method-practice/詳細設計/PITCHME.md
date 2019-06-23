@@ -48,56 +48,10 @@ Note:
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](Define Warrior Level)
-@snapend
-
-```scala
-import cats.data.ValidatedNel
-import cats.syntax.validated._
-
-sealed abstract case class WarriorLevel(value: Int)
-
-object WarriorLevel {
-
-  def of(value: Int): ValidatedNel[WarriorLevelError, WarriorLevel] = ???
-
-  final case class WarriorLevelError(value: Int) extends WarriorError {
-    val cause = s"$value is a invalid warrior level"
-  }
-  
-}
-```
-
----
-@snap[north-west text-gray span-100]
-@size[1.5em](Define Warrior Name)
-@snapend
-
-```scala
-import cats.data.ValidatedNel
-import cats.syntax.validated._
-
-sealed abstract case class WarriorName(value: String)
-
-object WarriorName {
-
-  def of(value: String): ValidatedNel[WarriorError, WarriorName] = ???
-
-  final case class WarriorNameLengthError(length: Int) extends WarriorError {
-    val cause = s"$length is a invalid warrior name size"
-  }
-
-}
-```
-
----
-@snap[north-west text-gray span-100]
 @size[1.5em](Define Weapon)
 @snapend
 
 ```scala
-import enumeratum._
-
 sealed trait Weapon extends EnumEntry {
   val name: String
   val offensivePower: Int
@@ -138,8 +92,6 @@ object Weapon extends Enum[Weapon] {
 @snapend
 
 ```scala
-import enumeratum._
-
 sealed trait Attribute extends EnumEntry
 
 object Attribute extends Enum[Attribute] {
@@ -180,17 +132,6 @@ object Warrior {
   object NotOverLevelError extends WarriorError
 }
 ```
----
-@snap[north-west text-gray span-100]
-@size[1.5em](Define Warrior Repository)
-@snapend
-
-```scala
-trait WarriorRepository[F[_]] {
-  def update(warrior: Warrior): F[Unit]
-  def resolveBy(id: WarriorId): F[Option[Warrior]]
-}
-```
 
 ---
 @snap[north-west text-gray span-100]
@@ -228,10 +169,6 @@ final class EquipWeaponToWarrior[F[_]] {
 ```scala
 object EquipWeaponToWarrior {
 
-  final case class EquipWeaponToWarriorInput(
-      weapon: Weapon
-  )
-
   object DifferentAttributeAndNotOverLevel extends AbnormalCase {
     val cause: String = s"${DifferentAttribute.cause} 且つ ${NotOverLevel.cause}"
   }
@@ -243,14 +180,15 @@ object EquipWeaponToWarrior {
   object NotOverLevel extends AbnormalCase {
     val cause: String = "戦士が武器のレベル条件を満たしていないので装備できません"
   }
-
 }
 ```
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](Test Cases)
+@size[1.5em](Write Test Cases)
 @snapend
+
+- テストケース = 正常系 + 異常系の数
 
 ``` scala
 behavior of "戦士に武器を装備できる"
@@ -269,6 +207,8 @@ it should
 ```
 
 Note:
+ユースケースの単体テストでユースケースが正常系と異常系の要件を満たすことを期待します。
+詳細設計の段階でテストケースを記述することで、実装者に依存せずに実装が要件を満たすことを担保します。
 
 ---
 @snap[north-west text-gray span-100]
@@ -315,8 +255,11 @@ TODO 仮書き
 
 @ul[west]
 - ビジネスロジックや要求の変更に対して柔軟な設計 
+    - 凝集性の高いコンポーネント
     - 改修による変更対応箇所を局所化
-- ユースケースが要件の変更を追従する
+    
+- ユースケースが要件の変更を追従し要件を示す
+
 - ソフトウェア上のオブジェクトは開発者が創造したものではない
     - ユビキタス言語
 @ulend
@@ -328,7 +271,7 @@ Note:
 前のスライドで話したように
 業務ルールの変化によるソフトウェアの変更箇所は対象のドメインモデルとユースケースに閉じ、
 要件の変更に対するソフトウェアの変更箇所は対象のユースケースに閉じることで、改修による変更対応箇所を局所化されることで
-ビジネスルールや要件の変更に対して柔軟な設計を実現できます
+凝集性の高いコンポーネントを実現し、ビジネスルールや要件の変更に対して柔軟な設計を実現できます
 
 要件の変更に対しても、ユースケースの知識として表現されているのでトラックすることを実現します
 前段でとりあげた信用できないドキュメントに惑わされることもなくなるかなと思います
@@ -341,26 +284,6 @@ Note:
 それをコード上に表現することで、実装での表現の乖離を防ぎ概念的な理解を促します
 つまりそれが、ユビキタス言語なんですね
 ソフトウェア上にオブジェクトとして定義されるものは開発者が創造したものではないのです
-
----
-@snap[north-west text-gray span-100]
-@size[1.3em](What Do Domain & Use Case Express?)
-@snapend
-
-@ul[west](false)
-- 凝集性の高いコンポーネント
-- Single Source of Truth
-@ulend
-
-@snap[south-west template-note text-gray]
-Issue: Untrusted documents
-@snapend
-
-Note:
-Issuesのところで話した、ドキュメントの課題の話に戻りますが、
-
-要件変更や改修のたびに頑張って、ユースケース記述のドキュメントを更新してたがやはり大変だった
-コードは常に実際の要件に追従する
 
 ---
 @snap[north-west text-gray span-100]

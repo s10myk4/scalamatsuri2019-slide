@@ -21,7 +21,7 @@ sealed abstract case class Warrior(
     attribute: Attribute,
     weapon: Option[Weapon],
     level: WarriorLevel
-) extends {
+) {
 
   import Warrior._
 
@@ -46,18 +46,12 @@ sealed abstract case class Warrior(
 @snapend
 
 ```scala
-package object cont {
-  type UseCaseCont[F[_], A] = ContT[F, UseCaseResult, A]
-}
-```
-```scala
 final class EquipWeaponToWarrior[F[_]: Monad](
     repository: WarriorRepository[F]
 ) {
-
   import EquipWeaponToWarrior._
 
-  def exec(warrior: Warrior, newWeapon: Weapon): UseCaseCont[F, UseCaseResult] =
+  def exec(warrior: Warrior, newWeapon: Weapon): ContT[F, UseCaseResult, UseCaseResult] =
     UseCaseCont { f =>
       warrior.equip(newWeapon) match {
         case Valid(w)     => repository.update(w).flatMap(_ => f(NormalCase))
@@ -65,7 +59,33 @@ final class EquipWeaponToWarrior[F[_]: Monad](
       }
     }
 }
+
+object EquipWeaponToWarrior {
+
+  implicit def toUseCaseResult(domainErrors: NonEmptyList[WarriorError]): AbnormalCase = {
+    val errors = domainErrors.toList.toSet
+    errors match {
+      case _ if errors == Set(DifferentAttributeError, NotOverLevelError) => DifferentAttributeAndNotOverLevel
+      case _ if errors == Set(DifferentAttributeError)                    => DifferentAttribute
+      case _ if errors == Set(NotOverLevelError)                          => NotOverLevel
+      case _                                                              => NotConsideredDomainError
+    }
+  }
+  
+  ...
+}
 ```
+
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](Why use Continuation Monad?)
+@snapend
+
+- 後続の処理を関数として取り、自分の処理結果によって後続の処理を継続して行うかをハンドリングする事ができる
+TODO
+継続とEitherではどのような点が違う？
+
+Note:
 
 ---
 @snap[north-west text-gray span-100]
@@ -98,54 +118,19 @@ final class WarriorController(
   
 }
 ```
-
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](Implement Controller)
+@size[1.3em](Avoid Fat Controller)
 @snapend
 
-```scala
-private[http] trait FormHelper {
+図: Fat Controllerのサンプル
 
-  implicit class FormSyntax[A](form: Form[A]) {
-    def bindCont[F[_]: Applicative](implicit req: Request[AnyContent]): UseCaseCont[F, A] =
-      ContT(
-        f =>
-          form.bindFromRequest.fold[F[UseCaseResult]](
-            error => Applicative[F].pure(
-              InvalidInputParameters(errors = convertFormErrorsToMap(error.errors))),
-            a => f(a)
-          )
-      )
-  }
+Note:
+TODO
 
-  private def convertFormErrorsToMap(errors: Seq[FormError]): Map[String, String] = 
-    errors.map(e => e.key -> e.message).toMap
-    
-}
-```
----
-@snap[north-west text-gray span-100]
-@size[1.5em](Implement Controller)
-@snapend
-
-```scala
-private[http] trait ActionSupport {
-
-  def ec: ExecutionContext
-
-  implicit class IOSyntax[A](io: IO[A]) {
-    def toFuture: Future[A] = Future(io.unsafeRunSync())(ec)
-  }
-
-}
-```
-
----
-@snap[north-west text-gray span-100]
-@size[1.5em](Implement Domain Test)
-@snapend
-
+コントローラーの責務は、入力を受け付けて、要求を実現するためのユースケースを呼び出し結果を返すが責務です
+コントローラーにドメインロジックなどが漏れると、テスタビリティが低下し改修コストが高くなりますよね
+ユースケースの概念を用いることで、コントローラからロジックを排除します
 
 ---
 @snap[north-west text-gray span-100]
@@ -213,20 +198,6 @@ it should "異常系: 戦士のレベルが選択した武器のレベル条件�
   )
 }
 ```
-
----
-@snap[north-west text-gray span-100]
-@size[1.3em](Avoid Fat Controller)
-@snapend
-
-図: Fat Controllerのサンプル
-
-Note:
-TODO
-
-コントローラーの責務は、入力を受け付けて、要求を実現するためのユースケースを呼び出し結果を返すが責務です
-コントローラーにドメインロジックなどが漏れると、テスタビリティが低下し改修コストが高くなりますよね
-ユースケースの概念を用いることで、コントローラからロジックを排除します
 
 ---
 @snap[north-west text-gray span-100]

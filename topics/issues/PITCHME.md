@@ -17,7 +17,6 @@ Note:
 * Organization silos
 * Code review cost
 * Untrusted documents
-* Much-talked-about architecture
 
 @snap[south-west template-note text-gray]
 There are some common issues with the software development process.

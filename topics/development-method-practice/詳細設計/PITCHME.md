@@ -15,6 +15,8 @@
 * 外部との接合部(アダプター)の実装方針を決める
 
 @snap[south-west template-note text-gray]
+Express use cases & domain models as Code.  
+Consider the implementation policy of adapters.
 @snapend
 
 Note:
@@ -41,6 +43,7 @@ Note:
 @ulend
 
 @snap[south-west template-note text-gray]
+Outputs in this phase is defined domain models, use cases, test cases and adapter IF as Code.
 @snapend
 
 Note:
@@ -188,8 +191,6 @@ object EquipWeaponToWarrior {
 @size[1.5em](Write Test Cases)
 @snapend
 
-- テストケース = 正常系 + 異常系の数
-
 ``` scala
 behavior of "戦士に武器を装備できる"
 
@@ -263,6 +264,10 @@ TODO 仮書き
 - ソフトウェア上のオブジェクトは開発者が創造したものではない
     - ユビキタス言語
 @ulend
+
+@snap[south-west template-note text-gray]
+Enable flexible design to requirements and business logic changes.
+@snapend
 
 Note:
 要求の分析によって抽出された概念をそのままソフトウェアの実装に表現することで、どのような利点があるのでしょうか？

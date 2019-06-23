@@ -140,21 +140,15 @@ Note:
 しかし、ドキュメントが更新されるかどうかは人次第です。いつもマメに更新してくれるあのメンバも、常にそうとは限りません。
 
 ---
-
 @snap[north-west text-gray span-100]
-@size[1.5em](Much-talked-about architecture)
+@size[1.5em](What you can get from this session)
 @snapend
 
-そのアーキテクチャ、フィットしていますか?
+@ul[](true)
+- プロダクトの探求
 
-@snap[south-west template-note text-gray]
-Is the architecture for you?
-@snapend
-
-Note:
-
-アーキテクチャの議論はつきないものです。しかし、ちまたでは優れているとされるアーキテクチャがいついかなる状況に対してもフィットするかはわかりません。
-
-> もちろん興味であったり今後のための実験として、あえてオーバーエンジニアリングしてみることは否定しません。
-
-納得感をもってアーキテクチャを決定するにはそれなりの根拠と下準備がいることでしょう。
+- 設計手法
+    - 要求/ドメインの分析
+    - ドメインモデルの抽出
+    - 凝集度の高いコンポーネント設計
+@ulend

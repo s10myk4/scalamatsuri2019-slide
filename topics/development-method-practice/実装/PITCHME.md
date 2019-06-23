@@ -15,29 +15,20 @@ Note:
 @snapend
 
 ```scala
-sealed abstract case class Warrior(
-    id: WarriorId,
-    name: WarriorName,
-    attribute: Attribute,
-    weapon: Option[Weapon],
-    level: WarriorLevel
-) {
-
-  import Warrior._
+sealed abstract case class Warrior(...) {
 
   def equip(weapon: Weapon): ValidatedNel[WarriorError, Warrior] = {
     (isNotSameAttribute(weapon), isNotOverLevel(weapon))
       .mapN((_, _) => new Warrior(id, name, attribute, Some(weapon), level) {})
   }
-
+  
   private def isNotSameAttribute(weapon: Weapon): ValidatedNel[WarriorError, Weapon] =
     if (attribute == weapon.attribute) weapon.validNel 
     else DifferentAttributeError.invalidNel
-
+    
   private def isNotOverLevel(weapon: Weapon): ValidatedNel[WarriorError, Weapon] =
     if (level.value >= weapon.levelConditionOfEquipment) weapon.validNel 
     else NotOverLevelError.invalidNel
-
 }
 ```
 ---
@@ -47,32 +38,18 @@ sealed abstract case class Warrior(
 
 ```scala
 final class EquipWeaponToWarrior[F[_]: Monad](
-    repository: WarriorRepository[F]
+  repository: WarriorRepository[F]
 ) {
-  import EquipWeaponToWarrior._
 
-  def exec(warrior: Warrior, newWeapon: Weapon): ContT[F, UseCaseResult, UseCaseResult] =
+  def exec(warrior: Warrior, newWeapon: Weapon):
+      ContT[F, UseCaseResult, UseCaseResult] =
+    
     UseCaseCont { f =>
       warrior.equip(newWeapon) match {
         case Valid(w)     => repository.update(w).flatMap(_ => f(NormalCase))
-        case Invalid(err) => Monad[F].point(err)
+        case Invalid(err) => Monad[F].point(err.toUseCaseResult)
       }
     }
-}
-
-object EquipWeaponToWarrior {
-
-  implicit def toUseCaseResult(domainErrors: NonEmptyList[WarriorError]): AbnormalCase = {
-    val errors = domainErrors.toList.toSet
-    errors match {
-      case _ if errors == Set(DifferentAttributeError, NotOverLevelError) => DifferentAttributeAndNotOverLevel
-      case _ if errors == Set(DifferentAttributeError)                    => DifferentAttribute
-      case _ if errors == Set(NotOverLevelError)                          => NotOverLevel
-      case _                                                              => NotConsideredDomainError
-    }
-  }
-  
-  ...
 }
 ```
 
@@ -93,14 +70,7 @@ Note:
 @snapend
 
 ```scala
-final class WarriorController(
-    cc: ControllerComponents,
-    findWarrior: FindWarrior[IO],
-    warriorEquippedNewWeapon: EquipWeaponToWarrior[IO],
-    presenter: Presenter[UseCaseResult, Result],
-    val ec: ExecutionContext
-) extends AbstractController(cc)
-    with FormHelper with ActionSupport {
+final class WarriorController(...) extends ... {
 
   def equipWeapon(id: Long): EssentialAction = Action.async { implicit r =>
     val composedCont: ContT[IO, UseCaseResult, UseCaseResult] = for {
@@ -115,7 +85,6 @@ final class WarriorController(
       .map(presenter.present)
       .toFuture
   }
-  
 }
 ```
 ---
@@ -166,36 +135,29 @@ it should "異常系: 戦士のレベルが選択した武器のレベル条件�
     Warrior.createWithoutWeapon(WarriorId(1L), name, LightAttribute, level)
   }).get
 
-  assert(
-    useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === NotOverLevel
-  )
+  assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === 
+    NotOverLevel)
 }
+```
 
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](Implement Use Case Test)
+@snapend
+
+### Abnormal Case
+```scala
 it should "異常系: 戦士の属性と選択した武器の属性が異なる場合" in {
-  val warrior = (for {
-    name  <- WarriorName.of("せんしくん").toOption
-    level <- WarriorLevel.of(40).toOption
-  } yield {
-    Warrior.createWithoutWeapon(WarriorId(1L), name, DarkAttribute, level)
-  }).get
-
-  assert(
-    useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === DifferentAttribute
-  )
+  ...
+  assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === 
+    DifferentAttribute)
 }
 
-it should "異常系: 戦士のレベルが選択した武器のレベル条件を満たしていない、かつ、戦士の属性と選択した武器の属性が異なる場合" in {
-  val warrior = (for {
-    name  <- WarriorName.of("せんしくん").toOption
-    level <- WarriorLevel.of(29).toOption
-  } yield {
-    Warrior.createWithoutWeapon(WarriorId(1L), name, DarkAttribute, level)
-  }).get
-
-  assert(
-    useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) ===
-      DifferentAttributeAndNotOverLevel
-  )
+it should """異常系: 戦士のレベルが選択した武器のレベル条件を満たしていない、かつ、
+             戦士の属性と選択した武器の属性が異なる場合""" in {
+  ...
+  assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) ===
+    DifferentAttributeAndNotOverLevel)
 }
 ```
 

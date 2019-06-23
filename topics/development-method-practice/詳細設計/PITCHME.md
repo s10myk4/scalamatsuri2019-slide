@@ -68,8 +68,6 @@ sealed trait Weapon extends EnumEntry {
 ```scala
 object Weapon extends Enum[Weapon] {
 
-  val values = findValues
-
   case object GoldSword extends Weapon {
     val name: String = "gold sword"
     val offensivePower: Int = 44
@@ -112,8 +110,6 @@ object Attribute extends Enum[Attribute] {
 @snapend
 
 ```scala
-trait WarriorError extends DomainError
-
 final case class WarriorId(value: Long)
 
 sealed abstract case class Warrior(
@@ -125,8 +121,12 @@ sealed abstract case class Warrior(
 ) {
   def equip(weapon: Weapon): ValidatedNel[WarriorError, Warrior] = ???
 }
+```
 
+```scala
 object Warrior {
+  sealed trait WarriorError extends DomainError
+  
   object DifferentAttributeError extends WarriorError
 
   object NotOverLevelError extends WarriorError

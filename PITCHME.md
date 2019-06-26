@@ -9,6 +9,8 @@ Yoshimasa Tanabe
 
 ---?include=topics/who-are-we/PITCHME.md
 
+---?include=topics/issues&goals/PITCHME.md
+
 <!-- 理想とする開発チームの状態とは？ -->
 ---?include=topics/goals/PITCHME.md
 

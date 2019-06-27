@@ -17,14 +17,11 @@ Yoshimasa Tanabe
 <!-- 開発に取り巻く課題と懸念 -->
 <!-- ---?include=topics/issues/PITCHME.md -->
 
-<!-- 開発フローについて -->
----?include=topics/development-flow-overview/introduction/PITCHME.md
-
 <!-- お題 -->
 ---?include=topics/development-method-practice/clean-quest/PITCHME.md
 
 <!-- 要求の整理 -->
----?include=topics/development-method-practice/ビジネス背景の理解と要求の整理/PITCHME.md
+<!-- ---?include=topics/development-method-practice/ビジネス背景の理解と要求の整理/PITCHME.md -->
 
 <!-- 要求分析 -->
 ---?include=topics/development-method-practice/要求/PITCHME.md

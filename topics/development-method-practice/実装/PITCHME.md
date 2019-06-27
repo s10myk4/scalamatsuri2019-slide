@@ -59,8 +59,6 @@ final class EquipWeaponToWarrior[F[_]: Monad](
 @snapend
 
 - 後続の処理を関数として取り、自分の処理結果によって後続の処理を継続して行うかをハンドリングする事ができる
-TODO
-継続とEitherではどのような点が違う？
 
 Note:
 

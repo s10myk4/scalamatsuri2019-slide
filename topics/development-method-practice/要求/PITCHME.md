@@ -32,12 +32,6 @@ What we think of when implementing features
 
 Note:
 
-本題に入る前にいったん私達が考えていることを振り返ってみましょう。
-
-ステークホルダーからの要求を実現する際に、どのようなことを考えますか?
-
-たとえば、その機能が実現したいことはなんだろうか? ユーザーはどのようにその機能を利用するのか? どのように作ろうか...といったことに考えを巡らすと思います。
-
 ---
 @snap[north-west text-gray span-100]
 @size[1.5em](Requirements Analysis)
@@ -47,9 +41,9 @@ Note:
 #### どのように実現するかを概念レベルで整理する
 
 @ul[](false)
-- 要求について共通理解を得る
-- 機能要求の全体像を把握する
-- 要件: 制約や条件
+- 要求の全体像を知る
+- システムの振る舞い/対話を明らかに
+- 要件や業務の制約を具体化
 @ulend
 
 @snapend
@@ -59,15 +53,6 @@ Sort out at the conceptual level how to realize
 @snapend
 
 Note:
-
-前フェーズで要求を導き出しました。
-
-戦士が武器を装備できるという要求を実現するにあったって、どのようなことを理解しておく必要があるでしょうか?
-
-要求を実現するために、どのような制約や条件が存在するのか、 つまり `要件` を分析によって明らかにしていきます。
-
-このフェーズではその要求に対して分析を行い、振る舞いと制約を定義します。
-要求を正しく理解していないと要件が定まりません。
 
 ---
 
@@ -152,8 +137,9 @@ SVO も明確に記述することで、要件に対する認識の齟齬を減�
 @snap[west]
 @ul[](false)
 - ユースケース記述によって;
-    - ユーザーとシステムの対話が明確になる
-    - 明確になるにつれ、詳細の考慮が具体化する
+    - システムの振る舞い/対話を明らかに
+    - 要件や業務の制約を具体化
+    - 雨の日コース
 @ulend
 <hr/>
 
@@ -242,7 +228,7 @@ Note:
 
 @snap[east span-66]
 @ul[]()
-ユーザーは、@color[Red](戦士一覧画面)から武器を装備したい@color[Red](戦士)を選択する
+ユーザーは、@color[Red](戦士一覧画面)から@color[Red](武器)を装備したい@color[Red](戦士)を選択する
 @ulend
 @snapend
 
@@ -286,7 +272,7 @@ Note:
 @snap[east span-67]
 @ul[]()
 - システムは、@color[Red](武器一覧)を取得し、@color[Red](武器一覧画面)を表示する
-- ユーザーは、戦士に装備したい@color[Red](武器)を一覧から選択して、@color[Red](決定ボタン)をタップする
+- ユーザーは、@color[Red](戦士)に装備したい@color[Red](武器)を一覧から選択して、決定ボタンをタップする
 @ulend
 @snapend
 
@@ -300,13 +286,13 @@ Note:
 @size[1.5em](First Draft Use Case Descriptions)
 @snapend
 
-@ul[mylist]()
+@ul[mylist](true)
 - ユーザーは、@color[Red](戦士一覧画面)から武器を装備したい@color[Red](戦士)を選択する
 - システムは、@color[Red](戦士詳細画面)を表示する
 - ユーザーは、@color[Red](装備ボタン)をタップする
 - システムは、@color[Red](武器一覧)を取得し、@color[Red](武器一覧画面)を表示する
-- ユーザーは、戦士に装備したい@color[Red](武器)を一覧から選択して、@color[Red](決定ボタン)をタップする
-- システムは、選択した武器を@color[Red](装備)した@color[Red](戦士)を作成する
+- ユーザーは、@color[Red](戦士)に装備したい@color[Red](武器)を一覧から選択して、決定ボタンをタップする
+- システムは、選択した@color[Red](武器)を@color[Red](装備)した@color[Red](戦士)を作成する
 - システムは、"武器を装備しました"というメッセージを@color[Red](戦士詳細画面)に表示する
 @ulend
 
@@ -330,8 +316,13 @@ TODO:
 @ul[](false)
 - 戦士
 - 武器
-- 装備
 @ulend
+@snapend
+
+
+@snap[south-west template-note text-gray]
+Warrior  
+Weapon
 @snapend
 
 Note:
@@ -350,16 +341,18 @@ Note:
 #### 戦士はどんな武器でも装備できるんですか？
 @snapend
 
+@snap[south-west template-note text-gray]
+Can warriors equip every weapon?
+@snapend
+
 Note:
 
 ユースケース記述を記述しているうちに、1 つ疑問がわきました。戦士はどんな武器でも装備できてしまうんでしょうか? PO と相談してみましょう。
 
 ---
-
 @snap[north-west text-gray span-100]
 @size[1.5em](Can warriors equip every weapon?)
 @snapend
-
 
 @snap[west span-33]
 @img[domain_events](assets/img/warrior-detail-page_02.png)
@@ -390,11 +383,16 @@ PO からはこのような返答がありました。
 ``` diff
 戦士
 武器
-装備
 +装備する条件
 +レベル
 +属性
 ```
+
+@snap[south-west template-note text-gray]
++ equipment condition  
++ level  
++ attribute  
+@snapend
 
 Note:
 
@@ -465,11 +463,11 @@ Note:
 #### Abnormal Cases 
 
 @ul[mylist](false)
-- 戦士のレベルが選択した武器のレベル条件を満たしていない場合<br/>システムは、`戦士が武器のレベル条件を満たしていないので装備できません`と戦士詳細画面に表示する
+- @color[Red](戦士のレベルが選択した武器のレベル条件を満たしていない場合)<br/>システムは、`戦士が武器のレベル条件を満たしていないので装備できません`と戦士詳細画面に表示する
 
-- 戦士の属性と選択した武器の属性が異なる場合<br/>システムは、`戦士と武器の属性が異なるため装備できません` と戦士詳細画面に表示する
+- @color[Red](戦士の属性と選択した武器の属性が異なる場合)<br/>システムは、`戦士と武器の属性が異なるため装備できません` と戦士詳細画面に表示する
 
-- 戦士のレベルも属性も異なる場合<br/>システムは、`戦士が武器のレベル条件を満たしていないので装備できません 且つ 戦士と武器の属性が異なるため装備できません` と戦士詳細画面に表示する
+- @color[Red](戦士のレベルも属性も異なる場合)<br/>システムは、`戦士が武器のレベル条件を満たしていないので装備できません 且つ 戦士と武器の属性が異なるため装備できません` と戦士詳細画面に表示する
 @ulend
 @snapend
 
@@ -484,10 +482,11 @@ Note:
 
 @snap[west]
 @ul[](false)
-- 叙述的な記述
+- 叙述的な記述(~する)
 - SVOの文法を意識する
+- 雨の日コースを忘れない
 - 詳細の技術に関する概念を用いない
-    - e.g. Database, HTTP
+    - e.g. DB, HTTP, JSON
 @ulend
 @snapend
 

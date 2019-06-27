@@ -4,12 +4,19 @@
 @size[1.5em](Common issues)
 @snapend
 
+@snap[west span-50]
+@img[focus_problem](assets/img/deadline.png)
+@snapend
+
+@ul[east span-45](false)
 - 負債が積もる
-    - 緊急で重要なモノが常に優先され、負債は積もる
-    
+    - 緊急で重要なモノが常に優先
 - 改修やリリースのコストが逓増
+@ulend
 
 @snap[south-west template-note text-gray]
+- Debt accumulates.  
+- Increase the cost of repair and release. 
 @snapend
 
 Note:
@@ -24,24 +31,25 @@ Note:
 TODO
 
 ---
-## 課題を掘り下げる
+## Delve into the issues
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](既存仕様の把握)
+@size[1.5em](Understanding of Existing Spes.)
 @snapend
 
 @ul[west]()
 * 既存の仕様を読み解くのに思ったより時間がかかる
-    * 自分が書いたコードより他の人が書いたコードを読んで既存仕様を拾ったりする方が多い
-    * 影響範囲が曖昧な場合、関係がないことを手当たり次第に確認する必要がある(考古学)
+* 自分が書いたコードより他の人が書いたコードを読んで既存仕様を拾ったりする方が多い
+* 影響範囲が曖昧な場合、関係がないことを手当たり次第に確認する必要がある
 @ulend
 
 Note:
+既存仕様の把握
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](コードレビュー)
+@size[1.5em](Code Review)
 @snapend
 
 @ul[west]()
@@ -53,20 +61,24 @@ Note:
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](モデリング/設計)
+@size[1.5em](Modeling & Design)
 @snapend
 
 @ul[west]()
-* 個人の要件定義などのスキルに依存して、要件の漏れによるバグ
+* 個人の要件定義などのスキル依存
+* 要件の漏れ、未定義によるバグ
 * 属人的なモデリング
-* エンジニアが創造したモデルの氾
 @ulend
 
 Note:
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](プロダクト開発を取り巻く課題)
+@size[1.5em](Issues surrounding Development)
+@snapend
+
+@snap[
+@img[Oooops](assets/img/stress-man.jpg)
 @snapend
 
 Note:
@@ -81,86 +93,83 @@ Note:
 個々の手法などの話をしていきます
 
 ---
-
-### 流行りのアーキテクチャは全てを解決してくれるのか？
-
----
 @snap[north-west text-gray span-100]
-@size[1.5em](設計・アーキテクチャの目的とは？)
-@snapend
-
-@ul[west]()
-* 求められるシステムを構築・保守するために必要な人材を最小限に抑えることである
-@ulend
-
-@snap[south-east template-note]
-@box[text-white rounded bg-orange box-padding text-05](Source: [Clean Architecture 達人に学ぶソフトウェアの構造と設計](https://www.kadokawa.co.jp/product/301806000678/))
-@snapend
-
-Note:
-
-今回このセッションでは、要件定義や設計、アーキテクチャなどプロダクト開発の広範な部分について扱って行きますが、
-まずは多くの部分で重要な観点となるアーキテクチャや設計の目的に触れておきたいと思います。
-
-みなさんは、どのようなことを目的、期待して設計、アーキテクチャについて考えていますか？
-
-?????
-
-ボブおじさんの言葉によれば、
-求められるシステムを構築・保守するために必要な人材を最小限に抑えることである
-設計の品質は、顧客のニーズを満たすために必要な労力で計測できる。
-必要な労力が少なく、システムのライフタイム全体で低く保たれているならば、その設計は優れている。
-逆に、リリースごとに労力が増えるなら、その設計は優れていない。
-
----
-## Goals
-
----
-@snap[north-west text-gray span-100]
-@size[1.5em](目指している状態/モチベーション)
+@size[1.5em](Goals)
 @snapend
 
 @ul[west](true)
 * 日々の機能追加/改修/運用におけるコストをコントロールしたい(逓増を防ぐ)
     * 既存の仕様を把握するためのコストを極力下げたい
-    * 属人的な要件定義、モデリングや設計を排除し、且つソフトウェアの機能要求の品質を担保したい
+    * 属人的な要件定義、モデリングや設計を排除し、且つソフトウェアの内部品質を担保したい
     * 要件に対して凝集度の高い設計を実現し、改修に対する変更箇所を局所化したい
 @ulend
 
+@snap[south-west template-note text-gray]
+@snapend
+
+Note:
+目指している状態/モチベーション
+
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](アプローチの全体像)
+@size[1.5em](Talking About)
+@snapend
+
+@ul[west](true)
+* 要求の分析から関連する業務をモデリングする方法
+* 曖昧な要求から要件を明確にする方法
+* 要件や業務領域に対して凝集度の高いコンポーネントの設計方法
+@ulend
+
+@snap[south-west template-note text-gray]
+@snapend
+
+Note:
+このセッション話すこと
+
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](Overview of development flow)
 @snapend
 
 @snap[west]
 ![development-flow](assets/img/development-flow.png)
+　開発における問題(関心)領域を分割し、  
+フェーズごとの課題に対して小さく検証
+@snapend
 
-* 開発における問題(関心)領域を分割し、領域ごとの課題に対して小さく検証できるようにする
+@snap[south-west template-note text-gray]
+Divide the problem area in development flow,  
+Verify small for each phase issues.
 @snapend
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](アプローチの全体像)
+@size[1.5em](Overview of development flow)
 @snapend
 
 @snap[west]
-![development-flow](assets/img/development-flow-focus2.png)
-
-ICONIXプロセスを用いて、要件分析、ドメインモデルの探索を行う
+![development-flow](assets/img/development-flow-intro1.png)
+ICONIXプロセスを用いて要件分析、ドメインモデルの探索を行う
 @snapend
 
-Note: 
-
+@snap[south-west template-note text-gray]
+Analyze requirements and search domain models using the ICONIX process.
+@snapend
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](アプローチの全体像)
+@size[1.5em](Overview of development flow)
 @snapend
 
 @snap[west]
-![development-flow](assets/img/development-flow-focus4.png)
+![development-flow](assets/img/development-flow-intro2.png)
+　ソースコードが要求分析による概念モデルを踏襲し、  
+要件の変化を追従
+@snapend
 
-ソースコードが要求分析による概念モデルを踏襲し、要件の変化を追従す
+@snap[south-west template-note text-gray]
+Code follows a conceptual design with requirements analysis and follows changes in requirements.
 @snapend
 
 Note:
@@ -170,17 +179,3 @@ Note:
 このあとに、図で示したように開発における問題(関心)領域ごとにフェーズを分割して、
 問題や課題に対して、どのようなアプローチを用いて行くかという話をしていきます
 
----
-@snap[north-west text-gray span-100]
-@size[1.5em](このセッションから得られること)
-@snapend
-
-@ul[west](true)
-* 要求の分析から関連する業務をモデリングする方法
-* 曖昧な要求から要件を明確にする方法
-* 要件や業務領域に対して凝集度の高いコンポーネントの設計方法
-@ulend
-
-Note:
-
----

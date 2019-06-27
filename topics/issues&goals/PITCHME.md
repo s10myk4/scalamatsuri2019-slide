@@ -31,7 +31,11 @@ Note:
 TODO
 
 ---
-## Delve into the issues
+## 課題を掘り下げる
+
+@snap[south-west template-note text-gray]
+Delve into the issues.
+@snapend
 
 ---
 @snap[north-west text-gray span-100]
@@ -77,12 +81,16 @@ Note:
 @size[1.5em](Issues surrounding Development)
 @snapend
 
-@snap[
+@snap[]()
 @img[Oooops](assets/img/stress-man.jpg)
+<!-- 障害や負債の蓄積を起こさないために、どう考えて取り組むべきなのか？ -->
 @snapend
 
 Note:
 ここまで、主に本セッションに特に関連すると思われるプロダクト開発におけるよくあるだろうと思われる課題について話してきましたが、
+
+???
+障害や負債の蓄積を起こさないために、どう考えて取り組むべきなのか？
 
 できる限り小さい取り組みとしてプロダクト開発に適用し、個々の課題に対してどのように取り組めばいいのかの1つの例として参考にしていただければ
 という思い出で資料を作成しました。

@@ -1,4 +1,4 @@
-# scalamatsuri2019-slike 
+# ScalaMatsuri2019-slide 
 
 [ScalaMatsuri 2019](https://2019.scalamatsuri.org/) slide
 

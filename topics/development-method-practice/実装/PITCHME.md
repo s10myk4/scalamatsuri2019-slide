@@ -53,14 +53,37 @@ final class EquipWeaponToWarrior[F[_]: Monad](
 }
 ```
 
+Note:
+
+ここでは継続モナドを利用してユースケースを表現しています。
+
 ---
 @snap[north-west text-gray span-100]
 @size[1.5em](Why use Continuation Monad?)
 @snapend
 
+``` scala
+case class Cont[R, A](run: (A => R) => R) { ... }
+```
+
 - 後続の処理を関数として取り、自分の処理結果によって後続の処理を継続して行うかをハンドリングする事ができる
+    - 正常/異常系の網羅されたコンポーネントの実現
+    - ユースケース利用側で合成しやすい
+    - 構造がシンプルで異なる粒度を表現できる
+
+@snap[south-east template-note]
+@box[text-white rounded bg-orange box-padding text-05](Ref: [継続モナドを使ってwebアプリケーションのユースケース(ICONIX)を表現/実装する](http://labs.septeni.co.jp/entry/2018/03/18/135106))
+@snapend
 
 Note:
+
+ユースケースをなぜ継続モナドを利用して表現したかですが、いろいろと利点があります。
+
+まず、継続モナド自体の特徴は `後続の処理を関数として取り、自分の処理結果によって後続の処理を継続して行うかをハンドリングする事ができる` という点にあります。
+
+例えば先に見たとおり、1 つのユースケースの結果は正常系と異常系にわかれます。自身の処理によって継続するかどうかをコントロールできる仕組みはユースケースの表現にうってつけです。
+
+過去に弊社ブログでも記事にしているので詳細についてご興味のある方はご覧ください。
 
 ---
 @snap[north-west text-gray span-100]
@@ -71,6 +94,7 @@ Note:
 final class WarriorController(...) extends ... {
 
   def equipWeapon(id: Long): EssentialAction = Action.async { implicit r =>
+    // 継続モナドを合成
     val composedCont: ContT[IO, UseCaseResult, UseCaseResult] = for {
       form <- EquipWeaponForm.apply.bindCont[IO]
       (warriorId, weapon) = (WarriorId(id), form.weapon)
@@ -85,6 +109,15 @@ final class WarriorController(...) extends ... {
   }
 }
 ```
+
+Note:
+
+ではユースケースを利用するコントローラの実装について見てみましょう。
+
+ここでは今まで取り上げてきた 戦士に武器を装備させる ユースケース(warriorEquippedNewWeapon)の他に、
+play のフォーム処理と任意の戦士を取り出すユースケース(findWarrior) をそれぞれ合成しています。 
+合成のしやすさも継続モナド利用のうれしいところの 1 つですね。
+
 ---
 @snap[north-west text-gray span-100]
 @size[1.3em](Avoid Fat Controller)
@@ -105,11 +138,12 @@ final class WarriorController(...) extends ... {
 @snapend
 
 Note:
-TODO
 
-コントローラーの責務は、入力を受け付けて、要求を実現するためのユースケースを呼び出し結果を返すが責務です
-コントローラーにドメインロジックなどが漏れると、テスタビリティが低下し改修コストが高くなりますよね
-ユースケースの概念を用いることで、コントローラからロジックを排除します
+コントローラーの責務は、入力を受け付けて、要求を実現するためのユースケースを呼び出し結果を返すことです。
+
+先のフェーズでもユースケースとドメインモデルの凝集度についてお話しましたが、コントローラーにロジックが漏れると、テスタビリティの低下や改修コストが高くなってしまいます。
+
+ユースケースの概念を用いることで、コントローラからロジックを排除します。
 
 ---
 @snap[north-west text-gray span-100]

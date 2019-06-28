@@ -39,7 +39,7 @@ Delve into the issues.
 
 ---
 @snap[north-west text-gray span-100]
-@size[1.5em](Understanding of Existing Spes.)
+@size[1.5em](Understanding of Existing Specs.)
 @snapend
 
 @ul[west]()

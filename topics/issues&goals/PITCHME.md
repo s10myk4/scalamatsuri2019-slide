@@ -142,7 +142,8 @@ Note:
 
 @snap[west]
 ![development-flow](assets/img/development-flow.png)
-　開発における問題(関心)領域を分割し、  
+<br/>
+開発における問題(関心)領域を分割し、  
 フェーズごとの課題に対して小さく検証
 @snapend
 
@@ -172,7 +173,8 @@ Analyze requirements and search domain models using the ICONIX process.
 
 @snap[west]
 ![development-flow](assets/img/development-flow-intro2.png)
-　ソースコードが要求分析による概念モデルを踏襲し、  
+<br/>
+ソースコードが要求分析による概念モデルを踏襲し、  
 要件の変化を追従
 @snapend
 

@@ -7,7 +7,7 @@ Yoshimasa Tanabe
 
 ---?include=topics/agenda/PITCHME.md
 
----?include=topics/who-are-we/PITCHME.md
+<!-- ---?include=topics/who-are-we/PITCHME.md -->
 
 ---?include=topics/issues&goals/PITCHME.md
 

@@ -2,10 +2,10 @@
 @size[1.5em](Agenda)
 @snapend
 
-- Goals
 - Issues
+- Goals
 - Development flow
-- Summary 
+- Recap 
 - Q & A
 Note:
 

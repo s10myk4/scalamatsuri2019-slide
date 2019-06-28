@@ -9,7 +9,7 @@ Note:
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](Clean Quest)
+@size[1.5em](Sample Theme)
 @snapend
 
 * オンラインRPG: Clean Quest
@@ -31,23 +31,20 @@ Clean Quest ではユーザーが自分のキャラクターを作成・操作�
 ---
 
 @snap[north-west text-gray span-100]
-@size[1.5em](Understand the environment)
+@size[1.5em](Sample Theme)
 @snapend
 
-* 各自意欲的に問題の解決を図ろうとはしている
-* 取り組むべき問題の観点がサイロに閉じている
-* 全体の把握が必要そうだ
+@snap[west span-50]
+@img[focus_problem](assets/img/focus_problem.jpg)
+@snapend
+
+@snap[east span-50]
+要求: 戦士に武器を装備できるようにしたい
+@snapend
 
 @snap[south-west template-note text-gray]
-The company is making an effort to improve its situation but looks like need to understand the whole environment.
+The requirement is that the warrior can be equipped with weapons.
 @snapend
 
 Note:
-
-毎週そこかしこで現状を打破するための会議がセッティングされ、喧々諤々とした議論が行われるのですが、なかなかこれというものが出てきません。
-
-ある会議中では XXX が問題だといい、別の会議中ではまた別の YYY がやり玉に上がるなど、
-それぞれが各自の専門性(サイロ)から意見を述べるものの、本当の問題が何なのか、どこから着手すべきかが見えにくくなってしまっているようです。
-
-これでは話が進まないと誰もが思い始めた結果、まずは現状を把握するために、各部署から主要なメンバが集まりワークショップを開くことになったのでした。
-
+ここでは他プレイヤーとの差別化、対戦時の戦略性アップについて取り組むことになりました。機能としては、キャラクターが武器を装備できるようにしようというものです。

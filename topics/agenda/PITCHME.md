@@ -27,16 +27,4 @@ Note:
 
 まずは私達の立場を明らかにするため、自己紹介いたします。
 
----
-@snap[north-west text-gray span-100]
-@size[1.5em](WHO AM I?)
-@snapend
-
-@snap[west span-50]
-@img[focus_problem](assets/img/deadline.png)
-@snapend
-
-
-
----
 

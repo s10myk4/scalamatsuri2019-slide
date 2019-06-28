@@ -10,7 +10,6 @@
 
 @ul[east span-45](false)
 - 負債が積もる
-    - 緊急で重要なモノが常に優先
 - 改修やリリースのコストが逓増
 @ulend
 
@@ -29,13 +28,6 @@ Note:
 改修やリリースに関するコストが逓増し、コントロールすることが難しくなっていました。
 
 TODO
-
----
-## 課題を掘り下げる
-
-@snap[south-west template-note text-gray]
-Delve into the issues.
-@snapend
 
 ---
 @snap[north-west text-gray span-100]
@@ -152,6 +144,15 @@ Divide the problem area in development flow,
 Verify small for each phase issues.
 @snapend
 
+Note:
+図の見方を説明する
+
+資料の便宜上、直線的な図になっていますが、
+各フローは動的であ、検証結果によって各フェーズを行き来する
+
+本来は、要求の妥当性を探索するフェーズ図の左のフェーズは開発フローの中でも重要ではありますが、
+今回は要求から要件を導くことにセッションの目的としているので、このフェーズを経た上で同意された要求である前提で話を進めます。
+
 ---
 @snap[north-west text-gray span-100]
 @size[1.5em](Overview of development flow)
@@ -174,7 +175,7 @@ Analyze requirements and search domain models using the ICONIX process.
 @snap[west]
 ![development-flow](assets/img/development-flow-intro2.png)
 <br/>
-ソースコードが要求分析による概念モデルを踏襲し、  
+ソースコードが要求分析の結果を踏襲し、  
 要件の変化を追従
 @snapend
 

@@ -27,4 +27,17 @@ Note:
 
 まずは私達の立場を明らかにするため、自己紹介いたします。
 
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](WHO WE ARE?)
+@snapend
 
+@snap[west span-40]
+@img[s10myk4](assets/img/myicon.jpeg)
+しもむら ともゆき @s10myk4
+@snapend
+
+@snap[east span-40]
+@img[s10myk4](assets/img/emag.jpeg)
+たなべ よしまさ @emaggame
+@snapend

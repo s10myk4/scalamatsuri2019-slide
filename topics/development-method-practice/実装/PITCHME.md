@@ -7,7 +7,8 @@
 @snapend
 
 Note:
-参考程度に、実装例を紹介します
+
+参考程度に、実装例を紹介します。
 
 ---
 @snap[north-west text-gray span-100]
@@ -31,6 +32,11 @@ sealed abstract case class Warrior(...) {
     else NotOverLevelError.invalidNel
 }
 ```
+
+Note:
+
+戦士のふるまいとして、武器を装備するメソッドを追加しました。装備させる武器の属性やレベルの制約をz表現しています。
+
 ---
 @snap[north-west text-gray span-100]
 @size[1.5em](Implement Use Case)
@@ -46,8 +52,10 @@ final class EquipWeaponToWarrior[F[_]: Monad](
     
     ContT { f =>
       warrior.equip(newWeapon) match {
-        case Valid(w)     => repository.update(w).flatMap(_ => f(NormalCase))
-        case Invalid(err) => Monad[F].point(err.toUseCaseResult)
+        case Valid(w)     =>
+          repository.update(w).flatMap(_ => f(NormalCase))
+        case Invalid(err) =>
+          Monad[F].point(err.toUseCaseResult)
       }
     }
 }
@@ -160,7 +168,10 @@ it should "正常系" in {
     Warrior.createWithoutWeapon(WarriorId(1L), name, LightAttribute, level)
   }).get
 
-  assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === NormalCase)
+  assert(
+    useCase.exec(warrior, GoldSword).run(Applicative[Id].pure)
+      === NormalCase
+  )
 }
 ```
 
@@ -179,8 +190,8 @@ it should "異常系: 戦士のレベルが選択した武器のレベル条件�
     Warrior.createWithoutWeapon(WarriorId(1L), name, LightAttribute, level)
   }).get
 
-  assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === 
-    NotOverLevel)
+  assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure)
+    === NotOverLevel)
 }
 ```
 
@@ -193,15 +204,15 @@ it should "異常系: 戦士のレベルが選択した武器のレベル条件�
 ```scala
 it should "異常系: 戦士の属性と選択した武器の属性が異なる場合" in {
   ...
-  assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) === 
-    DifferentAttribute)
+  assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure)
+    === DifferentAttribute)
 }
 
 it should """異常系: 戦士のレベルが選択した武器のレベル条件を満たしていない、かつ、
              戦士の属性と選択した武器の属性が異なる場合""" in {
   ...
-  assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure) ===
-    DifferentAttributeAndNotOverLevel)
+  assert(useCase.exec(warrior, GoldSword).run(Applicative[Id].pure)
+    === DifferentAttributeAndNotOverLevel)
 }
 ```
 

@@ -209,7 +209,7 @@ Discover new system behavior.
 @snapend
 
 #### 全てのユースケース記述にこれをやるのは大変
-- 複雑性の高いドメインや要求
+- 複雑性の高いドメインや要求で実施検討
 
 @snap[south-west template-note text-gray]
 Hard to do all use case descriptions.  
@@ -222,19 +222,5 @@ Note:
 
 ビジネスにおいて重要なドメインや相対的にドメインの複雑性が高い場合に実施する
 程度が最初はいいかなと思います
-
----
-@snap[north-west text-gray span-100]
-@size[1.5em](Robustness Analysis)
-@snapend
-
-@snap[west span-80]
-@img[domain_events](assets/img/robustness/updated-robustness-diagram.png)
-@snapend
-
-@snap[south-west template-note text-gray]
-Disambiguate use case descriptions.  
-Discover new system behavior and domain models.
-@snapend
 
 

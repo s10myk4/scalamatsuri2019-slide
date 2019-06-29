@@ -50,7 +50,7 @@ final class EquipWeaponToWarrior[F[_]: Monad](
   def exec(warrior: Warrior, newWeapon: Weapon):
       ContT[F, UseCaseResult, UseCaseResult] =
     
-    UseCaseCont { f =>
+    ContT { f =>
       warrior.equip(newWeapon) match {
         case Valid(w)     =>
           repository.update(w).flatMap(_ => f(NormalCase))

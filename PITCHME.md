@@ -37,3 +37,23 @@ Yoshimasa Tanabe
 
 <!-- まとめと展望 -->
 ---?include=topics/summary-and-future/PITCHME.md
+
+---?include=topics/extension/PITCHME.md
+
+---
+@snap[north-west text-gray span-100]
+@size[1.5em](References)
+@snapend
+
+- [@color[Black](ユースケース駆動開発実践ガイド)](https://www.shoeisha.co.jp/book/detail/9784798114453)
+- [@color[Black](実践ドメイン駆動設計 )](https://www.shoeisha.co.jp/book/detail/9784798131610)
+- [@color[Black](Clean Architecture 達人に学ぶソフトウェアの構造と設計)](https://www.kadokawa.co.jp/product/301806000678/)
+- [@color[Black](Introducing EventStorming)](https://leanpub.com/introducing_eventstorming)
+- [@color[Black](現場で役立つシステム設計の原則)](https://gihyo.jp/book/2017/978-4-7741-9087-7)
+- [@color[Black](.NETのエンタープライズアプリケーションアーキテクチャ第2版　.NETを例にしたアプリケーション設計原則)](https://shop.nikkeibp.co.jp/front/commodity/0000/P98480/)
+
+---
+# Thank you
+
+---
+# Q & A 

@@ -1,3 +1,5 @@
+## Extentions
+---
 @snap[north-west text-gray span-100]
 @size[1.5em](Organizing Requirements)
 @snapend
@@ -5,15 +7,14 @@
 @snap[west]
 ![development-flow](assets/img/development-flow-focus1.png)
 @snapend
-
-Note:
-
-この Clean Quest をテーマに、先ほどお話した各フローを適用していきます。最初は要求の整理です。
-
 ---
 
+## ビジネスを探求する
+- 要求の背景を理解する
+
+---
 @snap[north-west text-gray span-100]
-@size[1.5em](Starting point)
+@size[1.5em](Introduction)
 @snapend
 
 @snap[west]
@@ -216,16 +217,6 @@ Event Storming について詳細を知りたい方は、考案者の Alberto Br
 @img[focus_problem](assets/img/focus_problem.jpg)
 @snapend
 
-@snap[east span-50]
-新機能: キャラクターが武器を装備できる
-@snapend
-
 @snap[south-west template-note text-gray]
 Finally, you'll pick the most important problem to solve.
 @snapend
-
-Note:
-
-最後にいま取り組むべき問題を決定します。
-
-ここでは他プレイヤーとの差別化、対戦時の戦略性アップについて取り組むことになりました。機能としては、キャラクターが武器を装備できるようにしようというものです。

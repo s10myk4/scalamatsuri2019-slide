@@ -2,9 +2,15 @@
 @size[1.5em](Agenda)
 @snapend
 
-- Issues
-- Goals
+- Introduction
+    - Issues
+    - Goals
 - Development flow
+    - Requirements Analysis
+    - Conceptual Design
+    - Detailed Design
+    - Implementation
+- Extentions
 - Recap 
 - Q & A
 Note:
